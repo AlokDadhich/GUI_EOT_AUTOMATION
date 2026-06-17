@@ -2,168 +2,155 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>EOT Crane Control System v1.0 — SAC Ahmedabad</title>
+<title>EOT Crane Control System v2.0 — SAC Ahmedabad</title>
 <style>
-/* ═══════════════════════════════════════════════════
-   RESET & BASE
-═══════════════════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100vh;overflow:hidden;background:#008080;font-family:'MS Sans Serif',Tahoma,Geneva,Arial,sans-serif;font-size:11px;color:#000;user-select:none}
-
-/* ── WIN32 BORDER SYSTEM ──────────────────────── */
 .raised{border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #404040}
 .sunken{border:2px solid;border-color:#808080 #fff #fff #808080;box-shadow:inset -1px -1px 0 #dfdfdf,inset 1px 1px 0 #404040}
-
-/* ── GROUPBOX ─────────────────────────────────── */
 .gb{position:relative;border:1px solid #808080;padding:14px 6px 8px;margin-bottom:5px}
 .gb::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:#c0c0c0}
-.gb-title{position:absolute;top:-7px;left:8px;background:#c0c0c0;padding:0 4px;font-size:11px;font-weight:bold}
-
-/* ═══════════════════════════════════════════════════
-   WINDOW SHELL
-═══════════════════════════════════════════════════ */
+.gbt{position:absolute;top:-7px;left:8px;background:#c0c0c0;padding:0 4px;font-size:11px;font-weight:bold}
 .window{display:flex;flex-direction:column;height:100vh;background:#c0c0c0}
-
-/* ── TITLEBAR ─────────────────────────────────── */
 .titlebar{flex-shrink:0;height:22px;background:linear-gradient(to right,#000080,#1084d0);display:flex;align-items:center;justify-content:space-between;padding:0 3px 0 5px}
-.titlebar-left{display:flex;align-items:center;gap:5px;color:#fff;font-size:11px;font-weight:bold}
+.tl{display:flex;align-items:center;gap:5px;color:#fff;font-size:11px;font-weight:bold}
 .tbbtns{display:flex;gap:2px}
 .tbbtn{width:16px;height:14px;background:#c0c0c0;border:1px solid #fff;border-right-color:#808080;border-bottom-color:#808080;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;cursor:default}
-
-/* ── MENU BAR ─────────────────────────────────── */
 .menubar{flex-shrink:0;height:20px;background:#c0c0c0;border-bottom:1px solid #808080;display:flex;align-items:center;padding:0 2px;position:relative}
 .mi{padding:2px 7px;cursor:default;font-size:11px;white-space:nowrap}
 .mi:hover,.mi.open{background:#000080;color:#fff}
-/* Dropdown */
-.dropdown{display:none;position:absolute;top:100%;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:2px 2px 0 #000;z-index:999;min-width:160px}
-.dropdown.show{display:block}
-.dmi{padding:4px 20px 4px 8px;cursor:default;font-size:11px;white-space:nowrap}
+.dd{display:none;position:absolute;top:100%;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:2px 2px 0 #000;z-index:999;min-width:180px}
+.dd.show{display:block}
+.dmi{padding:4px 20px 4px 10px;cursor:default;font-size:11px;white-space:nowrap}
 .dmi:hover{background:#000080;color:#fff}
-.dmi.sep{border-top:1px solid #808080;margin:2px 0;padding:0;height:1px}
-.dmi.sep:hover{background:#c0c0c0}
-.dmi.grayed{color:#808080}
-.dmi.grayed:hover{background:#c0c0c0;color:#808080}
-
-/* ── TOOLBAR ──────────────────────────────────── */
+.dmi.sep{border-top:1px solid #808080;margin:2px 0;padding:0;height:1px;pointer-events:none}
+.dmi.sep:hover{background:none}
+.dmi.gray{color:#808080;pointer-events:none}
 .toolbar{flex-shrink:0;height:30px;background:#c0c0c0;border-bottom:2px solid;border-color:#808080 #fff #fff #808080;display:flex;gap:3px;align-items:center;padding:0 4px}
 .tb-sep{width:1px;height:18px;background:#808080;border-right:1px solid #fff;margin:0 3px}
-.tb-lbl{font-size:11px;padding:0 2px}
-
-/* ── MAIN GRID ────────────────────────────────── */
-.main-area{flex:1;display:grid;grid-template-columns:298px 1fr 238px;overflow:hidden;min-height:0}
-.panel-left{background:#c0c0c0;border-right:2px solid;border-color:#808080 #fff #fff #808080;overflow-y:auto;padding:5px;min-height:0}
-.panel-center{background:#c0c0c0;display:flex;flex-direction:column;overflow:hidden;min-height:0}
-.panel-right{background:#c0c0c0;border-left:2px solid;border-color:#fff #808080 #808080 #fff;overflow-y:auto;padding:5px;min-height:0}
-
-/* ── DRO ──────────────────────────────────────── */
-.axis-block{margin-bottom:5px}
-.axis-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
-.axis-tag{font-weight:bold;font-size:11px;padding:1px 6px;color:#fff}
-.ax-x .axis-tag{background:#800000}
-.ax-y .axis-tag{background:#006400}
-.ax-z .axis-tag{background:#000080}
-.dro{display:block;width:100%;background:#000;color:#00ff00;font-family:'Courier New',monospace;font-size:30px;font-weight:bold;text-align:right;padding:3px 8px;letter-spacing:2px;border:2px solid;border-color:#808080 #fff #fff #808080;box-shadow:inset 1px 1px 2px #004400;margin-bottom:1px}
-.dro.moving{color:#ffff00}
-.dro.nothomed{color:#ff8800}
-.hbadge{font-size:10px;padding:0 4px;border:1px solid;font-weight:bold}
-.hbadge.homed{color:#006400;border-color:#006400;background:#d0ffd0}
-.hbadge.nothomed{color:#800000;border-color:#800000;background:#ffd0d0}
-.axis-range{font-size:10px;color:#555;font-style:italic;margin-bottom:2px}
-
-/* ── LEDs ─────────────────────────────────────── */
-.led-row{display:flex;align-items:center;gap:7px;margin-bottom:4px;font-size:11px}
+.tbl{font-size:11px;padding:0 2px}
+.main-area{flex:1;display:grid;grid-template-columns:298px 1fr 268px;overflow:hidden;min-height:0}
+.pl{background:#c0c0c0;border-right:2px solid;border-color:#808080 #fff #fff #808080;overflow-y:auto;padding:5px;min-height:0}
+.pc{background:#c0c0c0;display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.pr{background:#c0c0c0;border-left:2px solid;border-color:#fff #808080 #808080 #fff;overflow-y:auto;padding:5px;min-height:0}
+.ab{margin-bottom:5px}
+.ah{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.at{font-weight:bold;font-size:11px;padding:1px 6px;color:#fff}
+.ax-x .at{background:#800000}.ax-y .at{background:#006400}.ax-z .at{background:#000080}
+.dro{display:block;width:100%;background:#000;color:#00ff00;font-family:'Courier New',monospace;font-size:28px;font-weight:bold;text-align:right;padding:3px 8px;letter-spacing:2px;border:2px solid;border-color:#808080 #fff #fff #808080;box-shadow:inset 1px 1px 2px #004400;margin-bottom:1px}
+.dro.moving{color:#ffff00}.dro.nothomed{color:#ff8800}
+.hb{font-size:10px;padding:0 4px;border:1px solid;font-weight:bold}
+.hb.homed{color:#006400;border-color:#006400;background:#d0ffd0}
+.hb.nothomed{color:#800000;border-color:#800000;background:#ffd0d0}
+.ar{font-size:10px;color:#555;font-style:italic;margin-bottom:2px}
+.lr{display:flex;align-items:center;gap:7px;margin-bottom:4px;font-size:11px}
 .led{width:10px;height:10px;border-radius:50%;border:1px solid #404040;flex-shrink:0}
 .led.green{background:#00dd00;box-shadow:0 0 2px #00cc00}
 .led.red{background:#dd0000;box-shadow:0 0 2px #cc0000}
 .led.yellow{background:#dddd00;box-shadow:0 0 2px #cccc00}
 .led.grey{background:#888}
-
-/* ── SPEED BAR ────────────────────────────────── */
 .slr{display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px}
-.prog-outer{border:2px solid;border-color:#808080 #fff #fff #808080;height:14px;background:#000;margin-bottom:3px;overflow:hidden}
-.prog-inner{height:100%;background:#00dd00;transition:width .15s linear}
-.prog-inner.slow{background:#dddd00}
-.prog-inner.creep{background:#dd7700}
-
-/* ── MODE SELECTOR ────────────────────────────── */
-.mode-sel{display:flex;gap:3px;margin:4px 0}
-.mode-btn{flex:1;padding:4px 2px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:11px;font-weight:bold;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;cursor:default;text-align:center}
-.mode-btn:active{border-color:#808080 #fff #fff #808080}
-.mode-btn.active-mode{background:#000080;color:#fff;border-color:#808080 #fff #fff #808080}
-
-/* ── BUTTONS ──────────────────────────────────── */
+.po{border:2px solid;border-color:#808080 #fff #fff #808080;height:14px;background:#000;margin-bottom:3px;overflow:hidden}
+.pi{height:100%;background:#00dd00;transition:width .12s linear}
+.pi.slow{background:#dddd00}.pi.creep{background:#dd7700}
+.msel{display:flex;gap:3px;margin:4px 0}
+.mbtn{flex:1;padding:4px 2px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:11px;font-weight:bold;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;cursor:default;text-align:center;line-height:1.4}
+.mbtn.am{background:#000080;color:#fff;border-color:#808080 #fff #fff #808080}
 .btn{padding:3px 10px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:11px;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:inset 1px 1px 0 #dfdfdf;cursor:default;min-width:52px;text-align:center;line-height:1.3}
 .btn:active{border-color:#808080 #fff #fff #808080;box-shadow:inset -1px -1px 0 #dfdfdf;padding:4px 9px 2px 11px}
-.btn-row{display:flex;gap:4px;margin-bottom:4px}
-.btn-full{width:100%;margin-bottom:4px}
-.jog-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:6px}
-.jbtn{padding:5px 3px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:11px;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:inset 1px 1px 0 #dfdfdf;cursor:default;text-align:center}
-.jbtn:active{border-color:#808080 #fff #fff #808080;box-shadow:inset -1px -1px 0 #dfdfdf}
-.estop-btn{width:100%;padding:9px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1px;background:#c0c0c0;border:3px solid;border-color:#fff #808080 #808080 #fff;cursor:default;margin-bottom:4px;text-align:center}
-.estop-btn:active{border-color:#808080 #fff #fff #808080}
-.estop-btn.active{background:#cc0000;color:#fff;border-color:#ff6666 #660000 #660000 #ff6666}
+.br{display:flex;gap:4px;margin-bottom:4px}
+.bf{width:100%;margin-bottom:4px}
 
-/* ── INPUTS ───────────────────────────────────── */
+/* ══ TOUCH JOG BUTTONS ══ */
+.jog-axis-block{margin-bottom:8px;border:1px solid #999;padding:5px}
+.jog-axis-title{font-size:11px;font-weight:bold;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+.jog-row{display:flex;gap:3px;align-items:center;margin-bottom:3px}
+.touch-btn{padding:6px 4px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:11px;font-weight:bold;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;cursor:default;text-align:center;flex:1;min-width:0}
+.touch-btn:active,.touch-btn.held{border-color:#808080 #fff #fff #808080;background:#a0a0a0}
+.touch-btn.held{background:#d4d0c8;border-color:#808080 #fff #fff #808080}
+.stop-axis-btn{padding:4px 6px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:10px;font-weight:bold;background:#cc8800;color:#fff;border:2px solid;border-color:#ffcc44 #664400 #664400 #ffcc44;cursor:default;text-align:center;min-width:44px}
+.stop-axis-btn:active{border-color:#664400 #ffcc44 #ffcc44 #664400}
+.stop-axis-btn.inactive{background:#808080;color:#c0c0c0;border-color:#a0a0a0 #404040 #404040 #a0a0a0}
+.setzero-btn{padding:3px 4px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:10px;background:#004488;color:#88ccff;border:2px solid;border-color:#88ccff #002244 #002244 #88ccff;cursor:default;text-align:center;white-space:nowrap}
+.setzero-btn:active{border-color:#002244 #88ccff #88ccff #002244}
+
+/* ══ HOME ROW ══ */
+.home-row{display:flex;gap:3px;margin-top:3px}
+.home-endlimit-btn{flex:1;padding:4px 2px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:10px;background:#003300;color:#88ff88;border:2px solid;border-color:#66cc66 #001100 #001100 #66cc66;cursor:default;text-align:center}
+.home-endlimit-btn:active{border-color:#001100 #66cc66 #66cc66 #001100}
+
+/* ══ GOTO ══ */
 .inp{font-family:'Courier New',monospace;font-size:12px;background:#fff;color:#000;padding:2px 4px;border:2px solid;border-color:#808080 #fff #fff #808080;outline:none;width:100%}
 .inp:focus{border-color:#000080 #fff #fff #000080}
 select.sel{font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:11px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:1px 2px;outline:none}
 input[type=range]{-webkit-appearance:none;appearance:none;height:20px;background:transparent;width:100%;cursor:default}
 input[type=range]::-webkit-slider-runnable-track{height:4px;background:#808080;border:1px solid;border-color:#404040 #fff #fff #404040}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:20px;background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;margin-top:-9px;cursor:default}
-
-/* ── VFD TABLE ────────────────────────────────── */
 .vt{width:100%;border-collapse:collapse;font-size:11px}
 .vt td{padding:2px 5px;border:1px solid;border-color:#808080 #fff #fff #808080;vertical-align:middle}
 .vt tr:nth-child(even) td{background:#d4d0c8}
 .vt tr:nth-child(odd) td{background:#c0c0c0}
-.vt td:first-child{color:#444;width:55%}
+.vt td:first-child{color:#444;width:52%}
 .vv{font-family:'Courier New',monospace;font-weight:bold;color:#000080}
-.vv.active{color:#006400}
-.vv.fault{color:#800000}
-
-/* ── MEMOBUS SEQUENCE TABLE ───────────────────── */
-.mbt{width:100%;border-collapse:collapse;font-size:10px;margin-top:4px}
-.mbt th{background:#808080;color:#fff;padding:2px 4px;border:1px solid #404040;text-align:left;font-size:10px}
-.mbt td{padding:2px 4px;border:1px solid;border-color:#808080 #fff #fff #808080;vertical-align:top}
-.mbt tr:nth-child(even) td{background:#d4d0c8}
-.mbt tr:nth-child(odd) td{background:#c0c0c0}
-.mbt td:first-child{font-family:'Courier New',monospace;font-weight:bold;color:#000080;white-space:nowrap}
-.mbt td:last-child{color:#444;font-size:10px}
-
-/* ── CENTER AREA ──────────────────────────────── */
-.canvas-wrapper{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
-.canvas-tb{background:#c0c0c0;border-bottom:1px solid #808080;padding:2px 6px;font-size:11px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;height:20px}
+.vv.active{color:#006400}.vv.fault{color:#800000}
+.mbus-panel{background:#000;border:2px solid;border-color:#808080 #fff #fff #808080;padding:6px;font-family:'Courier New',monospace;font-size:11px;margin-bottom:4px}
+.mbus-title{color:#888;font-size:10px;letter-spacing:1px;margin-bottom:4px;text-transform:uppercase}
+.mbus-frame{display:flex;gap:2px;flex-wrap:wrap;margin-bottom:6px;align-items:flex-start}
+.mb-byte{display:flex;flex-direction:column;align-items:center;gap:1px}
+.mb-hex{background:#1a1a1a;color:#00ff00;padding:2px 4px;font-size:12px;font-weight:bold;border:1px solid #333;min-width:26px;text-align:center;letter-spacing:1px}
+.mb-hex.addr{color:#ffff00;border-color:#886600}
+.mb-hex.func{color:#ff8800;border-color:#885500}
+.mb-hex.reg{color:#88ddff;border-color:#004488}
+.mb-hex.val{color:#00ff88;border-color:#004422}
+.mb-hex.crc{color:#ff88ff;border-color:#440044}
+.mb-hex.new{animation:mbflash .4s ease}
+@keyframes mbflash{0%{background:#003300}100%{background:#1a1a1a}}
+.mb-lbl{color:#444;font-size:9px;text-align:center;max-width:28px;line-height:1.1}
+.mb-desc{color:#555;font-size:10px;margin-top:4px;line-height:1.5}
+.mb-action{color:#00cc66;font-size:10px;margin-bottom:2px;font-weight:bold}
+.mb-sep{width:100%;height:1px;background:#1a1a1a;margin:4px 0}
+.mbus-log{height:52px;overflow-y:auto;font-size:10px;font-family:'Courier New',monospace}
+.mbl-line{color:#555;padding:1px 0;border-bottom:1px solid #111;white-space:nowrap}
+.mbl-line.tx{color:#00aa44}
+.mbl-line.rx{color:#4488ff}
+.mbl-line.err{color:#aa2200}
+.cw{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.ctb{background:#c0c0c0;border-bottom:1px solid #808080;padding:2px 6px;font-size:11px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;height:20px}
 canvas#cc{display:block;flex:1;min-height:0}
-.log-panel{flex-shrink:0;height:130px;background:#c0c0c0;border-top:2px solid;border-color:#808080 #fff #fff #808080;display:flex;flex-direction:column}
-.log-tb{background:#c0c0c0;border-bottom:1px solid #808080;padding:1px 6px;font-size:11px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.log-body{flex:1;overflow-y:auto;margin:2px 4px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:2px 4px;font-size:11px;font-family:'Courier New',monospace}
+.lp{flex-shrink:0;height:110px;background:#c0c0c0;border-top:2px solid;border-color:#808080 #fff #fff #808080;display:flex;flex-direction:column}
+.ltb{background:#c0c0c0;border-bottom:1px solid #808080;padding:1px 6px;font-size:11px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.lb{flex:1;overflow-y:auto;margin:2px 4px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:2px 4px;font-size:11px;font-family:'Courier New',monospace}
 .ll{display:flex;gap:6px;border-bottom:1px dotted #e0e0e0;padding:1px 0}
-.lt{color:#808080;min-width:56px}
-.ltag{min-width:68px;font-weight:bold}
+.lt2{color:#808080;min-width:56px}
+.ltag{min-width:72px;font-weight:bold}
 .ltag.info{color:#000080}.ltag.ok{color:#006400}.ltag.warn{color:#806000}.ltag.err{color:#800000}
 .lm{color:#000}
-
-/* ── STATUS BAR ───────────────────────────────── */
-.statusbar{flex-shrink:0;height:22px;background:#c0c0c0;border-top:2px solid #fff;display:flex;align-items:center;padding:0 2px;gap:2px}
+.sb{flex-shrink:0;height:22px;background:#c0c0c0;border-top:2px solid #fff;display:flex;align-items:center;padding:0 2px;gap:2px}
 .sbp{border:2px solid;border-color:#808080 #fff #fff #808080;padding:1px 6px;font-size:11px;white-space:nowrap;height:18px;display:flex;align-items:center}
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:500;align-items:center;justify-content:center}
+.mbg.show{display:flex}
+.mw{background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:2px 2px 0 #000;min-width:300px}
+.mtb2{background:linear-gradient(to right,#000080,#1084d0);color:#fff;padding:3px 6px;font-size:12px;font-weight:bold;display:flex;justify-content:space-between;align-items:center}
+.mbdy{padding:14px 16px 10px}
+.mir{display:flex;align-items:flex-start;gap:14px}
+.mic{font-size:36px;line-height:1;color:#ccaa00}
+.mtxt{font-size:12px;line-height:1.6}
+.mbs{display:flex;gap:8px;justify-content:center;padding:4px 16px 12px}
+.pt{width:100%;border-collapse:collapse;font-size:11px}
+.pt th{background:#808080;color:#fff;padding:3px 5px;border:1px solid #404040;text-align:left}
+.pt td{padding:2px 5px;border:1px solid;border-color:#808080 #fff #fff #808080;vertical-align:top}
+.pt tr:nth-child(even) td{background:#d4d0c8}
+.pt tr:nth-child(odd) td{background:#c0c0c0}
+.pt td:first-child{font-family:'Courier New',monospace;font-weight:bold;color:#000080;width:25%}
+.estop-btn{width:100%;padding:9px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1px;background:#c0c0c0;border:3px solid;border-color:#fff #808080 #808080 #fff;cursor:default;margin-bottom:4px;text-align:center}
+.estop-btn:active{border-color:#808080 #fff #fff #808080}
+.estop-btn.active{background:#cc0000;color:#fff;border-color:#ff6666 #660000 #660000 #ff6666}
 
-/* ── MODAL ────────────────────────────────────── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:500;align-items:center;justify-content:center}
-.modal-bg.show{display:flex}
-.mwin{background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:2px 2px 0 #000;min-width:300px;max-width:420px}
-.mtb{background:linear-gradient(to right,#000080,#1084d0);color:#fff;padding:3px 6px;font-size:12px;font-weight:bold;display:flex;justify-content:space-between;align-items:center}
-.mbody{padding:14px 16px 10px}
-.micon-row{display:flex;align-items:flex-start;gap:14px}
-.micon{font-size:36px;line-height:1;color:#ccaa00}
-.mtext{font-size:12px;line-height:1.6}
-.mbtns{display:flex;gap:8px;justify-content:center;padding:4px 16px 12px}
-.mbtns .btn{min-width:75px}
+/* Touch status badge */
+.touch-status{font-size:10px;font-weight:bold;padding:1px 5px;border:1px solid;display:inline-block}
+.touch-status.on{background:#004400;color:#00ff00;border-color:#00aa00}
+.touch-status.off{background:#440000;color:#ff8888;border-color:#880000}
 
-/* ── ABOUT MODAL ──────────────────────────────── */
-.about-body{padding:16px;font-size:11px;line-height:1.8}
-.about-body b{display:inline-block;min-width:120px;color:#444}
-
-/* ── SCROLLBARS ───────────────────────────────── */
 ::-webkit-scrollbar{width:17px;height:17px}
 ::-webkit-scrollbar-track{background:#c0c0c0;border-left:1px solid #808080}
 ::-webkit-scrollbar-thumb{background:#c0c0c0;border:2px solid;border-color:#fff #808080 #808080 #fff;min-height:20px}
@@ -174,107 +161,77 @@ canvas#cc{display:block;flex:1;min-height:0}
 <body>
 <div class="window">
 
-<!-- ════════════ TITLE BAR ════════════ -->
+<!-- TITLEBAR -->
 <div class="titlebar">
-  <div class="titlebar-left">
+  <div class="tl">
     <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="11" width="14" height="2" fill="#c0c0c0"/><rect x="3" y="2" width="2" height="9" fill="#c0c0c0"/><rect x="3" y="2" width="9" height="2" fill="#c0c0c0"/><rect x="10" y="2" width="2" height="4" fill="#c0c0c0"/><rect x="6" y="4" width="1" height="7" fill="#ffff80"/><rect x="5" y="10" width="3" height="2" fill="#ffaa00"/></svg>
-    EOT Crane Control System v1.0 — SAC Ahmedabad &nbsp;|&nbsp; Phase 1: Cross Travel Automation
+    EOT Crane Control System v2.0 — SAC Ahmedabad &nbsp;|&nbsp; Phase 1: Cross Travel Automation
   </div>
-  <div class="tbbtns">
-    <div class="tbbtn">_</div><div class="tbbtn">□</div><div class="tbbtn">✕</div>
-  </div>
+  <div class="tbbtns"><div class="tbbtn">_</div><div class="tbbtn">□</div><div class="tbbtn">✕</div></div>
 </div>
 
-<!-- ════════════ MENU BAR ════════════ -->
+<!-- MENU BAR -->
 <div class="menubar" id="menubar">
-  <span class="mi" id="mi-file"    onclick="toggleMenu('file')"  ><u>F</u>ile</span>
-  <span class="mi" id="mi-view"    onclick="toggleMenu('view')"  ><u>V</u>iew</span>
-  <span class="mi" id="mi-motion"  onclick="toggleMenu('motion')"><u>M</u>otion</span>
-  <span class="mi" id="mi-config"  onclick="toggleMenu('config')"><u>C</u>onfiguration</span>
-  <span class="mi" id="mi-diag"    onclick="toggleMenu('diag')"  ><u>D</u>iagnostics</span>
-  <span class="mi" id="mi-help"    onclick="toggleMenu('help')"  ><u>H</u>elp</span>
+  <span class="mi" id="mi-view"   onclick="toggleMenu('view')"  ><u>V</u>iew</span>
+  <span class="mi" id="mi-motion" onclick="toggleMenu('motion')"><u>M</u>otion</span>
+  <span class="mi" id="mi-config" onclick="toggleMenu('config')"><u>C</u>onfiguration</span>
+  <span class="mi" id="mi-diag"   onclick="toggleMenu('diag')"  ><u>D</u>iagnostics</span>
+  <span class="mi" id="mi-help"   onclick="toggleMenu('help')"  ><u>H</u>elp</span>
 
-  <!-- File dropdown -->
-  <div class="dropdown" id="dd-file" style="left:0">
-    <div class="dmi" onclick="closeMenus();log('FILE','Export log to CSV…','info')">Export Log (CSV)</div>
-    <div class="dmi" onclick="closeMenus();log('FILE','Save configuration snapshot…','info')">Save Config Snapshot</div>
-    <div class="dmi sep"></div>
-    <div class="dmi grayed">Print Report</div>
-    <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();log('FILE','Application exit requested','warn')">Exit</div>
-  </div>
-
-  <!-- View dropdown -->
-  <div class="dropdown" id="dd-view" style="left:32px">
-    <div class="dmi" onclick="closeMenus();setView('both')">Top + Side View ✓</div>
+  <div class="dd" id="dd-view" style="left:0">
+    <div class="dmi" onclick="closeMenus();setView('both')">&#10003; Top + Side View</div>
     <div class="dmi" onclick="closeMenus();setView('top')">Top View Only</div>
     <div class="dmi" onclick="closeMenus();setView('side')">Side View Only</div>
     <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();toggleLog()">Toggle Event Log</div>
-    <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();clearLog()">Clear Log</div>
+    <div class="dmi" onclick="closeMenus();clearLog()">Clear Event Log</div>
   </div>
-
-  <!-- Motion dropdown -->
-  <div class="dropdown" id="dd-motion" style="left:66px">
-    <div class="dmi" onclick="closeMenus();homeAll()">Home All Axes</div>
-    <div class="dmi" onclick="closeMenus();homeAxis('x')">Home X (Cross)</div>
-    <div class="dmi" onclick="closeMenus();homeAxis('y')">Home Y (Long)</div>
-    <div class="dmi" onclick="closeMenus();homeAxis('z')">Home Z (Hoist)</div>
+  <div class="dd" id="dd-motion" style="left:34px">
+    <div class="dmi" onclick="closeMenus();homeAllEndLimit()">Home All Axes (End Limit)</div>
+    <div class="dmi" onclick="closeMenus();homeEndLimit('x')">Home X (End Limit)</div>
+    <div class="dmi" onclick="closeMenus();homeEndLimit('y')">Home Y (End Limit)</div>
+    <div class="dmi" onclick="closeMenus();homeEndLimit('z')">Home Z (End Limit)</div>
     <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();feedHold()">Feed Hold / Resume</div>
+    <div class="dmi" onclick="closeMenus();stopAllAxes()">Stop All Axes</div>
     <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();triggerEstop()">Emergency Stop</div>
+    <div class="dmi" onclick="closeMenus();triggerEstop()" style="color:#800000;font-weight:bold">Emergency Stop</div>
   </div>
-
-  <!-- Configuration dropdown -->
-  <div class="dropdown" id="dd-config" style="left:114px">
-    <div class="dmi" onclick="closeMenus();showConfigModal()">VFD Parameters (A1000)</div>
-    <div class="dmi" onclick="closeMenus();showS1000Modal()">VFD Parameters (S1000)</div>
+  <div class="dd" id="dd-config" style="left:82px">
+    <div class="dmi" onclick="closeMenus();showModal2('cfg-a1000')">A1000 VFD Parameters</div>
+    <div class="dmi" onclick="closeMenus();showModal2('cfg-s1000')">S1000 VFD Parameters</div>
     <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();log('CFG','Encoder resolution: 755HS 2000PPR 0.0196mm/ct','info')">Encoder Settings</div>
-    <div class="dmi" onclick="closeMenus();log('CFG','LoRa: 868.1MHz SF5 BW125kHz','info')">LoRa Settings</div>
-    <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();showLimitsModal()">Travel Limits</div>
+    <div class="dmi" onclick="closeMenus();showModal2('cfg-limits')">Travel Limits</div>
+    <div class="dmi" onclick="closeMenus();log('CFG','Encoder: P+F 755HS 2000PPR 0.0196mm/count GPIO34/35','info')">Encoder Config</div>
+    <div class="dmi" onclick="closeMenus();log('CFG','LoRa: 868.1MHz SF5 BW125kHz RSSI-72dBm','info')">LoRa Config</div>
   </div>
-
-  <!-- Diagnostics dropdown -->
-  <div class="dropdown" id="dd-diag" style="left:220px">
-    <div class="dmi" onclick="closeMenus();showDiagModal()">Run Self-Test</div>
-    <div class="dmi" onclick="closeMenus();showModbusModal()">MEMOBUS Sequence Reference</div>
+  <div class="dd" id="dd-diag" style="left:182px">
+    <div class="dmi" onclick="closeMenus();showDiagSelfTest()">Run Self-Test</div>
+    <div class="dmi" onclick="closeMenus();showModal2('diag-memobus')">MEMOBUS Protocol Reference</div>
     <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();log('DIAG','VFD fault register: 0x0000 — No faults','ok')">Read VFD Fault Codes</div>
-    <div class="dmi" onclick="closeMenus();log('DIAG','Encoder X: 755HS ACTIVE — 0.0196mm/count','ok')">Encoder Status</div>
-    <div class="dmi" onclick="closeMenus();log('DIAG','LoRa RSSI: -72dBm SNR: +8.4dB','ok')">LoRa Link Quality</div>
+    <div class="dmi" onclick="closeMenus();log('DIAG','VFD fault register 0080h = 0x0000 — No faults','ok')">Read VFD Fault Register</div>
+    <div class="dmi" onclick="closeMenus();log('DIAG','Encoder 755HS: ACTIVE 0.0196mm/ct GPIO34/35','ok')">Encoder Status</div>
+    <div class="dmi" onclick="closeMenus();log('DIAG','LoRa RSSI:-72dBm SNR:+8.4dB PktLoss:0%','ok')">LoRa Link Quality</div>
   </div>
-
-  <!-- Help dropdown -->
-  <div class="dropdown" id="dd-help" style="left:296px">
-    <div class="dmi" onclick="closeMenus();showAbout()">About EOT Crane Control</div>
+  <div class="dd" id="dd-help" style="left:266px">
+    <div class="dmi" onclick="closeMenus();showModal2('about')">About This System</div>
     <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus();log('HELP','MEMOBUS RTU: Addr=02 BC1-01=03 H5-01=02','info')">MEMOBUS Quick Ref</div>
-    <div class="dmi" onclick="closeMenus();log('HELP','Zones: FAST=40Hz SLOW=10Hz CREEP=2.5Hz','info')">Speed Zone Reference</div>
-    <div class="dmi sep"></div>
-    <div class="dmi" onclick="closeMenus()">hitech@hitechcranes.com</div>
+    <div class="dmi gray">hitech@hitechcranes.com</div>
+    <div class="dmi gray">+91 9389019432</div>
   </div>
 </div>
 
-<!-- ════════════ TOOLBAR ════════════ -->
+<!-- TOOLBAR -->
 <div class="toolbar">
-  <button class="btn raised" onclick="homeAll()">Home All</button>
-  <button class="btn raised" onclick="feedHold()" id="fh-btn">Feed Hold</button>
+  <button class="btn raised" onclick="homeAllEndLimit()">Home All</button>
+  <button class="btn raised" onclick="stopAllAxes()" style="background:#cc8800;color:#fff;border-color:#ffcc44 #664400 #664400 #ffcc44">Stop All</button>
   <div class="tb-sep"></div>
-  <span class="tb-lbl">Feed Override:</span>
+  <span class="tbl">Feed Override:</span>
   <input type="range" min="0" max="100" value="100" id="feed-slider" style="width:88px">
-  <span id="feed-pct" style="min-width:28px;font-size:11px">100%</span>
+  <span id="feed-pct" style="min-width:28px">100%</span>
   <div class="tb-sep"></div>
-  <span class="tb-lbl">Jog Step:</span>
+  <span class="tbl">Jog Step:</span>
   <select class="sel" id="step-sel" onchange="setStep(parseFloat(this.value))">
-    <option value="0.1">0.1 mm</option>
-    <option value="1">1 mm</option>
-    <option value="10" selected>10 mm</option>
-    <option value="100">100 mm</option>
-    <option value="1000">1000 mm</option>
+    <option value="0.1">0.1 mm</option><option value="1">1 mm</option>
+    <option value="10" selected>10 mm</option><option value="100">100 mm</option><option value="1000">1000 mm</option>
   </select>
   <div class="tb-sep"></div>
   <span id="mode-badge" style="font-size:11px;font-weight:bold;color:#000080;padding:1px 8px;border:2px solid;border-color:#808080 #fff #fff #808080">MANUAL</span>
@@ -282,547 +239,795 @@ canvas#cc{display:block;flex:1;min-height:0}
   <span id="clock" style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:1px;padding-right:4px">--:--:--</span>
 </div>
 
-<!-- ════════════ MAIN AREA ════════════ -->
+<!-- MAIN -->
 <div class="main-area">
 
-  <!-- ── LEFT: DRO ── -->
-  <div class="panel-left">
-
-    <div class="gb">
-      <span class="gb-title">Digital Read-Out (DRO)</span>
-      <div class="axis-block ax-x">
-        <div class="axis-hdr"><span class="axis-tag">X — Cross Travel</span><span class="hbadge nothomed" id="xhb">NOT HOMED</span></div>
-        <div class="dro nothomed" id="dro-x">0.000</div>
-        <div class="axis-range">Range: 0 – 10,235 mm</div>
-      </div>
-      <div class="axis-block ax-y">
-        <div class="axis-hdr"><span class="axis-tag">Y — Long Travel</span><span class="hbadge nothomed" id="yhb">NOT HOMED</span></div>
-        <div class="dro nothomed" id="dro-y">0.000</div>
-        <div class="axis-range">Range: 0 – 37,000 mm</div>
-      </div>
-      <div class="axis-block ax-z">
-        <div class="axis-hdr"><span class="axis-tag">Z — Hoist</span><span class="hbadge nothomed" id="zhb">NOT HOMED</span></div>
-        <div class="dro nothomed" id="dro-z">0.000</div>
-        <div class="axis-range">Range: 0 – 6,000 mm</div>
-      </div>
+<!-- ══ LEFT: DRO ══ -->
+<div class="pl">
+  <div class="gb"><span class="gbt">Digital Read-Out</span>
+    <div class="ab ax-x">
+      <div class="ah"><span class="at">X — Cross Travel</span><span class="hb nothomed" id="xhb">NOT HOMED</span></div>
+      <div class="dro nothomed" id="dro-x">0.000</div>
+      <div class="ar">Range: 0 – 10,235 mm &nbsp;|&nbsp; Zero ref: <span id="xzero-ref" style="font-family:'Courier New',monospace">0.000</span></div>
     </div>
-
-    <div class="gb">
-      <span class="gb-title">Speed Mode</span>
-      <div class="mode-sel">
-        <button class="mode-btn" id="mb-creep" onclick="setMode('creep')">CREEP<br><span style="font-size:9px;font-weight:normal">2.5 Hz</span></button>
-        <button class="mode-btn" id="mb-slow"  onclick="setMode('slow')">SLOW<br><span style="font-size:9px;font-weight:normal">10 Hz</span></button>
-        <button class="mode-btn active-mode" id="mb-fast" onclick="setMode('fast')">FAST<br><span style="font-size:9px;font-weight:normal">40 Hz</span></button>
-      </div>
-      <div style="font-size:10px;color:#555;text-align:center" id="mode-desc">FAST mode — full travel speed (40 Hz)</div>
+    <div class="ab ax-y">
+      <div class="ah"><span class="at">Y — Long Travel</span><span class="hb nothomed" id="yhb">NOT HOMED</span></div>
+      <div class="dro nothomed" id="dro-y">0.000</div>
+      <div class="ar">Range: 0 – 37,000 mm &nbsp;|&nbsp; Zero ref: <span id="yzero-ref" style="font-family:'Courier New',monospace">0.000</span></div>
     </div>
-
-    <div class="gb">
-      <span class="gb-title">Motion Status</span>
-      <div class="slr"><span>Active Frequency</span><span id="act-hz" style="font-family:'Courier New',monospace;font-weight:bold">0.0 Hz</span></div>
-      <div class="prog-outer"><div class="prog-inner" id="speed-bar" style="width:0%"></div></div>
-      <div class="slr"><span>Zone</span><span id="zone-lbl" style="font-weight:bold;color:#808080">IDLE</span></div>
-      <div class="slr" style="margin-top:4px"><span>Feed Override</span><span id="feed-pct-dro" style="font-family:'Courier New',monospace;font-weight:bold">100%</span></div>
-    </div>
-
-    <div class="gb">
-      <span class="gb-title">System Status</span>
-      <div class="led-row"><span class="led grey" id="lora-led"></span><span id="lora-txt">LoRa 868 MHz — SEARCHING</span></div>
-      <div class="led-row"><span class="led red"  id="vfd-led" ></span><span id="vfd-txt">VFD S1000 — OFFLINE</span></div>
-      <div class="led-row"><span class="led red"  id="enc-led" ></span><span id="enc-txt">Encoder 755HS — DISCONNECTED</span></div>
-      <div class="led-row"><span class="led grey" id="brake-led"></span><span id="brake-txt">Brake — APPLIED</span></div>
-      <div style="margin-top:5px;display:grid;grid-template-columns:1fr 1fr;gap:3px;font-size:11px">
-        <div>Loop: <span id="loop-s" style="font-family:'Courier New',monospace;font-weight:bold">---</span></div>
-        <div>Pkts/s: <span id="pkt-s" style="font-family:'Courier New',monospace;font-weight:bold">---</span></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ── CENTER: CANVAS + LOG ── -->
-  <div class="panel-center">
-    <div class="canvas-wrapper">
-      <div class="canvas-tb">
-        <span>Crane Visualisation — Top View (XY) &amp; Side View (Z)</span>
-        <span id="tgt-lbl" style="color:#808080;font-weight:normal">Target: ---</span>
-      </div>
-      <canvas id="cc"></canvas>
-    </div>
-    <div class="log-panel">
-      <div class="log-tb"><span>System Event Log</span><span id="log-cnt" style="color:#808080;font-weight:normal">0 messages</span></div>
-      <div class="log-body" id="log-body"></div>
+    <div class="ab ax-z">
+      <div class="ah"><span class="at">Z — Hoist</span><span class="hb nothomed" id="zhb">NOT HOMED</span></div>
+      <div class="dro nothomed" id="dro-z">0.000</div>
+      <div class="ar">Range: 0 – 6,000 mm &nbsp;|&nbsp; Zero ref: <span id="zzero-ref" style="font-family:'Courier New',monospace">0.000</span></div>
     </div>
   </div>
 
-  <!-- ── RIGHT: CONTROLS ── -->
-  <div class="panel-right">
-
-    <div class="gb">
-      <span class="gb-title">Jog Controls</span>
-      <div style="font-size:11px;font-weight:bold;color:#800000;margin-bottom:3px">X — Cross Travel</div>
-      <div class="jog-grid">
-        <button class="jbtn raised" onclick="jogAxis('x',-1)">◄ X−</button>
-        <button class="jbtn raised" onclick="homeAxis('x')">Home X</button>
-        <button class="jbtn raised" onclick="jogAxis('x',1)">X+ ►</button>
-      </div>
-      <div style="font-size:11px;font-weight:bold;color:#006400;margin-bottom:3px">Y — Long Travel</div>
-      <div class="jog-grid">
-        <button class="jbtn raised" onclick="jogAxis('y',-1)">◄ Y−</button>
-        <button class="jbtn raised" onclick="homeAxis('y')">Home Y</button>
-        <button class="jbtn raised" onclick="jogAxis('y',1)">Y+ ►</button>
-      </div>
-      <div style="font-size:11px;font-weight:bold;color:#000080;margin-bottom:3px">Z — Hoist</div>
-      <div class="jog-grid">
-        <button class="jbtn raised" onclick="jogAxis('z',-1)">▼ Z−</button>
-        <button class="jbtn raised" onclick="homeAxis('z')">Home Z</button>
-        <button class="jbtn raised" onclick="jogAxis('z',1)">Z+ ▲</button>
-      </div>
-      <div style="margin-top:2px">
-        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:1px">
-          <label>Jog Speed</label><span id="jog-spd-val" style="font-family:'Courier New',monospace;font-weight:bold">10%</span>
-        </div>
-        <input type="range" min="1" max="100" value="10" id="jog-speed">
-      </div>
+  <div class="gb"><span class="gbt">Speed Mode</span>
+    <div class="msel">
+      <button class="mbtn" id="mb-creep" onclick="setMode('creep')">CREEP<br><span style="font-size:9px;font-weight:normal">2.5 Hz</span></button>
+      <button class="mbtn" id="mb-slow"  onclick="setMode('slow')">SLOW<br><span style="font-size:9px;font-weight:normal">10 Hz</span></button>
+      <button class="mbtn am" id="mb-fast" onclick="setMode('fast')">FAST<br><span style="font-size:9px;font-weight:normal">40 Hz</span></button>
     </div>
-
-    <div class="gb">
-      <span class="gb-title">Go To Position</span>
-      <div style="margin-bottom:5px">
-        <label style="font-weight:bold;color:#800000">X Target (mm):</label>
-        <div class="btn-row" style="margin-top:2px">
-          <input class="inp" type="number" id="goto-x" value="5000" min="0" max="10235" step="1">
-          <button class="btn raised" onclick="gotoAxis('x')" style="min-width:30px">Go</button>
-        </div>
-      </div>
-      <div style="margin-bottom:5px">
-        <label style="font-weight:bold;color:#006400">Y Target (mm):</label>
-        <div class="btn-row" style="margin-top:2px">
-          <input class="inp" type="number" id="goto-y" value="10000" min="0" max="37000" step="1">
-          <button class="btn raised" onclick="gotoAxis('y')" style="min-width:30px">Go</button>
-        </div>
-      </div>
-      <div style="margin-bottom:6px">
-        <label style="font-weight:bold;color:#000080">Z Target (mm):</label>
-        <div class="btn-row" style="margin-top:2px">
-          <input class="inp" type="number" id="goto-z" value="2000" min="0" max="6000" step="1">
-          <button class="btn raised" onclick="gotoAxis('z')" style="min-width:30px">Go</button>
-        </div>
-      </div>
-      <button class="btn raised btn-full" onclick="homeAll()">Home All Axes</button>
-      <button class="btn raised btn-full" onclick="feedHold()" id="fh-btn2">Feed Hold / Resume</button>
-    </div>
-
-    <div class="gb">
-      <span class="gb-title">VFD Status — YASKAWA S1000</span>
-      <table class="vt">
-        <tr><td>Output Freq.</td><td><span class="vv" id="vfd-hz">---</span></td></tr>
-        <tr><td>Output Current</td><td><span class="vv" id="vfd-amp">---</span></td></tr>
-        <tr><td>DC Bus Voltage</td><td><span class="vv active">---</span></td></tr>
-        <tr><td>Direction</td><td><span class="vv" id="vfd-dir">---</span></td></tr>
-        <tr><td>Brake Status</td><td><span class="vv" id="vfd-brake">---</span></td></tr>
-        <tr><td>Fault Code</td><td><span class="vv" id="vfd-fault">---</span></td></tr>
-      </table>
-      <div style="margin-top:4px;font-size:10px;color:#666;font-family:'Courier New',monospace">
-        BC1-01=03 | H5-01=02 | C1-02=0.5s | Addr=02
-      </div>
-    </div>
-
-    <div class="gb">
-      <span class="gb-title">MEMOBUS Live Monitor</span>
-      <table class="vt">
-        <tr><td>REG 0001 (Cmd)</td><td><span class="vv" id="mb-0001">0x0001</span></td></tr>
-        <tr><td>REG 0002 (Freq)</td><td><span class="vv" id="mb-0002">0x0000</span></td></tr>
-        <tr><td>REG 0020 (Status)</td><td><span class="vv" id="mb-0020">0x0000</span></td></tr>
-        <tr><td>REG 0025 (Out Hz)</td><td><span class="vv" id="mb-0025">0x0000</span></td></tr>
-      </table>
-      <div style="margin-top:4px;font-size:10px;color:#444;text-align:center">
-        <a href="#" onclick="event.preventDefault();showModbusModal()" style="color:#000080">View Full Sequence Reference →</a>
-      </div>
-    </div>
-
-    <div class="gb" style="border-color:#800000">
-      <span class="gb-title" style="color:#800000">Emergency</span>
-      <button class="estop-btn raised" id="estop-btn" onclick="triggerEstop()">⬛&nbsp; EMERGENCY STOP</button>
-      <div style="font-size:10px;color:#808080;text-align:center">SOC remote E-stop also active (hardwired)</div>
-    </div>
-
+    <div style="font-size:10px;color:#555;text-align:center" id="mode-desc">FAST — full travel speed (40 Hz max)</div>
   </div>
+
+  <div class="gb"><span class="gbt">Motion Status</span>
+    <div class="slr"><span>Output Frequency</span><span id="act-hz" style="font-family:'Courier New',monospace;font-weight:bold">0.0 Hz</span></div>
+    <div class="po"><div class="pi" id="speed-bar" style="width:0%"></div></div>
+    <div class="slr"><span>Zone</span><span id="zone-lbl" style="font-weight:bold;color:#808080">IDLE</span></div>
+    <div class="slr" style="margin-top:4px"><span>Feed Override</span><span id="feed-pct-dro" style="font-family:'Courier New',monospace;font-weight:bold">100%</span></div>
+  </div>
+
+  <div class="gb"><span class="gbt">System Status</span>
+    <div class="lr"><span class="led grey" id="lora-led"></span><span id="lora-txt">LoRa 868 MHz — SEARCHING</span></div>
+    <div class="lr"><span class="led red"  id="vfd-led" ></span><span id="vfd-txt">VFD S1000 — OFFLINE</span></div>
+    <div class="lr"><span class="led red"  id="enc-led" ></span><span id="enc-txt">Encoder 755HS — DISCONNECTED</span></div>
+    <div class="lr"><span class="led grey" id="brake-led"></span><span id="brake-txt">Brake — APPLIED</span></div>
+    <div style="margin-top:5px;display:grid;grid-template-columns:1fr 1fr;gap:3px;font-size:11px">
+      <div>Loop: <span id="loop-s" style="font-family:'Courier New',monospace;font-weight:bold">---</span></div>
+      <div>Pkts/s: <span id="pkt-s" style="font-family:'Courier New',monospace;font-weight:bold">---</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CENTER: CANVAS + LOG ══ -->
+<div class="pc">
+  <div class="cw">
+    <div class="ctb">
+      <span>Crane Visualisation — Top View (XY) &amp; Side View (Z)</span>
+      <span id="tgt-lbl" style="color:#808080;font-weight:normal">Target: ---</span>
+    </div>
+    <canvas id="cc"></canvas>
+  </div>
+  <div class="lp">
+    <div class="ltb"><span>System Event Log</span><span id="log-cnt" style="color:#808080;font-weight:normal">0 events</span></div>
+    <div class="lb" id="log-body"></div>
+  </div>
+</div>
+
+<!-- ══ RIGHT: CONTROLS ══ -->
+<div class="pr">
+
+  <!-- ══ TOUCH ON/OFF JOG PANEL ══ -->
+  <div class="gb"><span class="gbt">Touch ON / Touch OFF — Jog</span>
+    <div style="font-size:10px;color:#555;margin-bottom:5px;line-height:1.5">
+      Hold button = axis moves. Release = axis <b>stops instantly</b>, position kept. Use <b>⊙ Set Zero Here</b> to reset display to 0.000 at current spot.
+    </div>
+
+    <!-- X AXIS -->
+    <div class="jog-axis-block">
+      <div class="jog-axis-title" style="color:#800000">
+        X — Cross Travel
+        <span class="touch-status off" id="touch-x-status">OFF</span>
+      </div>
+      <div class="jog-row">
+        <button class="touch-btn"
+          id="touch-x-neg"
+          onmousedown="touchStart('x',-1,this)" onmouseup="touchStop('x',this)" onmouseleave="touchStop('x',this)"
+          ontouchstart="event.preventDefault();touchStart('x',-1,this)" ontouchend="touchStop('x',this)">
+          ◄ X− (Touch)
+        </button>
+        <button class="touch-btn"
+          id="touch-x-pos"
+          onmousedown="touchStart('x',1,this)" onmouseup="touchStop('x',this)" onmouseleave="touchStop('x',this)"
+          ontouchstart="event.preventDefault();touchStart('x',1,this)" ontouchend="touchStop('x',this)">
+          X+ ► (Touch)
+        </button>
+      </div>
+      <div class="home-row">
+        <button class="stop-axis-btn inactive" id="stop-x-btn" onclick="stopAxis('x')">■ STOP X</button>
+        <button class="setzero-btn" onclick="setZeroHere('x')" title="Set current X position as new zero reference">⊙ Set Zero Here</button>
+        <button class="home-endlimit-btn" onclick="homeEndLimit('x')" title="Home X to physical end-limit switch">↤ End Limit</button>
+      </div>
+    </div>
+
+    <!-- Y AXIS -->
+    <div class="jog-axis-block">
+      <div class="jog-axis-title" style="color:#006400">
+        Y — Long Travel
+        <span class="touch-status off" id="touch-y-status">OFF</span>
+      </div>
+      <div class="jog-row">
+        <button class="touch-btn"
+          id="touch-y-neg"
+          onmousedown="touchStart('y',-1,this)" onmouseup="touchStop('y',this)" onmouseleave="touchStop('y',this)"
+          ontouchstart="event.preventDefault();touchStart('y',-1,this)" ontouchend="touchStop('y',this)">
+          ◄ Y− (Touch)
+        </button>
+        <button class="touch-btn"
+          id="touch-y-pos"
+          onmousedown="touchStart('y',1,this)" onmouseup="touchStop('y',this)" onmouseleave="touchStop('y',this)"
+          ontouchstart="event.preventDefault();touchStart('y',1,this)" ontouchend="touchStop('y',this)">
+          Y+ ► (Touch)
+        </button>
+      </div>
+      <div class="home-row">
+        <button class="stop-axis-btn inactive" id="stop-y-btn" onclick="stopAxis('y')">■ STOP Y</button>
+        <button class="setzero-btn" onclick="setZeroHere('y')" title="Set current Y position as new zero reference">⊙ Set Zero Here</button>
+        <button class="home-endlimit-btn" onclick="homeEndLimit('y')" title="Home Y to physical end-limit switch">↤ End Limit</button>
+      </div>
+    </div>
+
+    <!-- Z AXIS -->
+    <div class="jog-axis-block">
+      <div class="jog-axis-title" style="color:#000080">
+        Z — Hoist
+        <span class="touch-status off" id="touch-z-status">OFF</span>
+      </div>
+      <div class="jog-row">
+        <button class="touch-btn"
+          id="touch-z-neg"
+          onmousedown="touchStart('z',-1,this)" onmouseup="touchStop('z',this)" onmouseleave="touchStop('z',this)"
+          ontouchstart="event.preventDefault();touchStart('z',-1,this)" ontouchend="touchStop('z',this)">
+          ▼ Z− (Touch)
+        </button>
+        <button class="touch-btn"
+          id="touch-z-pos"
+          onmousedown="touchStart('z',1,this)" onmouseup="touchStop('z',this)" onmouseleave="touchStop('z',this)"
+          ontouchstart="event.preventDefault();touchStart('z',1,this)" ontouchend="touchStop('z',this)">
+          Z+ ▲ (Touch)
+        </button>
+      </div>
+      <div class="home-row">
+        <button class="stop-axis-btn inactive" id="stop-z-btn" onclick="stopAxis('z')">■ STOP Z</button>
+        <button class="setzero-btn" onclick="setZeroHere('z')" title="Set current Z position as new zero reference">⊙ Set Zero Here</button>
+        <button class="home-endlimit-btn" onclick="homeEndLimit('z')" title="Home Z to physical end-limit switch">↤ End Limit</button>
+      </div>
+    </div>
+
+    <div style="margin-top:3px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:1px">
+        <label>Touch Jog Speed</label><span id="jog-spd-val" style="font-family:'Courier New',monospace;font-weight:bold">10%</span>
+      </div>
+      <input type="range" min="1" max="100" value="10" id="jog-speed">
+    </div>
+  </div>
+
+  <!-- ══ GOTO POSITION ══ -->
+  <div class="gb"><span class="gbt">Go To Position</span>
+    <div style="font-size:10px;color:#555;margin-bottom:4px">Once started, axis moves until target reached or STOP pressed.</div>
+    <div style="margin-bottom:5px">
+      <label style="font-weight:bold;color:#800000">X Target (mm):</label>
+      <div class="br" style="margin-top:2px">
+        <input class="inp" type="number" id="goto-x" value="5000" min="0" max="10235" step="1">
+        <button class="btn raised" onclick="gotoAxis('x')" style="min-width:30px">Go</button>
+        <button class="stop-axis-btn inactive" id="stop-goto-x" onclick="stopAxis('x')" style="font-size:10px">■</button>
+      </div>
+    </div>
+    <div style="margin-bottom:5px">
+      <label style="font-weight:bold;color:#006400">Y Target (mm):</label>
+      <div class="br" style="margin-top:2px">
+        <input class="inp" type="number" id="goto-y" value="10000" min="0" max="37000" step="1">
+        <button class="btn raised" onclick="gotoAxis('y')" style="min-width:30px">Go</button>
+        <button class="stop-axis-btn inactive" id="stop-goto-y" onclick="stopAxis('y')" style="font-size:10px">■</button>
+      </div>
+    </div>
+    <div style="margin-bottom:6px">
+      <label style="font-weight:bold;color:#000080">Z Target (mm):</label>
+      <div class="br" style="margin-top:2px">
+        <input class="inp" type="number" id="goto-z" value="2000" min="0" max="6000" step="1">
+        <button class="btn raised" onclick="gotoAxis('z')" style="min-width:30px">Go</button>
+        <button class="stop-axis-btn inactive" id="stop-goto-z" onclick="stopAxis('z')" style="font-size:10px">■</button>
+      </div>
+    </div>
+    <button class="btn raised bf" onclick="homeAllEndLimit()">Home All (End Limit)</button>
+    <button class="btn raised bf" onclick="stopAllAxes()" style="background:#cc8800;color:#fff;border-color:#ffcc44 #664400 #664400 #ffcc44">■ Stop All Axes</button>
+  </div>
+
+  <!-- VFD STATUS -->
+  <div class="gb"><span class="gbt">VFD Status — YASKAWA S1000</span>
+    <table class="vt">
+      <tr><td>Output Freq.</td><td><span class="vv" id="vfd-hz">0.0 Hz</span></td></tr>
+      <tr><td>Output Current</td><td><span class="vv" id="vfd-amp">0.0 A</span></td></tr>
+      <tr><td>DC Bus Voltage</td><td><span class="vv active">580 V</span></td></tr>
+      <tr><td>Direction</td><td><span class="vv" id="vfd-dir">---</span></td></tr>
+      <tr><td>Brake</td><td><span class="vv" id="vfd-brake">APPLIED</span></td></tr>
+      <tr><td>Fault Code</td><td><span class="vv" id="vfd-fault">NONE</span></td></tr>
+    </table>
+    <div style="margin-top:4px;font-size:10px;color:#666;font-family:'Courier New',monospace">BC1-01=03 | H5-01=02 | C1-02=0.5s | Addr=02</div>
+  </div>
+
+  <!-- MEMOBUS RTU LIVE FRAME -->
+  <div class="gb"><span class="gbt">MEMOBUS RTU — Live Transmission</span>
+    <div class="mbus-panel">
+      <div class="mbus-title">ESP32 → MAX485 → S1000 (Addr 02, 9600 8N1)</div>
+      <div id="mb-action" class="mb-action">— waiting for command —</div>
+      <div id="mb-frame" class="mbus-frame"></div>
+      <div id="mb-desc" class="mb-desc" style="color:#333">Press any Touch/Go button to see bytes sent.</div>
+      <div class="mb-sep"></div>
+      <div style="color:#888;font-size:9px;margin-bottom:3px">SERIAL LOG (TX/RX)</div>
+      <div class="mbus-log" id="mbus-log"></div>
+    </div>
+    <div style="font-size:10px;color:#555;text-align:center;margin-top:2px">
+      <a href="#" onclick="event.preventDefault();showModal2('diag-memobus')" style="color:#000080">View full protocol reference →</a>
+    </div>
+  </div>
+
+  <!-- ESTOP -->
+  <div class="gb" style="border-color:#800000"><span class="gbt" style="color:#800000">Emergency</span>
+    <button class="estop-btn raised" id="estop-btn" onclick="triggerEstop()">⬛&nbsp; EMERGENCY STOP</button>
+    <div style="font-size:10px;color:#808080;text-align:center">SOC remote E-stop also active (hardwired)</div>
+  </div>
+
+</div>
 </div><!-- /main-area -->
 
-<!-- ════════════ STATUS BAR ════════════ -->
-<div class="statusbar">
-  <div class="sbp" id="sb-pos" style="min-width:260px">X: 0.000 &nbsp;Y: 0.000 &nbsp;Z: 0.000 mm</div>
+<!-- STATUS BAR -->
+<div class="sb">
+  <div class="sbp" id="sb-pos" style="min-width:280px">X: 0.000 &nbsp;Y: 0.000 &nbsp;Z: 0.000 mm</div>
   <div class="sbp" id="sb-state" style="min-width:80px;font-weight:bold">IDLE</div>
   <div class="sbp">Mode: <span id="sb-mode">FAST</span></div>
   <div class="sbp">Step: <span id="sb-step">10 mm</span></div>
-  <div class="sbp">Encoder: 0.0196 mm/ct (755HS)</div>
+  <div class="sbp">Enc: 0.0196 mm/ct</div>
   <div class="sbp">LoRa: 868 MHz SF5</div>
-  <div class="sbp" style="flex:1;color:#555">EOT Crane Control v1.0 — SAC, Ahmedabad</div>
+  <div class="sbp" style="flex:1;color:#555">EOT Crane Control v2.0 — SAC, Ahmedabad</div>
 </div>
 
 </div><!-- /.window -->
 
-<!-- ════════════ MODALS ════════════ -->
-
-<!-- Confirm modal -->
-<div class="modal-bg" id="modal-confirm">
-  <div class="mwin">
-    <div class="mtb"><span id="m-title">Confirm</span><div class="tbbtn" onclick="mClose('modal-confirm')">✕</div></div>
-    <div class="mbody"><div class="micon-row"><div class="micon">⚠</div><p class="mtext" id="m-msg">Are you sure?</p></div></div>
-    <div class="mbtns"><button class="btn raised" onclick="mOk()">OK</button><button class="btn raised" onclick="mClose('modal-confirm')">Cancel</button></div>
+<!-- ════ MODALS ════ -->
+<div class="mbg" id="modal-confirm">
+  <div class="mw">
+    <div class="mtb2"><span id="mc-title">Confirm</span><div class="tbbtn" onclick="closeModal('modal-confirm')">✕</div></div>
+    <div class="mbdy"><div class="mir"><div class="mic">⚠</div><p class="mtxt" id="mc-msg"></p></div></div>
+    <div class="mbs"><button class="btn raised" onclick="mOk()">OK</button><button class="btn raised" onclick="closeModal('modal-confirm')">Cancel</button></div>
   </div>
 </div>
 
-<!-- MEMOBUS Sequence Reference modal -->
-<div class="modal-bg" id="modal-memobus">
-  <div class="mwin" style="max-width:600px;min-width:560px">
-    <div class="mtb"><span>MEMOBUS/Modbus RTU — Sequence Reference (S1000, Addr=02)</span><div class="tbbtn" onclick="mClose('modal-memobus')">✕</div></div>
-    <div style="padding:10px 14px 14px;max-height:70vh;overflow-y:auto">
-      <div style="font-size:11px;color:#444;margin-bottom:6px">
-        <b>Serial:</b> RS485, 8N1, 9600 baud &nbsp;|&nbsp; <b>Slave Addr:</b> 02 &nbsp;|&nbsp; <b>Params:</b> BC1-01=03, H5-01=02, H5-02=3 (9600bd), C1-02=0.5s accel
-      </div>
-      <table class="mbt">
-        <tr><th>Register</th><th>Hex Value</th><th>When to Send</th><th>Description</th></tr>
-        <!-- RUN FORWARD -->
-        <tr><td>0001h</td><td>0x0002</td><td>Start motion (+dir)</td><td>Command Word: Run Forward (bit1=1)</td></tr>
-        <tr><td>0002h</td><td>0x0640</td><td>With RUN cmd (FAST)</td><td>Freq Ref = 40.00 Hz → 0x0640 (1600 = 40×40)</td></tr>
-        <tr><td>0002h</td><td>0x0190</td><td>With RUN cmd (SLOW)</td><td>Freq Ref = 10.00 Hz → 0x0190 (400 = 10×40)</td></tr>
-        <tr><td>0002h</td><td>0x0064</td><td>With RUN cmd (CREEP)</td><td>Freq Ref = 2.50 Hz → 0x0064 (100 = 2.5×40)</td></tr>
-        <!-- RUN REVERSE -->
-        <tr><td>0001h</td><td>0x0004</td><td>Start motion (−dir)</td><td>Command Word: Run Reverse (bit2=1)</td></tr>
-        <!-- STOP -->
-        <tr><td>0001h</td><td>0x0001</td><td>Stop motion</td><td>Command Word: Drive Ready (stop — bit0=1 only)</td></tr>
-        <tr><td>0002h</td><td>0x0000</td><td>With STOP cmd</td><td>Freq Ref = 0 Hz</td></tr>
-        <!-- ESTOP -->
-        <tr><td>0001h</td><td>0x0000</td><td>E-Stop triggered</td><td>Command Word: all bits 0 — coast to stop</td></tr>
-        <!-- STATUS READ -->
-        <tr><td>0020h</td><td>READ</td><td>Every 100 ms (poll)</td><td>Status Word: bit6=Running, bit3=Fault, bit0=Ready</td></tr>
-        <tr><td>0025h</td><td>READ</td><td>Every 100 ms (poll)</td><td>Output Frequency (×0.01 Hz, e.g. 0x0FA0 = 40.00 Hz)</td></tr>
-        <tr><td>0021h</td><td>READ</td><td>Every 100 ms (poll)</td><td>Output Current (×0.1 A)</td></tr>
-        <tr><td>0080h</td><td>READ</td><td>On fault detection</td><td>Fault Code Register (0=no fault)</td></tr>
-        <!-- FAULT RESET -->
-        <tr><td>0001h</td><td>0x0080</td><td>After fault clearance</td><td>Command Word: Fault Reset (bit7=1)</td></tr>
-        <tr><td>0001h</td><td>0x0001</td><td>After fault reset</td><td>Return to Ready state</td></tr>
-      </table>
-      <div style="margin-top:8px;font-size:10px;color:#555;line-height:1.6">
-        <b>Freq multiplier:</b> Reg 0002h = Hz × 100 (e.g. 40 Hz = 0x0FA0).
-        Wait for REG 0020h bit6=1 before confirming run.
-        Decel ramp C1-02=0.5 s. Brake output via H2-01=01 (terminal MA/MB).
-      </div>
-    </div>
-    <div class="mbtns"><button class="btn raised" onclick="mClose('modal-memobus')">Close</button></div>
-  </div>
-</div>
-
-<!-- A1000 Config modal -->
-<div class="modal-bg" id="modal-config">
-  <div class="mwin" style="max-width:520px;min-width:480px">
-    <div class="mtb"><span>VFD Parameters — YASKAWA A1000 (Hittech Cranes ref.)</span><div class="tbbtn" onclick="mClose('modal-config')">✕</div></div>
-    <div style="padding:10px 14px 14px;max-height:65vh;overflow-y:auto">
-      <table class="mbt">
-        <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+<div class="mbg" id="cfg-a1000">
+  <div class="mw" style="max-width:520px;min-width:480px">
+    <div class="mtb2"><span>VFD Parameters — YASKAWA A1000 (Hittech Cranes)</span><div class="tbbtn" onclick="closeModal('cfg-a1000')">✕</div></div>
+    <div style="padding:10px 14px 4px;max-height:65vh;overflow-y:auto">
+      <table class="pt">
+        <tr><th>Param</th><th>Value</th><th>Description</th></tr>
         <tr><td>A1-02</td><td>02</td><td>Open loop vector control</td></tr>
         <tr><td>B1-01</td><td>00</td><td>Run command from digital terminal</td></tr>
         <tr><td>B1-02</td><td>01</td><td>Freq ref from digital terminal</td></tr>
-        <tr><td>B1-05</td><td>01</td><td>Acceleration / deceleration</td></tr>
         <tr><td>C1-01</td><td>02</td><td>Acceleration time</td></tr>
         <tr><td>C1-02</td><td>02</td><td>Deceleration time</td></tr>
         <tr><td>C6-01</td><td>00</td><td>Heavy duty</td></tr>
-        <tr><td>E1-01</td><td>50 Hz</td><td>FRE reference (input voltage freq)</td></tr>
-        <tr><td>E1-04</td><td>415</td><td>Max operating frequency voltage</td></tr>
-        <tr><td>E1-05</td><td>415</td><td>Maximum output voltage</td></tr>
-        <tr><td>E1-08</td><td>23.4</td><td>Middle frequency voltage</td></tr>
-        <tr><td>E1-09</td><td>415</td><td>Base frequency (motor rated)</td></tr>
-        <tr><td>E1-10</td><td>5</td><td>Minimum base freq voltage</td></tr>
-        <tr><td>E1-13</td><td>415</td><td>Base voltage</td></tr>
-        <tr><td>E2-01</td><td>-- A</td><td>Motor AMP (set per motor nameplate)</td></tr>
-        <tr><td>H2-01</td><td>01</td><td>Motor AMF — Analog A1 terminal disable</td></tr>
-        <tr><td>H3-02</td><td>0F</td><td>Analog A2 terminal disable (only A1000 States)</td></tr>
-        <tr><td>H3-04</td><td>0F</td><td>Motor overload protection selection</td></tr>
-        <tr><td>H5-10</td><td>0F</td><td>Input phase loss protection</td></tr>
-        <tr><td>H1-01</td><td>02</td><td>Output phase loss protection</td></tr>
-        <tr><td>L8-05</td><td>01</td><td>Input phase loss protection selection</td></tr>
-        <tr><td>L8-09</td><td>01</td><td>Output phase loss protection selection</td></tr>
+        <tr><td>E1-01</td><td>50 Hz</td><td>FRE reference frequency</td></tr>
+        <tr><td>E1-04</td><td>415 V</td><td>Max operating voltage</td></tr>
+        <tr><td>E2-01</td><td>-- A</td><td>Motor rated current (set per nameplate)</td></tr>
       </table>
     </div>
-    <div class="mbtns"><button class="btn raised" onclick="mClose('modal-config')">Close</button></div>
+    <div class="mbs"><button class="btn raised" onclick="closeModal('cfg-a1000')">Close</button></div>
   </div>
 </div>
 
-<!-- S1000 Config modal -->
-<div class="modal-bg" id="modal-s1000">
-  <div class="mwin" style="max-width:520px;min-width:480px">
-    <div class="mtb"><span>VFD Parameters — YASKAWA S1000 (CI Application)</span><div class="tbbtn" onclick="mClose('modal-s1000')">✕</div></div>
-    <div style="padding:10px 14px 14px;max-height:65vh;overflow-y:auto">
-      <table class="mbt">
-        <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+<div class="mbg" id="cfg-s1000">
+  <div class="mw" style="max-width:520px;min-width:480px">
+    <div class="mtb2"><span>VFD Parameters — YASKAWA S1000 (CI Application)</span><div class="tbbtn" onclick="closeModal('cfg-s1000')">✕</div></div>
+    <div style="padding:10px 14px 4px;max-height:65vh;overflow-y:auto">
+      <table class="pt">
+        <tr><th>Param</th><th>Value</th><th>Description</th></tr>
         <tr><td>A1-02</td><td>00</td><td>V/F control</td></tr>
-        <tr><td>B1-01</td><td>00</td><td>Run command from digital terminal</td></tr>
-        <tr><td>B1-02</td><td>01</td><td>Freq ref from digital terminal + terminal</td></tr>
-        <tr><td>BC1-01</td><td>03</td><td>VF control</td></tr>
-        <tr><td>C1-02</td><td>03</td><td>Deceleration time</td></tr>
-        <tr><td>C6-01</td><td>00</td><td>Heavy duty</td></tr>
-        <tr><td>E1-04</td><td>50</td><td>Max operating frequency</td></tr>
-        <tr><td>E1-06</td><td>50</td><td>Base frequency</td></tr>
-        <tr><td>E1-605</td><td>415</td><td>Max operating voltage</td></tr>
-        <tr><td>E1-08</td><td>2.94</td><td>Middle base frequency voltage</td></tr>
-        <tr><td>E1-13</td><td>415</td><td>Base voltage (minimum of the voltage)</td></tr>
-        <tr><td>E1-30</td><td>5</td><td>Minimum of the base voltage</td></tr>
-        <tr><td>E2-01</td><td>1 A</td><td>Motor AMP (1 A — CI application)</td></tr>
-        <tr><td>H2-61</td><td>00</td><td>Decaying run (Motor C1+2) AMP</td></tr>
-        <tr><td>H2-01</td><td>02</td><td>Motor overloaded level protection selection</td></tr>
-        <tr><td>L6-50</td><td>01</td><td>Input phase loss protection selection</td></tr>
+        <tr><td>BC1-01</td><td>03</td><td>V/F control mode select</td></tr>
+        <tr><td>C1-02</td><td>03</td><td>Deceleration time (0.5 s set via MEMOBUS)</td></tr>
+        <tr><td>E1-04</td><td>50 Hz</td><td>Max operating frequency</td></tr>
+        <tr><td>E1-06</td><td>50 Hz</td><td>Base frequency</td></tr>
+        <tr><td>E2-01</td><td>1 A</td><td>Motor rated current (CI application)</td></tr>
+        <tr><td>H5-01</td><td>02</td><td>MEMOBUS station address</td></tr>
       </table>
     </div>
-    <div class="mbtns"><button class="btn raised" onclick="mClose('modal-s1000')">Close</button></div>
+    <div class="mbs"><button class="btn raised" onclick="closeModal('cfg-s1000')">Close</button></div>
   </div>
 </div>
 
-<!-- Limits modal -->
-<div class="modal-bg" id="modal-limits">
-  <div class="mwin" style="max-width:340px">
-    <div class="mtb"><span>Travel Limits Configuration</span><div class="tbbtn" onclick="mClose('modal-limits')">✕</div></div>
-    <div style="padding:14px 16px">
-      <table class="mbt">
-        <tr><th>Axis</th><th>Min (mm)</th><th>Max (mm)</th></tr>
-        <tr><td>X — Cross Travel</td><td>0</td><td>10,235</td></tr>
-        <tr><td>Y — Long Travel</td><td>0</td><td>37,000</td></tr>
-        <tr><td>Z — Hoist</td><td>0</td><td>6,000</td></tr>
+<div class="mbg" id="cfg-limits">
+  <div class="mw" style="max-width:340px">
+    <div class="mtb2"><span>Travel Limits</span><div class="tbbtn" onclick="closeModal('cfg-limits')">✕</div></div>
+    <div style="padding:12px 14px">
+      <table class="pt">
+        <tr><th>Axis</th><th>Min</th><th>Max</th></tr>
+        <tr><td>X Cross</td><td>0 mm</td><td>10,235 mm</td></tr>
+        <tr><td>Y Long</td><td>0 mm</td><td>37,000 mm</td></tr>
+        <tr><td>Z Hoist</td><td>0 mm</td><td>6,000 mm</td></tr>
       </table>
-      <div style="margin-top:8px;font-size:10px;color:#555">Limits enforced in software. Hardware limit switches also active on all axes.</div>
+      <div style="margin-top:8px;font-size:10px;color:#555">Software limits enforced. Hardware limit switches active on all axes.</div>
     </div>
-    <div class="mbtns"><button class="btn raised" onclick="mClose('modal-limits')">Close</button></div>
+    <div class="mbs"><button class="btn raised" onclick="closeModal('cfg-limits')">Close</button></div>
   </div>
 </div>
 
-<!-- Diagnostics modal -->
-<div class="modal-bg" id="modal-diag">
-  <div class="mwin" style="max-width:360px">
-    <div class="mtb"><span>System Self-Test</span><div class="tbbtn" onclick="mClose('modal-diag')">✕</div></div>
-    <div style="padding:14px 16px">
-      <table class="mbt" id="diag-table">
-        <tr><th>Component</th><th>Result</th></tr>
-      </table>
-    </div>
-    <div class="mbtns"><button class="btn raised" onclick="mClose('modal-diag')">Close</button></div>
+<div class="mbg" id="diag-selftest">
+  <div class="mw" style="max-width:340px">
+    <div class="mtb2"><span>System Self-Test</span><div class="tbbtn" onclick="closeModal('diag-selftest')">✕</div></div>
+    <div style="padding:12px 14px"><table class="pt" id="diag-tbl"><tr><th>Component</th><th>Status</th></tr></table></div>
+    <div class="mbs"><button class="btn raised" onclick="closeModal('diag-selftest')">Close</button></div>
   </div>
 </div>
 
-<!-- About modal -->
-<div class="modal-bg" id="modal-about">
-  <div class="mwin" style="max-width:360px">
-    <div class="mtb"><span>About EOT Crane Control System</span><div class="tbbtn" onclick="mClose('modal-about')">✕</div></div>
-    <div class="about-body">
-      <div style="font-size:14px;font-weight:bold;margin-bottom:8px">EOT Crane Control System v1.0</div>
-      <div><b>Site:</b> SAC, Ahmedabad</div>
-      <div><b>Phase:</b> 1 — Cross Travel Automation</div>
-      <div><b>Encoder:</b> Pepperl+Fuchs 755HS, 2000 PPR, 0.0196 mm/ct</div>
-      <div><b>VFD:</b> YASKAWA S1000, MEMOBUS RTU, Addr 02</div>
-      <div><b>Radio:</b> LoRa32 868 MHz, SF5, BW 125 kHz</div>
-      <div><b>Supplier:</b> Hittech Cranes, Ahmedabad</div>
-      <div style="margin-top:8px"><b>Email:</b> hitech@hitechcranes.com</div>
-      <div><b>Phone:</b> +91 9389019432</div>
-      <div><b>Address:</b> Plot 6, Road 2, GIDC Kathwada, Ahmedabad 382430</div>
+<div class="mbg" id="diag-memobus">
+  <div class="mw" style="max-width:640px;min-width:580px">
+    <div class="mtb2"><span>MEMOBUS/Modbus RTU — Protocol Reference (S1000, Addr=02, 9600 8N1)</span><div class="tbbtn" onclick="closeModal('diag-memobus')">✕</div></div>
+    <div style="padding:10px 14px 4px;max-height:72vh;overflow-y:auto">
+      <div style="font-size:11px;color:#444;margin-bottom:8px;line-height:1.6">
+        <b>Frame format:</b> [Addr][Func][RegHi][RegLo][DataHi][DataLo][CRC-Lo][CRC-Hi]<br>
+        <b>Write single register:</b> Func=06h &nbsp;|&nbsp; <b>Read registers:</b> Func=03h<br>
+        <b>Freq register units:</b> 1 unit = 0.01 Hz &nbsp;(40 Hz = 0x0FA0 = 4000d)
+      </div>
+      <table class="pt">
+        <tr><th>When</th><th>Action</th><th>Register</th><th>Write Value</th><th>Raw Frame (hex)</th></tr>
+        <tr><td>Startup</td><td>Set drive Ready</td><td>0001h</td><td>0x0001</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 01 D9 CA</td></tr>
+        <tr><td>Run FWD FAST</td><td>Cmd=FWD + 40Hz</td><td>0001h+0002h</td><td>0x0002/0x0FA0</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 02 .. ..<br>02 06 00 02 0F A0 .. ..</td></tr>
+        <tr><td>Run FWD SLOW</td><td>Cmd=FWD + 10Hz</td><td>0001h+0002h</td><td>0x0002/0x03E8</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 02 .. ..<br>02 06 00 02 03 E8 .. ..</td></tr>
+        <tr><td>Run FWD CREEP</td><td>Cmd=FWD + 2.5Hz</td><td>0001h+0002h</td><td>0x0002/0x00FA</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 02 .. ..<br>02 06 00 02 00 FA .. ..</td></tr>
+        <tr><td>Run REV FAST</td><td>Cmd=REV + 40Hz</td><td>0001h+0002h</td><td>0x0004/0x0FA0</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 04 .. ..<br>02 06 00 02 0F A0 .. ..</td></tr>
+        <tr><td>Touch OFF / Stop</td><td>Decel to 0, brake</td><td>0001h+0002h</td><td>0x0001/0x0000</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 02 00 00 .. ..<br>02 06 00 01 00 01 .. ..</td></tr>
+        <tr><td>E-STOP</td><td>Coast stop</td><td>0001h</td><td>0x0000</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 00 89 CA</td></tr>
+        <tr><td>E-STOP reset</td><td>Fault reset→ready</td><td>0001h</td><td>0x0080→0x0001</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 80 .. ..<br>02 06 00 01 00 01 .. ..</td></tr>
+        <tr><td>Poll 100ms</td><td>Read status word</td><td>0020h</td><td>READ</td><td style="font-family:'Courier New',monospace;font-size:10px">02 03 00 20 00 01 .. ..</td></tr>
+        <tr><td>Poll 100ms</td><td>Read output freq</td><td>0025h</td><td>READ</td><td style="font-family:'Courier New',monospace;font-size:10px">02 03 00 25 00 01 .. ..</td></tr>
+      </table>
     </div>
-    <div class="mbtns"><button class="btn raised" onclick="mClose('modal-about')">OK</button></div>
+    <div class="mbs"><button class="btn raised" onclick="closeModal('diag-memobus')">Close</button></div>
+  </div>
+</div>
+
+<div class="mbg" id="about">
+  <div class="mw" style="max-width:360px">
+    <div class="mtb2"><span>About EOT Crane Control System</span><div class="tbbtn" onclick="closeModal('about')">✕</div></div>
+    <div style="padding:16px;font-size:11px;line-height:1.9">
+      <div style="font-size:14px;font-weight:bold;margin-bottom:10px">EOT Crane Control System v2.0</div>
+      <div><b style="display:inline-block;min-width:110px">Site:</b>SAC, Ahmedabad</div>
+      <div><b style="display:inline-block;min-width:110px">New in v2.0:</b>Touch ON/OFF jog, per-axis stop, dual homing</div>
+      <div><b style="display:inline-block;min-width:110px">Encoder:</b>P+F 755HS 2000PPR 0.0196mm/ct</div>
+      <div><b style="display:inline-block;min-width:110px">VFD:</b>YASKAWA S1000 MEMOBUS Addr=02</div>
+      <div><b style="display:inline-block;min-width:110px">Radio:</b>LoRa32 868 MHz SF5 BW125kHz</div>
+      <div style="margin-top:8px;border-top:1px solid #808080;padding-top:8px">
+        <div><b style="display:inline-block;min-width:110px">Supplier:</b>Hittech Cranes, Ahmedabad</div>
+        <div><b style="display:inline-block;min-width:110px">Email:</b>hitech@hitechcranes.com</div>
+        <div><b style="display:inline-block;min-width:110px">Phone:</b>+91 9389019432</div>
+      </div>
+    </div>
+    <div class="mbs"><button class="btn raised" onclick="closeModal('about')">OK</button></div>
   </div>
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    STATE
-═══════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 const S={
-  pos:{x:0,y:0,z:0},target:{x:null,y:null,z:null},
-  homed:{x:false,y:false,z:false},moving:{x:false,y:false,z:false},
-  estop:false,feedHold:false,
-  jogStep:10,jogSpeed:10,feedOverride:100,
-  hz:0,logCount:0,
-  speedMode:'fast', // 'creep'|'slow'|'fast'
+  // Absolute machine positions (never reset by zero-here)
+  absPos:{x:0,y:0,z:0},
+  // Displayed positions = absPos - zeroRef
+  zeroRef:{x:0,y:0,z:0},
+  target:{x:null,y:null,z:null},
+  homed:{x:false,y:false,z:false},
+  moving:{x:false,y:false,z:false},
+  touchActive:{x:false,y:false,z:false},
+  touchDir:{x:0,y:0,z:0},
+  gotoActive:{x:false,y:false,z:false},
+  estop:false,
+  jogStep:10, jogSpeed:10, feedOverride:100,
+  hz:0, logCount:0, speedMode:'fast',
   limits:{x:[0,10235],y:[0,37000],z:[0,6000]},
-  modalCb:null,
-  viewMode:'both'
+  modalCb:null, viewMode:'both',
+  loraOk:false, vfdOk:false, encOk:false,
+  axisIntervals:{x:null,y:null,z:null},
 };
 const HZ={creep:2.5,slow:10,fast:40};
 
-let canvas,ctx;
+// Displayed position = absPos - zeroRef
+function dispPos(ax){return S.absPos[ax]-S.zeroRef[ax];}
 
-/* ─── MODE ───────────────────────────────────── */
-function setMode(m){
-  S.speedMode=m;
-  ['creep','slow','fast'].forEach(k=>{
-    document.getElementById('mb-'+k).classList.toggle('active-mode',k===m);
+/* ═══════════════════════════════════════════════
+   MEMOBUS CRC & FRAMES
+═══════════════════════════════════════════════ */
+function crc16(bytes){
+  let crc=0xFFFF;
+  for(const b of bytes){crc^=b;for(let i=0;i<8;i++)crc=(crc&1)?(crc>>>1)^0xA001:(crc>>>1);}
+  return crc;
+}
+function mbFrame(addr,func,reg,val){
+  const b=[addr,func,(reg>>8)&0xFF,reg&0xFF,(val>>8)&0xFF,val&0xFF];
+  const c=crc16(b);b.push(c&0xFF,(c>>8)&0xFF);return b;
+}
+function mbRead(addr,func,reg,count){
+  const b=[addr,func,(reg>>8)&0xFF,reg&0xFF,(count>>8)&0xFF,count&0xFF];
+  const c=crc16(b);b.push(c&0xFF,(c>>8)&0xFF);return b;
+}
+function toHex(b){return b.map(x=>x.toString(16).toUpperCase().padStart(2,'0')).join(' ');}
+
+/* ═══════════════════════════════════════════════
+   MEMOBUS PANEL
+═══════════════════════════════════════════════ */
+const BYTE_LABELS=['Addr','Func','Reg Hi','Reg Lo','Val Hi','Val Lo','CRC Lo','CRC Hi'];
+const BYTE_CLASS =['addr','func','reg','reg','val','val','crc','crc'];
+
+function showMbFrame(actionText,frames,descText){
+  document.getElementById('mb-action').textContent=actionText;
+  document.getElementById('mb-desc').textContent=descText;
+  const container=document.getElementById('mb-frame');container.innerHTML='';
+  frames.forEach((frame,fi)=>{
+    if(fi>0){const sep=document.createElement('div');sep.style.cssText='width:100%;font-size:9px;color:#444;margin:3px 0 2px;letter-spacing:1px';sep.textContent='THEN →';container.appendChild(sep);}
+    frame.forEach((byte,i)=>{
+      const wrap=document.createElement('div');wrap.className='mb-byte';
+      const hex=document.createElement('div');hex.className='mb-hex '+BYTE_CLASS[i]+' new';
+      hex.textContent=byte.toString(16).toUpperCase().padStart(2,'0');
+      const lbl=document.createElement('div');lbl.className='mb-lbl';lbl.textContent=BYTE_LABELS[i];
+      wrap.appendChild(hex);wrap.appendChild(lbl);container.appendChild(wrap);
+    });
   });
-  const descs={creep:'CREEP mode — precision positioning (2.5 Hz)',slow:'SLOW mode — careful travel (10 Hz)',fast:'FAST mode — full travel speed (40 Hz)'};
-  document.getElementById('mode-desc').textContent=descs[m];
-  document.getElementById('sb-mode').textContent=m.toUpperCase();
-  log('MODE','Speed mode set to '+m.toUpperCase()+' ('+HZ[m]+' Hz)','info');
 }
 
-/* ─── LOGGING ────────────────────────────────── */
+function mbLog(type,text){
+  const t=new Date().toTimeString().slice(0,8);
+  const el=document.getElementById('mbus-log');
+  const line=document.createElement('div');line.className='mbl-line '+type;
+  line.textContent=(type==='tx'?'TX':'RX')+' '+t+' '+text;
+  el.appendChild(line);el.scrollTop=el.scrollHeight;
+  if(el.children.length>40)el.removeChild(el.children[0]);
+}
+
+function sendRunCommand(ax,dir,hz){
+  const cmdWord=dir>0?0x0002:0x0004;
+  const freqVal=Math.round(hz*100);
+  const f1=mbFrame(0x02,0x06,0x0001,cmdWord);
+  const f2=mbFrame(0x02,0x06,0x0002,freqVal);
+  const dirStr=dir>0?'FORWARD':'REVERSE';
+  showMbFrame(`${ax.toUpperCase()} — RUN ${dirStr} @ ${hz} Hz`,[f1,f2],
+    `Reg 0001h = 0x${cmdWord.toString(16).toUpperCase().padStart(4,'0')} (${dirStr}) | Reg 0002h = 0x${freqVal.toString(16).toUpperCase().padStart(4,'0')} (${hz} Hz × 100)`);
+  mbLog('tx',toHex(f1)+' ← CMD');
+  mbLog('tx',toHex(f2)+' ← FREQ');
+  setTimeout(()=>mbLog('rx','02 06 00 01 '+cmdWord.toString(16).padStart(4,'0').replace(/(..)(..)/, '$1 $2')+' .. .. ← ACK'),180);
+}
+
+function sendStopCommand(ax){
+  const f1=mbFrame(0x02,0x06,0x0002,0x0000);
+  const f2=mbFrame(0x02,0x06,0x0001,0x0001);
+  showMbFrame((ax?ax.toUpperCase()+' ':'')+' STOP — decel to 0, brake',[f1,f2],
+    'Reg 0002h=0x0000 (freq=0) | Reg 0001h=0x0001 (Ready/stop)');
+  mbLog('tx',toHex(f1)+' ← FREQ=0');
+  mbLog('tx',toHex(f2)+' ← CMD STOP');
+  setTimeout(()=>mbLog('rx','02 06 00 01 00 01 .. .. ← ACK'),180);
+}
+
+function sendEstopCommand(){
+  const f=mbFrame(0x02,0x06,0x0001,0x0000);
+  showMbFrame('E-STOP — coast to stop immediately',[f],'Reg 0001h=0x0000 — all bits 0, coast stop, brake applied');
+  mbLog('err',toHex(f)+' ← ESTOP');
+}
+
+function sendEstopResetCommand(){
+  const f1=mbFrame(0x02,0x06,0x0001,0x0080);
+  const f2=mbFrame(0x02,0x06,0x0001,0x0001);
+  showMbFrame('E-STOP RESET',[f1,f2],'Reg 0001h=0x0080 (Fault Reset) | then 0x0001 (Ready)');
+  mbLog('tx',toHex(f1)+' ← FAULT RESET');
+  setTimeout(()=>{mbLog('rx','02 06 00 01 00 80 .. .. ← ACK');mbLog('tx',toHex(f2)+' ← READY');},200);
+}
+
+function sendHomeCommand(ax){
+  const f1=mbFrame(0x02,0x06,0x0001,0x0004);
+  const f2=mbFrame(0x02,0x06,0x0002,0x00FA);
+  showMbFrame(`HOME ${ax.toUpperCase()} — reverse CREEP to end-limit`,[f1,f2],
+    'Homing: Cmd=0x0004 (REV) | Freq=0x00FA (2.5 Hz creep) — stops on limit switch');
+  mbLog('tx',toHex(f1)+' ← HOME '+ax.toUpperCase()+' REV');
+  mbLog('tx',toHex(f2)+' ← CREEP 2.5Hz');
+}
+
+/* ═══════════════════════════════════════════════
+   LOGGING
+═══════════════════════════════════════════════ */
 function log(tag,msg,level='info'){
   S.logCount++;
   const t=new Date().toTimeString().slice(0,8);
   const lb=document.getElementById('log-body');
   const d=document.createElement('div');d.className='ll';
-  d.innerHTML=`<span class="lt">${t}</span><span class="ltag ${level}">[${tag.toUpperCase().padEnd(8)}]</span><span class="lm">${msg}</span>`;
+  d.innerHTML=`<span class="lt2">${t}</span><span class="ltag ${level}">[${tag.toUpperCase().padEnd(8)}]</span><span class="lm">${msg}</span>`;
   lb.appendChild(d);lb.scrollTop=lb.scrollHeight;
   if(lb.children.length>200)lb.removeChild(lb.children[0]);
-  document.getElementById('log-cnt').textContent=S.logCount+' messages';
+  document.getElementById('log-cnt').textContent=S.logCount+' events';
 }
-function clearLog(){document.getElementById('log-body').innerHTML='';S.logCount=0;document.getElementById('log-cnt').textContent='0 messages';}
+function clearLog(){document.getElementById('log-body').innerHTML='';S.logCount=0;document.getElementById('log-cnt').textContent='0 events';}
 
-/* ─── MENU ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   MENUS
+═══════════════════════════════════════════════ */
 let openMenu=null;
-function toggleMenu(id){
-  closeMenus(id);
-  if(openMenu===id){openMenu=null;return;}
-  document.getElementById('dd-'+id).classList.add('show');
-  document.getElementById('mi-'+id).classList.add('open');
-  openMenu=id;
-}
-function closeMenus(except){
-  ['file','view','motion','config','diag','help'].forEach(k=>{
-    if(k===except)return;
-    document.getElementById('dd-'+k).classList.remove('show');
-    document.getElementById('mi-'+k).classList.remove('open');
-  });
-  if(except===undefined)openMenu=null;
-}
-document.addEventListener('click',e=>{
-  if(!e.target.closest('#menubar'))closeMenus();
-});
+function toggleMenu(id){const was=openMenu;closeMenus();if(was===id)return;document.getElementById('dd-'+id).classList.add('show');document.getElementById('mi-'+id).classList.add('open');openMenu=id;}
+function closeMenus(){['view','motion','config','diag','help'].forEach(k=>{const d=document.getElementById('dd-'+k);if(d)d.classList.remove('show');const m=document.getElementById('mi-'+k);if(m)m.classList.remove('open');});openMenu=null;}
+document.addEventListener('click',e=>{if(!e.target.closest('#menubar'))closeMenus();});
 
-/* ─── MODALS ─────────────────────────────────── */
-function mClose(id){document.getElementById(id).classList.remove('show');}
-function mOpen(id){document.getElementById(id).classList.add('show');}
-function mOk(){mClose('modal-confirm');if(S.modalCb)S.modalCb();S.modalCb=null;}
-function showModal(title,msg,cb){
-  document.getElementById('m-title').textContent=title;
-  document.getElementById('m-msg').textContent=msg;
-  S.modalCb=cb;mOpen('modal-confirm');
-}
-function showModbusModal(){mOpen('modal-memobus');}
-function showConfigModal(){mOpen('modal-config');}
-function showS1000Modal(){mOpen('modal-s1000');}
-function showLimitsModal(){mOpen('modal-limits');}
-function showAbout(){mOpen('modal-about');}
-function showDiagModal(){
-  const rows=[
-    ['LoRa 868 MHz',S.loraOk?'PASS':'SEARCHING'],
-    ['VFD S1000',S.vfdOk?'PASS':'OFFLINE'],
-    ['Encoder 755HS',S.encOk?'PASS':'OFFLINE'],
-    ['X Homed',S.homed.x?'HOMED':'NOT HOMED'],
-    ['Y Homed',S.homed.y?'HOMED':'NOT HOMED'],
-    ['Z Homed',S.homed.z?'HOMED':'NOT HOMED'],
-    ['E-Stop',S.estop?'ACTIVE':'CLEAR'],
-  ];
-  const t=document.getElementById('diag-table');
-  t.innerHTML='<tr><th>Component</th><th>Result</th></tr>';
-  rows.forEach(([c,r])=>{
-    const ok=r==='PASS'||r==='HOMED'||r==='CLEAR';
-    t.innerHTML+=`<tr><td>${c}</td><td style="color:${ok?'#006400':'#800000'};font-weight:bold">${r}</td></tr>`;
-  });
-  mOpen('modal-diag');
-}
+/* ═══════════════════════════════════════════════
+   MODALS
+═══════════════════════════════════════════════ */
+function showModal2(id){document.getElementById(id).classList.add('show');}
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+function mOk(){closeModal('modal-confirm');if(S.modalCb)S.modalCb();S.modalCb=null;}
+function showConfirm(title,msg,cb){document.getElementById('mc-title').textContent=title;document.getElementById('mc-msg').textContent=msg;S.modalCb=cb;showModal2('modal-confirm');}
 
-/* ─── VIEW MODE ──────────────────────────────── */
-function setView(v){S.viewMode=v;log('VIEW','Visualisation mode: '+v,'info');}
-function toggleLog(){
-  const lp=document.querySelector('.log-panel');
-  lp.style.display=lp.style.display==='none'?'flex':'none';
+/* ═══════════════════════════════════════════════
+   SPEED MODE
+═══════════════════════════════════════════════ */
+function setMode(m){
+  S.speedMode=m;
+  ['creep','slow','fast'].forEach(k=>document.getElementById('mb-'+k).classList.toggle('am',k===m));
+  const d={creep:'CREEP — precision positioning (2.5 Hz max)',slow:'SLOW — careful travel (10 Hz max)',fast:'FAST — full travel speed (40 Hz max)'};
+  document.getElementById('mode-desc').textContent=d[m];
+  document.getElementById('sb-mode').textContent=m.toUpperCase();
+  log('MODE','Speed mode → '+m.toUpperCase()+' ('+HZ[m]+' Hz)','info');
 }
-
-/* ─── STEP ───────────────────────────────────── */
 function setStep(v){S.jogStep=v;document.getElementById('sb-step').textContent=v+' mm';}
+function setView(v){S.viewMode=v;log('VIEW','Visualisation → '+v,'info');}
 
-/* ─── JOG ────────────────────────────────────── */
-function jogAxis(ax,dir){
-  if(S.estop){log('JOG','E-Stop active — release first','err');return;}
-  if(!S.homed[ax]){log('JOG',ax.toUpperCase()+' not homed','warn');return;}
-  if(S.moving[ax])return;
-  const dist=S.jogStep*dir*(S.jogSpeed/100);
-  const[lo,hi]=S.limits[ax];
-  const np=Math.min(hi,Math.max(lo,S.pos[ax]+dist));
-  if(np===S.pos[ax]){log('JOG',ax.toUpperCase()+' at travel limit','warn');return;}
-  startMove(ax,np);
-  log('JOG',`${ax.toUpperCase()} ${dir>0?'+':'-'}${S.jogStep}mm → ${np.toFixed(3)}mm [${S.speedMode.toUpperCase()} ${HZ[S.speedMode]}Hz]`);
+/* ═══════════════════════════════════════════════
+   ─────────────────────────────────────────────
+   TOUCH ON / TOUCH OFF
+   Hold = axis moves continuously
+   Release = axis stops + resets that axis to 0
+   ─────────────────────────────────────────────
+═══════════════════════════════════════════════ */
+function touchStart(ax, dir, btn){
+  if(S.estop){log('TOUCH','E-Stop active — release first','err');return;}
+  if(!S.homed[ax]){log('TOUCH',ax.toUpperCase()+' not homed — home before jogging','warn');return;}
+  if(S.touchActive[ax]||S.gotoActive[ax])return;
+
+  S.touchActive[ax]=true;
+  S.touchDir[ax]=dir;
+  btn.classList.add('held');
+  setTouchStatus(ax,true);
+  setStopBtnActive(ax,true);
+
+  const hz=HZ[S.speedMode];
+  sendRunCommand(ax,dir,hz);
+  log('TOUCH',`${ax.toUpperCase()} Touch ON → ${dir>0?'+'  :'-'} @ ${hz}Hz [${S.speedMode.toUpperCase()}]`,'ok');
+
+  S.moving[ax]=true;
+  const speed=getSpeedMmPerTick(hz);
+
+  S.axisIntervals[ax]=setInterval(()=>{
+    if(!S.touchActive[ax]||S.estop){clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;return;}
+    const[lo,hi]=S.limits[ax];
+    const np=S.absPos[ax]+speed*dir*(S.feedOverride/100);
+    S.absPos[ax]=Math.max(lo,Math.min(hi,np));
+    // Hit hard limit
+    if(S.absPos[ax]<=lo||S.absPos[ax]>=hi){
+      touchStop(ax,btn);
+      log('TOUCH',`${ax.toUpperCase()} Touch OFF — travel limit reached`,'warn');
+    }
+    updateDRO();
+  },16);
 }
 
+function touchStop(ax, btn){
+  if(!S.touchActive[ax])return;
+  S.touchActive[ax]=false;
+  clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
+  S.moving[ax]=false;
+
+  // Remove held style from both touch buttons for this axis
+  document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));
+  setTouchStatus(ax,false);
+  setStopBtnActive(ax,false);
+
+  sendStopCommand(ax);
+
+  // Touch OFF: axis stops, position is KEPT as-is — no zero reset
+  log('TOUCH',`${ax.toUpperCase()} Touch OFF — stopped at ${dispPos(ax).toFixed(3)}mm (use ⊙ Set Zero Here to reset zero)`,'ok');
+  updateDRO();
+  updateSB(0,'idle');
+}
+
+function setTouchStatus(ax,on){
+  const el=document.getElementById(`touch-${ax}-status`);
+  el.textContent=on?'ON':'OFF';
+  el.className='touch-status '+(on?'on':'off');
+}
+
+function setStopBtnActive(ax,active){
+  // Panel stop button
+  const btn=document.getElementById(`stop-${ax}-btn`);
+  if(btn){btn.className=active?'stop-axis-btn':'stop-axis-btn inactive';}
+  // GoTo stop button
+  const gbtn=document.getElementById(`stop-goto-${ax}`);
+  if(gbtn){gbtn.className=active||S.gotoActive[ax]?'stop-axis-btn':'stop-axis-btn inactive';}
+}
+
+/* ═══════════════════════════════════════════════
+   ─────────────────────────────────────────────
+   STOP INDIVIDUAL AXIS
+   Works at any moment during Touch or GoTo
+   Axis stops wherever it is — position kept
+   ─────────────────────────────────────────────
+═══════════════════════════════════════════════ */
+function stopAxis(ax){
+  if(!S.moving[ax]&&!S.touchActive[ax]&&!S.gotoActive[ax]){
+    log('CTRL',`${ax.toUpperCase()} already stopped`,'info');return;
+  }
+
+  // Kill touch
+  if(S.touchActive[ax]){
+    S.touchActive[ax]=false;
+    document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));
+    setTouchStatus(ax,false);
+    // Do NOT reset to zero — user explicitly pressed Stop, not Touch OFF
+    log('CTRL',`${ax.toUpperCase()} stopped mid-touch at ${dispPos(ax).toFixed(3)}mm (position kept, zero NOT reset)`,'warn');
+  }
+
+  // Kill goto
+  if(S.gotoActive[ax]){
+    S.gotoActive[ax]=false;
+    S.target[ax]=null;
+    log('CTRL',`${ax.toUpperCase()} GoTo interrupted — stopped at ${dispPos(ax).toFixed(3)}mm`,'warn');
+  }
+
+  clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
+  S.moving[ax]=false;
+  sendStopCommand(ax);
+  setStopBtnActive(ax,false);
+  updateDRO();
+  updateSB(0,'idle');
+  document.getElementById('tgt-lbl').textContent='Target: ---';
+}
+
+function stopAllAxes(){
+  ['x','y','z'].forEach(ax=>stopAxis(ax));
+  log('CTRL','All axes stopped','warn');
+}
+
+/* ═══════════════════════════════════════════════
+   ─────────────────────────────────────────────
+   GOTO POSITION
+   Runs until target reached OR stopAxis() called
+   No feed-hold mid-travel; only stop or e-stop
+   ─────────────────────────────────────────────
+═══════════════════════════════════════════════ */
 function gotoAxis(ax){
   if(S.estop){log('GOTO','E-Stop active','err');return;}
   if(!S.homed[ax]){log('GOTO',ax.toUpperCase()+' not homed','warn');return;}
+  if(S.moving[ax]){log('GOTO',ax.toUpperCase()+' already moving — stop it first','warn');return;}
+
   const v=parseFloat(document.getElementById('goto-'+ax).value);
   const[lo,hi]=S.limits[ax];
-  if(isNaN(v)||v<lo||v>hi){log('GOTO',`Invalid target ${ax.toUpperCase()}: ${v}mm`,'warn');return;}
-  startMove(ax,v);
-  log('GOTO',`${ax.toUpperCase()} → ${v.toFixed(1)}mm [${S.speedMode.toUpperCase()} ${HZ[S.speedMode]}Hz]`,'ok');
-  document.getElementById('tgt-lbl').textContent=`Target X:${S.target.x??'-'} Y:${S.target.y??'-'} Z:${S.target.z??'-'}`;
-}
+  // Target is in displayed coordinates → convert to machine coordinates
+  const machineTarget=v+S.zeroRef[ax];
+  if(isNaN(v)||machineTarget<lo||machineTarget>hi){
+    log('GOTO',`Invalid ${ax.toUpperCase()} target: ${v}mm (machine: ${machineTarget.toFixed(1)}mm out of range)`,'warn');return;
+  }
 
-function homeAxis(ax){
-  if(S.estop){log('HOME','E-Stop active','err');return;}
-  if(S.moving[ax]){log('HOME',ax.toUpperCase()+' already moving','warn');return;}
-  log('HOME',`${ax.toUpperCase()} homing — seeking limit switch…`,'warn');
-  S.moving[ax]=true;S.homed[ax]=false;updateHS();
-  let e=0;
-  const iv=setInterval(()=>{
-    if(S.estop||S.feedHold){clearInterval(iv);S.moving[ax]=false;return;}
-    S.pos[ax]=Math.max(0,S.pos[ax]-0.8*16);e+=16;
-    if(S.pos[ax]<=0||e>8000){
-      clearInterval(iv);S.pos[ax]=0;S.moving[ax]=false;S.homed[ax]=true;
-      updateHS();log('HOME',`${ax.toUpperCase()} homed at 0.000mm`,'ok');
+  S.target[ax]=machineTarget;
+  S.gotoActive[ax]=true;
+  S.moving[ax]=true;
+  setStopBtnActive(ax,true);
+
+  const dir=machineTarget>S.absPos[ax]?1:-1;
+  const maxHz=HZ[S.speedMode];
+  sendRunCommand(ax,dir,maxHz);
+  log('GOTO',`${ax.toUpperCase()} → ${v.toFixed(1)}mm (machine ${machineTarget.toFixed(1)}mm) [${S.speedMode.toUpperCase()} ${maxHz}Hz]`,'ok');
+  document.getElementById('tgt-lbl').textContent=`Target ${ax.toUpperCase()}:${v.toFixed(0)}mm`;
+
+  let lastPhase='';
+  S.axisIntervals[ax]=setInterval(()=>{
+    if(!S.gotoActive[ax]||S.estop){
+      clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;return;
+    }
+    const err=Math.abs(S.target[ax]-S.absPos[ax]);
+    let hz,phase,speed;
+
+    if(S.speedMode==='fast'){
+      if(err>500)     {hz=40;phase='fast';}
+      else if(err>50) {hz=10;phase='slow';}
+      else if(err>1)  {hz=2.5;phase='creep';}
+      else            {hz=0;phase='stop';}
+    }else if(S.speedMode==='slow'){
+      if(err>50)      {hz=10;phase='slow';}
+      else if(err>1)  {hz=2.5;phase='creep';}
+      else            {hz=0;phase='stop';}
+    }else{
+      if(err>1)       {hz=2.5;phase='creep';}
+      else            {hz=0;phase='stop';}
+    }
+    speed=getSpeedMmPerTick(hz)*(S.feedOverride/100);
+
+    if(phase!==lastPhase&&phase!=='stop'){
+      sendRunCommand(ax,dir,hz);
+      mbLog('tx',`Zone → ${phase.toUpperCase()} ${hz}Hz`);
+      lastPhase=phase;
+    }
+    S.hz=hz;updateSB(hz,phase);
+
+    if(phase==='stop'){
+      clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
+      S.absPos[ax]=S.target[ax];S.moving[ax]=false;S.gotoActive[ax]=false;S.target[ax]=null;
+      S.hz=0;sendStopCommand(ax);updateSB(0,'idle');
+      setStopBtnActive(ax,false);
+      log('GOTO',`${ax.toUpperCase()} arrived at ${dispPos(ax).toFixed(3)}mm`,'ok');
+      document.getElementById('tgt-lbl').textContent='Target: ---';
+    }else{
+      const[lo2,hi2]=S.limits[ax];
+      S.absPos[ax]=Math.max(lo2,Math.min(hi2,S.absPos[ax]+speed*dir));
     }
     updateDRO();
   },16);
 }
 
-function homeAll(){
-  showModal('Home All Axes','All axes will return to 0mm. Ensure travel path is clear.',()=>{
-    homeAxis('x');setTimeout(()=>homeAxis('y'),500);setTimeout(()=>homeAxis('z'),1000);
+function getSpeedMmPerTick(hz){
+  // 40Hz→4mm/tick, 10Hz→1.2mm/tick, 2.5Hz→0.3mm/tick at 16ms interval
+  return hz*0.1;
+}
+
+/* ═══════════════════════════════════════════════
+   ─────────────────────────────────────────────
+   DUAL HOMING
+   1. homeEndLimit(ax) — moves to physical end limit (machine 0)
+   2. setZeroHere(ax)  — sets displayed zero at current position
+   ─────────────────────────────────────────────
+═══════════════════════════════════════════════ */
+function homeEndLimit(ax){
+  if(S.estop){log('HOME','E-Stop active','err');return;}
+  if(S.moving[ax]){
+    showConfirm('Axis Moving',`${ax.toUpperCase()} axis is moving. Stop it before homing?`,()=>{stopAxis(ax);setTimeout(()=>homeEndLimit(ax),300);});return;
+  }
+  sendHomeCommand(ax);
+  log('HOME',`${ax.toUpperCase()} homing to end-limit at CREEP — seeking limit switch…`,'warn');
+  S.moving[ax]=true;S.homed[ax]=false;updateHS();
+
+  let elapsed=0;
+  S.axisIntervals[ax]=setInterval(()=>{
+    if(S.estop){clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;S.moving[ax]=false;return;}
+    S.absPos[ax]=Math.max(0,S.absPos[ax]-0.8*16);
+    elapsed+=16;
+    if(S.absPos[ax]<=0||elapsed>9000){
+      clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
+      S.absPos[ax]=0;
+      S.zeroRef[ax]=0; // machine zero = display zero
+      S.moving[ax]=false;S.homed[ax]=true;
+      updateHS();sendStopCommand(ax);
+      document.getElementById(`${ax}zero-ref`).textContent='0.000';
+      log('HOME',`${ax.toUpperCase()} homed at end-limit — machine 0, display 0.000mm`,'ok');
+      updateDRO();
+    }
+    updateDRO();
+  },16);
+}
+
+function homeAllEndLimit(){
+  showConfirm('Home All Axes (End Limit)','All axes will travel to physical end-limit switches. Ensure path is clear.',()=>{
+    homeEndLimit('x');setTimeout(()=>homeEndLimit('y'),600);setTimeout(()=>homeEndLimit('z'),1200);
   });
 }
 
-function startMove(ax,target){
-  if(S.moving[ax])return;
-  S.target[ax]=target;S.moving[ax]=true;
-  const sign=target>S.pos[ax]?1:-1;
-  const maxHz=HZ[S.speedMode];
-  const iv=setInterval(()=>{
-    if(S.estop||S.feedHold){clearInterval(iv);S.moving[ax]=false;S.hz=0;updateSB(0,'idle');return;}
-    const err=Math.abs(target-S.pos[ax]);
-    let speed,hz,phase;
-    // Speed zones adapt to selected mode ceiling
-    if(S.speedMode==='fast'){
-      if(err>500)      {speed=4*(S.feedOverride/100);hz=40;phase='fast';}
-      else if(err>50)  {speed=1.2*(S.feedOverride/100);hz=10;phase='slow';}
-      else if(err>2)   {speed=0.3*(S.feedOverride/100);hz=2.5;phase='creep';}
-      else             {speed=0;hz=0;phase='stop';}
-    }else if(S.speedMode==='slow'){
-      if(err>50)       {speed=1.2*(S.feedOverride/100);hz=10;phase='slow';}
-      else if(err>2)   {speed=0.3*(S.feedOverride/100);hz=2.5;phase='creep';}
-      else             {speed=0;hz=0;phase='stop';}
-    }else{
-      if(err>2)        {speed=0.3*(S.feedOverride/100);hz=2.5;phase='creep';}
-      else             {speed=0;hz=0;phase='stop';}
-    }
-    S.hz=hz;updateSB(hz,phase);
-    if(phase==='stop'){
-      clearInterval(iv);S.pos[ax]=target;S.moving[ax]=false;S.target[ax]=null;
-      S.hz=0;updateSB(0,'idle');
-      log('MOVE',`${ax.toUpperCase()} arrived at ${target.toFixed(3)}mm`,'ok');
-    }else{
-      S.pos[ax]=Math.min(S.limits[ax][1],Math.max(S.limits[ax][0],S.pos[ax]+speed*sign));
-    }
-    updateDRO();
-  },16);
+/* Set Zero Here — resets displayed position of this axis to 0
+   Crane stays exactly where it is. No movement.
+   Next GoTo coordinates are relative to this new zero.          */
+function setZeroHere(ax){
+  if(S.moving[ax]){
+    log('ZERO','Cannot set zero while axis is moving','warn');return;
+  }
+  const machinePos=S.absPos[ax];
+  S.zeroRef[ax]=machinePos;
+  S.homed[ax]=true; // Operator confirms this is a valid reference
+  document.getElementById(`${ax}zero-ref`).textContent=machinePos.toFixed(3);
+  updateHS();updateDRO();
+  log('ZERO',`${ax.toUpperCase()} display set to 0.000 at machine pos ${machinePos.toFixed(3)}mm — new zero reference`,'ok');
 }
 
-function feedHold(){
-  S.feedHold=!S.feedHold;
-  log('CTRL',S.feedHold?'Feed hold — motion suspended':'Feed hold released — motion resumed','warn');
-}
-
+/* ═══════════════════════════════════════════════
+   E-STOP
+═══════════════════════════════════════════════ */
 function triggerEstop(){
   S.estop=!S.estop;
   const btn=document.getElementById('estop-btn');
@@ -830,34 +1035,43 @@ function triggerEstop(){
   if(S.estop){
     btn.classList.add('active');btn.textContent='▶  RESET E-STOP';
     badge.style.color='#800000';badge.textContent='E-STOP';
-    log('ESTOP','Emergency stop triggered — all motion inhibited','err');
-    S.hz=0;updateSB(0,'idle');Object.keys(S.moving).forEach(k=>S.moving[k]=false);
-    // Send MEMOBUS E-Stop command
-    log('MBUS','TX → [02][06][00 01][00 00] — Cmd Word=0x0000 (coast stop)','warn');
+    log('ESTOP','Emergency stop — all motion inhibited immediately','err');
+    // Kill all intervals
+    ['x','y','z'].forEach(ax=>{
+      clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
+      S.moving[ax]=false;S.touchActive[ax]=false;S.gotoActive[ax]=false;
+      document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));
+      setTouchStatus(ax,false);setStopBtnActive(ax,false);
+    });
+    S.hz=0;updateSB(0,'idle');sendEstopCommand();
   }else{
     btn.classList.remove('active');btn.textContent='⬛\u00a0 EMERGENCY STOP';
     badge.style.color='#000080';badge.textContent='MANUAL';
     log('ESTOP','E-Stop reset — system ready','ok');
-    log('MBUS','TX → [02][06][00 01][00 01] — Cmd Word=0x0001 (ready)','ok');
+    sendEstopResetCommand();
   }
 }
 
-/* ─── DRO ────────────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   DRO & UI UPDATE
+═══════════════════════════════════════════════ */
 function updateDRO(){
   ['x','y','z'].forEach(ax=>{
     const el=document.getElementById('dro-'+ax);
-    el.textContent=S.pos[ax].toFixed(3);
+    el.textContent=dispPos(ax).toFixed(3);
     el.className='dro'+(S.moving[ax]?' moving':!S.homed[ax]?' nothomed':'');
   });
-  const p=S.pos;
-  document.getElementById('sb-pos').textContent=`X: ${p.x.toFixed(3)}\u00a0 Y: ${p.y.toFixed(3)}\u00a0 Z: ${p.z.toFixed(3)} mm`;
-  document.getElementById('sb-state').textContent=S.estop?'E-STOP':Object.values(S.moving).some(v=>v)?'MOVING':S.feedHold?'FEED HOLD':'IDLE';
+  const p={x:dispPos('x'),y:dispPos('y'),z:dispPos('z')};
+  document.getElementById('sb-pos').textContent=`X: ${p.x.toFixed(3)}\u00a0Y: ${p.y.toFixed(3)}\u00a0Z: ${p.z.toFixed(3)} mm`;
+  const anyMoving=Object.values(S.moving).some(v=>v);
+  document.getElementById('sb-state').textContent=S.estop?'E-STOP':anyMoving?'MOVING':'IDLE';
 }
+
 function updateHS(){
   ['x','y','z'].forEach(ax=>{
     const el=document.getElementById(ax+'hb');
     el.textContent=S.homed[ax]?'HOMED':'NOT HOMED';
-    el.className='hbadge '+(S.homed[ax]?'homed':'nothomed');
+    el.className='hb '+(S.homed[ax]?'homed':'nothomed');
   });
 }
 
@@ -865,7 +1079,7 @@ function updateSB(hz,phase){
   const pct=(hz/50)*100;
   const bar=document.getElementById('speed-bar');
   bar.style.width=pct+'%';
-  bar.className='prog-inner'+(phase==='slow'?' slow':phase==='creep'?' creep':'');
+  bar.className='pi'+(phase==='slow'?' slow':phase==='creep'?' creep':'');
   document.getElementById('act-hz').textContent=hz.toFixed(1)+' Hz';
   const zl=document.getElementById('zone-lbl');
   const zt={fast:'FAST — 40 Hz',slow:'SLOW — 10 Hz',creep:'CREEP — 2.5 Hz',stop:'DECELERATING',idle:'IDLE'};
@@ -873,23 +1087,43 @@ function updateSB(hz,phase){
   zl.textContent=zt[phase]||'IDLE';zl.style.color=zc[phase]||'#808080';
   document.getElementById('vfd-hz').textContent=hz.toFixed(1)+' Hz';
   document.getElementById('vfd-hz').className='vv'+(hz>0?' active':'');
+  const anyMoving=Object.values(S.moving).some(v=>v);
   const ma=Object.keys(S.moving).find(k=>S.moving[k]);
-  document.getElementById('vfd-dir').textContent=hz>0?(ma?ma.toUpperCase()+' AXIS':'---'):'---';
+  document.getElementById('vfd-dir').textContent=hz>0&&ma?ma.toUpperCase()+' AXIS':'---';
   document.getElementById('vfd-brake').textContent=hz>0?'RELEASED':'APPLIED';
   document.getElementById('vfd-brake').style.color=hz>0?'#806000':'';
   document.getElementById('brake-led').className='led '+(hz>0?'yellow':'grey');
   document.getElementById('brake-txt').textContent='Brake — '+(hz>0?'RELEASED':'APPLIED');
-  // MEMOBUS registers
-  const cmdWord=hz>0?'0x0002':'0x0001';
-  const freqReg='0x'+Math.round(hz*100).toString(16).toUpperCase().padStart(4,'0');
-  const statusReg=hz>0?'0x0040':'0x0000';
-  document.getElementById('mb-0001').textContent=cmdWord;
-  document.getElementById('mb-0002').textContent=freqReg;
-  document.getElementById('mb-0020').textContent=statusReg;
-  document.getElementById('mb-0025').textContent=freqReg;
 }
 
-/* ─── CANVAS ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   SELF TEST
+═══════════════════════════════════════════════ */
+function showDiagSelfTest(){
+  const rows=[
+    ['LoRa 868 MHz',S.loraOk,'LINKED','SEARCHING'],
+    ['VFD S1000',S.vfdOk,'ONLINE','OFFLINE'],
+    ['Encoder 755HS',S.encOk,'ACTIVE','DISCONNECTED'],
+    ['X Homed',S.homed.x,'HOMED','NOT HOMED'],
+    ['Y Homed',S.homed.y,'HOMED','NOT HOMED'],
+    ['Z Homed',S.homed.z,'HOMED','NOT HOMED'],
+    ['E-Stop',!S.estop,'CLEAR','ACTIVE'],
+    ['Touch X',S.touchActive.x,'ACTIVE','OFF'],
+    ['Touch Y',S.touchActive.y,'ACTIVE','OFF'],
+    ['Touch Z',S.touchActive.z,'ACTIVE','OFF'],
+  ];
+  const t=document.getElementById('diag-tbl');
+  t.innerHTML='<tr><th>Component</th><th>Status</th></tr>';
+  rows.forEach(([c,ok,yes,no])=>{
+    t.innerHTML+=`<tr><td>${c}</td><td style="color:${ok?'#006400':'#800000'};font-weight:bold">${ok?yes:no}</td></tr>`;
+  });
+  showModal2('diag-selftest');
+}
+
+/* ═══════════════════════════════════════════════
+   CANVAS
+═══════════════════════════════════════════════ */
+let canvas,ctx;
 function initCanvas(){
   canvas=document.getElementById('cc');
   const r=()=>{const p=canvas.parentElement;canvas.width=p.clientWidth;canvas.height=p.clientHeight;};
@@ -897,153 +1131,319 @@ function initCanvas(){
   (function loop(){draw();requestAnimationFrame(loop);})();
 }
 
-function draw(){
-  if(!canvas)return;
-  const W=canvas.width,H=canvas.height;
-  if(!W||!H)return;
-  ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#c0c0c0';ctx.fillRect(0,0,W,H);
-
-  const vm=S.viewMode;
-  const pad=28;
-
-  if(vm==='both'){
-    const topH=Math.floor(H*.56);
-    drawTop(pad,4,W-pad*2,topH-6);
-    const sy=topH+8;
-    drawSide(pad,sy,W-pad*2,H-sy-2);
-    ctx.strokeStyle='#808080';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,topH+1);ctx.lineTo(W,topH+1);ctx.stroke();
-    ctx.strokeStyle='#fff';ctx.beginPath();ctx.moveTo(0,topH+2);ctx.lineTo(W,topH+2);ctx.stroke();
-  }else if(vm==='top'){
-    drawTop(pad,4,W-pad*2,H-6);
-  }else{
-    drawSide(pad,4,W-pad*2,H-6);
-  }
-}
-
-function drawSunken(x,y,w,h){
+function sunken(x,y,w,h){
   ctx.strokeStyle='#808080';ctx.lineWidth=2;ctx.strokeRect(x-2,y-2,w+4,h+4);
   ctx.strokeStyle='#fff';ctx.strokeRect(x-1,y-1,w+2,h+2);
   ctx.fillStyle='#000';ctx.fillRect(x,y,w,h);
 }
-function drawHdr(x,y,w,txt){
+function hdr(x,y,w,txt){
   ctx.fillStyle='#404040';ctx.fillRect(x,y,w,15);
   ctx.fillStyle='#c0c0c0';ctx.font='bold 10px MS Sans Serif,Tahoma,Arial,sans-serif';
   ctx.fillText(txt,x+4,y+11);
 }
+function draw(){
+  if(!canvas)return;
+  const W=canvas.width,H=canvas.height;if(!W||!H)return;
+  ctx=canvas.getContext('2d');ctx.clearRect(0,0,W,H);ctx.fillStyle='#c0c0c0';ctx.fillRect(0,0,W,H);
+  const pad=28,vm=S.viewMode;
+  if(vm==='both'){
+    const th=Math.floor(H*.56);
+    drawTop(pad,4,W-pad*2,th-6);
+    const sy=th+8;drawSide(pad,sy,W-pad*2,H-sy-2);
+    ctx.strokeStyle='#808080';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,th+1);ctx.lineTo(W,th+1);ctx.stroke();
+    ctx.strokeStyle='#fff';ctx.beginPath();ctx.moveTo(0,th+2);ctx.lineTo(W,th+2);ctx.stroke();
+  }else if(vm==='top'){drawTop(pad,4,W-pad*2,H-6);}
+  else{drawSide(pad,4,W-pad*2,H-6);}
+}
 
+function rect(x,y,w,h,fill,stroke,lw){
+  ctx.fillStyle=fill;ctx.fillRect(x,y,w,h);
+  if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1;ctx.strokeRect(x,y,w,h);}
+}
+function label(x,y,txt,col,sz,align){
+  ctx.fillStyle=col;ctx.font=(sz||9)+'px Courier New,monospace';
+  ctx.textAlign=align||'left';ctx.fillText(txt,x,y);ctx.textAlign='left';
+}
+function dim(x1,y1,x2,y2,txt,col){
+  col=col||'#555';
+  ctx.strokeStyle=col;ctx.lineWidth=0.8;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  const ang=Math.atan2(y2-y1,x2-x1);
+  [[x1,y1,ang+Math.PI],[x2,y2,ang]].forEach(([ax,ay,a])=>{
+    ctx.beginPath();ctx.moveTo(ax,ay);
+    ctx.lineTo(ax+Math.cos(a-0.4)*6,ay+Math.sin(a-0.4)*6);
+    ctx.lineTo(ax+Math.cos(a+0.4)*6,ay+Math.sin(a+0.4)*6);
+    ctx.closePath();ctx.fillStyle=col;ctx.fill();
+  });
+  if(txt){const mx=(x1+x2)/2,my=(y1+y2)/2;ctx.fillStyle=col;ctx.font='8px Courier New,monospace';ctx.textAlign='center';ctx.fillText(txt,mx,my-3);ctx.textAlign='left';}
+}
+
+/* ── TOP VIEW ── */
 function drawTop(fx,fy,fw,fh){
-  drawSunken(fx,fy,fw,fh);
-  drawHdr(fx,fy,fw,'TOP VIEW — XY PLANE');
-  const iy=fy+17,ih=fh-19;
-  // grid
-  ctx.strokeStyle='#0a1a0a';ctx.lineWidth=0.5;
-  for(let gx=fx;gx<fx+fw;gx+=28){ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
-  for(let gy=iy;gy<iy+ih;gy+=28){ctx.beginPath();ctx.moveTo(fx,gy);ctx.lineTo(fx+fw,gy);ctx.stroke();}
-  // boundary
-  ctx.strokeStyle='#003300';ctx.lineWidth=1;ctx.setLineDash([4,3]);
-  ctx.strokeRect(fx+3,iy+3,fw-6,ih-6);ctx.setLineDash([]);
-  ctx.fillStyle='#00aa00';ctx.font='9px Courier New,monospace';
-  ctx.fillText('37,000 mm (Y)',fx+fw/2-28,iy+ih-4);
-  ctx.save();ctx.translate(fx+10,iy+ih/2+18);ctx.rotate(-Math.PI/2);
-  ctx.fillText('10,235 mm (X)',0,0);ctx.restore();
-  // rails
-  ctx.strokeStyle='#555';ctx.lineWidth=5;
-  ctx.beginPath();ctx.moveTo(fx+6,iy+4);ctx.lineTo(fx+6,iy+ih-4);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(fx+fw-6,iy+4);ctx.lineTo(fx+fw-6,iy+ih-4);ctx.stroke();
-  ctx.strokeStyle='#888';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(fx+4,iy+4);ctx.lineTo(fx+4,iy+ih-4);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(fx+fw-4,iy+4);ctx.lineTo(fx+fw-4,iy+ih-4);ctx.stroke();
-  // bridge
-  const yp=S.pos.y/37000,by=iy+4+yp*(ih-8);
-  ctx.strokeStyle='#00cc00';ctx.lineWidth=4;
-  ctx.beginPath();ctx.moveTo(fx+6,by);ctx.lineTo(fx+fw-6,by);ctx.stroke();
-  ctx.fillStyle='#00aa00';ctx.fillRect(fx+4,by-4,6,8);ctx.fillRect(fx+fw-10,by-4,6,8);
-  ctx.fillStyle='#00cc00';ctx.font='9px Courier New,monospace';ctx.fillText('BRIDGE',fx+fw-52,by-5);
-  // trolley
-  const xp=S.pos.x/10235,tx2=fx+6+xp*(fw-12);
-  ctx.strokeStyle='#660000';ctx.lineWidth=0.7;ctx.setLineDash([2,4]);
+  sunken(fx,fy,fw,fh);
+  hdr(fx,fy,fw,'PLAN VIEW (TOP) — XY   Cross Travel: 10,235 mm   Long Travel: 37,000 mm');
+  const pad2=38,iy=fy+18,ih=fh-22;
+  const ix=fx+pad2,iw=fw-pad2-10;
+  ctx.fillStyle='#111';ctx.fillRect(ix,iy,iw,ih);
+  ctx.strokeStyle='#1a1a1a';ctx.lineWidth=0.5;
+  const gStep=Math.round(iw/20);
+  for(let gx=ix;gx<=ix+iw;gx+=gStep){ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
+  const gStepY=Math.round(ih/20);
+  for(let gy=iy;gy<=iy+ih;gy+=gStepY){ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
+  ctx.strokeStyle='#2a2a2a';ctx.lineWidth=1;ctx.setLineDash([4,4]);
+  ctx.strokeRect(ix+1,iy+1,iw-2,ih-2);ctx.setLineDash([]);
+
+  const rlW=6;
+  const nBrackets=10;
+  for(let i=0;i<=nBrackets;i++){
+    const by2=iy+i*(ih/nBrackets);
+    rect(ix,by2-2,rlW*2,4,'#2a3a55','#3a4a66',0.5);
+    rect(ix+iw-rlW*2,by2-2,rlW*2,4,'#2a3a55','#3a4a66',0.5);
+  }
+  rect(ix,iy,rlW,ih,'#1e3060','#3a5090',1);
+  rect(ix+iw-rlW,iy,rlW,ih,'#1e3060','#3a5090',1);
+  ctx.strokeStyle='#5577bb';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(ix+rlW/2,iy);ctx.lineTo(ix+rlW/2,iy+ih);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ix+iw-rlW/2,iy);ctx.lineTo(ix+iw-rlW/2,iy+ih);ctx.stroke();
+
+  // Use absolute positions for canvas (machine coordinates)
+  const yp=S.absPos.y/37000;
+  const by=iy+4+yp*(ih-8);
+  const girderH=9,girderY=by-girderH/2;
+  const truckW=12,truckH=girderH+4;
+  rect(ix,girderY-2,truckW,truckH,'#2a4477','#4466aa',1);
+  rect(ix+iw-truckW,girderY-2,truckW,truckH,'#2a4477','#4466aa',1);
+  [[ix+4,girderY],[ix+4,girderY+truckH-2],[ix+iw-4,girderY],[ix+iw-4,girderY+truckH-2]].forEach(([wx,wy])=>{
+    ctx.beginPath();ctx.arc(wx,wy,2.5,0,Math.PI*2);ctx.fillStyle='#111';ctx.fill();ctx.strokeStyle='#556688';ctx.lineWidth=0.8;ctx.stroke();
+  });
+  rect(ix+truckW,girderY,iw-truckW*2,girderH,'#1a3060','#2a4888',1);
+  ctx.strokeStyle='#2a4070';ctx.lineWidth=0.8;
+  for(let r=1;r<8;r++){const rx2=ix+truckW+r*(iw-truckW*2)/8;ctx.beginPath();ctx.moveTo(rx2,girderY+1);ctx.lineTo(rx2,girderY+girderH-1);ctx.stroke();}
+  ctx.strokeStyle='#4466bb';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(ix+truckW,girderY);ctx.lineTo(ix+iw-truckW,girderY);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ix+truckW,girderY+girderH);ctx.lineTo(ix+iw-truckW,girderY+girderH);ctx.stroke();
+
+  const xp=S.absPos.x/10235;
+  const tx2=ix+rlW+xp*(iw-rlW*2);
+  const tW=14,tH=14;
+  ctx.beginPath();ctx.arc(tx2,by,tW*0.9,0,Math.PI*2);ctx.fillStyle='rgba(0,255,136,0.04)';ctx.fill();
+  rect(tx2-tW/2,by-tH/2,tW,tH,'#1a4433','#33cc88',1.5);
+  rect(tx2-4,by-3,8,6,'#0f2a22','#22aa66',0.8);
+
+  // Crosshair
+  ctx.strokeStyle='rgba(255,80,80,0.25)';ctx.lineWidth=0.7;ctx.setLineDash([2,5]);
   ctx.beginPath();ctx.moveTo(tx2,iy);ctx.lineTo(tx2,iy+ih);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(fx,by);ctx.lineTo(fx+fw,by);ctx.stroke();
+  ctx.strokeStyle='rgba(0,255,136,0.2)';
+  ctx.beginPath();ctx.moveTo(ix,by);ctx.lineTo(ix+iw,by);ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle='rgba(200,0,0,.18)';ctx.strokeStyle='#cc0000';ctx.lineWidth=2;
-  ctx.beginPath();ctx.arc(tx2,by,7,0,Math.PI*2);ctx.fill();ctx.stroke();
-  ctx.fillStyle='#ff6666';ctx.font='bold 10px Courier New,monospace';ctx.fillText('X:'+S.pos.x.toFixed(1),tx2+10,by-4);
-  ctx.fillStyle='#66ff66';ctx.fillText('Y:'+S.pos.y.toFixed(1),tx2+10,by+13);
-  // target
-  if(S.target.x!==null||S.target.y!==null){
-    const txp=(S.target.x??S.pos.x)/10235,typ=(S.target.y??S.pos.y)/37000;
-    const ttx=fx+6+txp*(fw-12),tty=iy+4+typ*(ih-8);
-    ctx.strokeStyle='#dddd00';ctx.lineWidth=1;ctx.setLineDash([2,3]);
-    ctx.beginPath();ctx.moveTo(ttx-10,tty);ctx.lineTo(ttx+10,tty);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(ttx,tty-10);ctx.lineTo(ttx,tty+10);ctx.stroke();
+
+  // Labels show DISPLAYED position
+  const lblX=tx2+tW/2+5,lblY=by-8;
+  ctx.fillStyle='#33cc88';ctx.font='bold 9px Courier New,monospace';ctx.fillText('TROLLEY',lblX,lblY);
+  ctx.fillStyle='#ff6666';ctx.font='9px Courier New,monospace';ctx.fillText('X: '+dispPos('x').toFixed(0)+'mm',lblX,lblY+10);
+  ctx.fillStyle='#66cc66';ctx.fillText('Y: '+dispPos('y').toFixed(0)+'mm',lblX,lblY+20);
+
+  // Zero reference markers
+  if(S.zeroRef.x!==0||S.zeroRef.y!==0){
+    const zxp=S.zeroRef.x/10235;
+    const zyp=S.zeroRef.y/37000;
+    const ztx=ix+rlW+zxp*(iw-rlW*2);
+    const zty=iy+4+zyp*(ih-8);
+    ctx.strokeStyle='rgba(0,200,255,0.5)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(ztx-6,zty);ctx.lineTo(ztx+6,zty);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ztx,zty-6);ctx.lineTo(ztx,zty+6);ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle='#dddd00';ctx.font='9px Courier New,monospace';ctx.fillText('TARGET',ttx+4,tty-4);
+    ctx.fillStyle='rgba(0,200,255,0.7)';ctx.font='8px Courier New,monospace';ctx.fillText('ZERO',ztx+4,zty-2);
   }
+
+  // Target
+  if(S.target.x!==null||S.target.y!==null){
+    const txp2=(S.target.x??S.absPos.x)/10235;
+    const typ2=(S.target.y??S.absPos.y)/37000;
+    const ttx=ix+rlW+txp2*(iw-rlW*2);
+    const tty=iy+4+typ2*(ih-8);
+    ctx.strokeStyle='#dddd00';ctx.lineWidth=1;ctx.setLineDash([2,3]);
+    ctx.beginPath();ctx.moveTo(ttx-8,tty);ctx.lineTo(ttx+8,tty);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ttx,tty-8);ctx.lineTo(ttx,tty+8);ctx.stroke();
+    ctx.setLineDash([]);
+    label(ttx+5,tty-3,'TARGET','#dddd00',8);
+  }
+
+  const dimY=iy-6;
+  dim(ix+rlW,dimY,ix+iw-rlW,dimY,'10,235 mm (Cross Travel)','#2a4466');
+  ctx.save();ctx.translate(fx+6,iy+ih/2);ctx.rotate(-Math.PI/2);
+  dim(-ih/2,0,ih/2,0,'37,000 mm (Long Travel)','#2a4466');ctx.restore();
+
+  // North arrow
+  const nx=ix+iw-14,ny=iy+14;
+  ctx.strokeStyle='#444';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(nx,ny+8);ctx.lineTo(nx,ny-8);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(nx,ny-8);ctx.lineTo(nx-4,ny-2);ctx.lineTo(nx+4,ny-2);ctx.closePath();ctx.fillStyle='#444';ctx.fill();
+  label(nx-2,ny+16,'N','#444',8,'center');
 }
 
+/* ── SIDE VIEW ── */
 function drawSide(fx,sy,fw,sh){
-  drawSunken(fx,sy,fw,sh);
-  drawHdr(fx,sy,fw,'SIDE VIEW — HOIST (Z AXIS)');
-  const ground=sy+sh-16,craneX=fx+fw/2,craneTop=sy+19,craneH=ground-craneTop;
-  ctx.strokeStyle='#555';ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(fx+2,ground);ctx.lineTo(fx+fw-2,ground);ctx.stroke();
-  ctx.fillStyle='#888';ctx.font='9px Courier New,monospace';ctx.fillText('GROUND LEVEL',fx+4,ground+11);
-  ctx.strokeStyle='#666';ctx.lineWidth=6;
-  ctx.beginPath();ctx.moveTo(craneX-55,craneTop);ctx.lineTo(craneX+55,craneTop);ctx.stroke();
-  ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(craneX-55,craneTop);ctx.lineTo(craneX-55,craneTop+10);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(craneX+55,craneTop);ctx.lineTo(craneX+55,craneTop+10);ctx.stroke();
-  ctx.fillStyle='#888';[-55,55].forEach(dx=>{ctx.beginPath();ctx.arc(craneX+dx,craneTop,3,0,Math.PI*2);ctx.fill();});
-  const zp=S.pos.z/6000,hookY=craneTop+18+zp*(craneH-36);
-  ctx.strokeStyle='#336688';ctx.lineWidth=1.5;ctx.setLineDash([3,2]);
-  ctx.beginPath();ctx.moveTo(craneX,craneTop+18);ctx.lineTo(craneX,hookY);ctx.stroke();ctx.setLineDash([]);
-  ctx.fillStyle='rgba(68,136,200,.2)';ctx.strokeStyle='#4488cc';ctx.lineWidth=2;
-  ctx.beginPath();ctx.arc(craneX,hookY,6,0,Math.PI*2);ctx.fill();ctx.stroke();
-  ctx.fillStyle='#8888ff';ctx.font='bold 10px Courier New,monospace';ctx.fillText('Z: '+S.pos.z.toFixed(1)+' mm',craneX+12,hookY+4);
-  // ruler
-  const rx=fx+22;ctx.strokeStyle='#333';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(rx,craneTop+18);ctx.lineTo(rx,ground-16);ctx.stroke();
+  sunken(fx,sy,fw,sh);
+  hdr(fx,sy,fw,'ELEVATION VIEW (FRONT) — Z Hoist: 0 – 6,000 mm');
+  const padL=52,padR=12,padT=18,padB=22;
+  const ix=fx+padL,iw=fw-padL-padR;
+  const iy=sy+padT,ih=sh-padT-padB;
+  ctx.fillStyle='#0e0e0e';ctx.fillRect(ix,iy,iw,ih);
+  ctx.strokeStyle='#181818';ctx.lineWidth=0.5;
+  const gs2=Math.round(iw/16);
+  for(let gx=ix;gx<=ix+iw;gx+=gs2){ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
+  for(let i=0;i<=6;i++){const gy=iy+i*(ih/6);ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
+
+  const ground=iy+ih;
+  rect(ix,ground-4,iw,4,'#222','#333',0.8);
+  for(let hx=ix;hx<ix+iw;hx+=8){ctx.strokeStyle='#1a1a1a';ctx.lineWidth=0.6;ctx.beginPath();ctx.moveTo(hx,ground-4);ctx.lineTo(hx-4,ground+2);ctx.stroke();}
+  label(ix+2,ground+12,'GROUND LEVEL (±0)','#333',8);
+
+  const colW=10,colH=ih;
+  rect(ix,iy,colW,colH,'#1a2030','#2a3050',0.8);
+  rect(ix+iw-colW,iy,colW,colH,'#1a2030','#2a3050',0.8);
+  ctx.strokeStyle='#2a3555';ctx.lineWidth=0.8;
+  [ix+colW/2,ix+iw-colW/2].forEach(cx=>{ctx.beginPath();ctx.moveTo(cx,iy);ctx.lineTo(cx,iy+colH);ctx.stroke();});
+
+  const runwayH=12,runwayY=iy+ih*0.25;
+  rect(ix,runwayY,colW,runwayH,'#1e3060','#3a5090',1);
+  rect(ix+iw-colW,runwayY,colW,runwayH,'#1e3060','#3a5090',1);
+  rect(ix+2,runwayY-3,colW-4,3,'#2a4488','#5577bb',0.8);
+  rect(ix+iw-colW+2,runwayY-3,colW-4,3,'#2a4488','#5577bb',0.8);
+
+  const truckBaseY=runwayY+runwayH,truckBodyH=10,truckBodyW=20;
+  rect(ix+colW/2-truckBodyW/2,truckBaseY,truckBodyW,truckBodyH,'#2a4477','#4466aa',1);
+  rect(ix+iw-colW/2-truckBodyW/2,truckBaseY,truckBodyW,truckBodyH,'#2a4477','#4466aa',1);
+  [[ix+colW/2-5,truckBaseY+truckBodyH],[ix+colW/2+5,truckBaseY+truckBodyH],
+   [ix+iw-colW/2-5,truckBaseY+truckBodyH],[ix+iw-colW/2+5,truckBaseY+truckBodyH]].forEach(([wx,wy])=>{
+    ctx.beginPath();ctx.arc(wx,wy,3.5,0,Math.PI*2);ctx.fillStyle='#111';ctx.fill();ctx.strokeStyle='#4466aa';ctx.lineWidth=0.8;ctx.stroke();
+  });
+
+  const girderBaseY=truckBaseY+truckBodyH,girderH2=16,girderW=iw-colW*2,girderX=ix+colW;
+  rect(girderX,girderBaseY,girderW,girderH2,'#162040','#2a4080',1);
+  rect(girderX-2,girderBaseY,girderW+4,3,'#1e3060','#3a5898',1);
+  rect(girderX-2,girderBaseY+girderH2-3,girderW+4,3,'#1e3060','#3a5898',1);
+
+  const trolleyRailY=girderBaseY+girderH2;
+  const xp2=S.absPos.x/10235;
+  const trolleyX=girderX+xp2*girderW;
+  const tW2=18,tH2=12;
+  rect(trolleyX-tW2/2,trolleyRailY,tW2,tH2,'#0f3325','#22aa66',1.5);
+  rect(trolleyX-6,trolleyRailY-8,12,8,'#0a2218','#1a8855',1);
+  [[trolleyX-6,trolleyRailY+tH2],[trolleyX+6,trolleyRailY+tH2]].forEach(([wx,wy])=>{
+    ctx.beginPath();ctx.arc(wx,wy,3,0,Math.PI*2);ctx.fillStyle='#111';ctx.fill();ctx.strokeStyle='#22aa66';ctx.lineWidth=0.8;ctx.stroke();
+  });
+  ctx.fillStyle='#ff6666';ctx.font='bold 8px Courier New,monospace';ctx.textAlign='center';
+  ctx.fillText('X:'+dispPos('x').toFixed(0)+'mm',trolleyX,trolleyRailY-16);ctx.textAlign='left';
+
+  const ropeTopY=trolleyRailY+tH2;
+  const zp=S.absPos.z/6000;
+  const hookBlockH=14;
+  const ropeSpace=ground-ropeTopY-hookBlockH-12;
+  const hookBlockY=ropeTopY+4+zp*ropeSpace;
+
+  [-5,-2,2,5].forEach((offset,i)=>{
+    const rx2=trolleyX+offset;
+    ctx.strokeStyle=i<2?'#667788':'#556677';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(rx2,ropeTopY);ctx.lineTo(rx2,hookBlockY);ctx.stroke();
+  });
+  ctx.beginPath();ctx.arc(trolleyX,ropeTopY,5,0,Math.PI*2);ctx.strokeStyle='#446655';ctx.lineWidth=0.8;ctx.stroke();
+
+  const hbW=22,hbBodyH=10;
+  rect(trolleyX-hbW/2,hookBlockY,hbW,hbBodyH,'#2a2a0a','#888822',1.2);
+  ctx.strokeStyle='#666611';ctx.lineWidth=0.5;
+  ctx.beginPath();ctx.moveTo(trolleyX-hbW/2+2,hookBlockY+hbBodyH/2);ctx.lineTo(trolleyX+hbW/2-2,hookBlockY+hbBodyH/2);ctx.stroke();
+  ctx.beginPath();ctx.arc(trolleyX,hookBlockY+hbBodyH/2,4,0,Math.PI*2);ctx.strokeStyle='#777722';ctx.lineWidth=0.8;ctx.stroke();
+  ctx.strokeStyle='#ccaa33';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(trolleyX,hookBlockY+hbBodyH);ctx.lineTo(trolleyX,hookBlockY+hbBodyH+8);ctx.stroke();
+  ctx.strokeStyle='#ccaa33';ctx.lineWidth=3;ctx.lineCap='round';
+  const hx=trolleyX,hy=hookBlockY+hbBodyH+8;
+  ctx.beginPath();
+  ctx.moveTo(hx,hy);ctx.bezierCurveTo(hx+2,hy+6,hx+10,hy+6,hx+10,hy+12);
+  ctx.bezierCurveTo(hx+10,hy+18,hx+4,hy+20,hx-2,hy+18);
+  ctx.bezierCurveTo(hx-7,hy+16,hx-6,hy+11,hx-2,hy+10);
+  ctx.stroke();ctx.lineCap='butt';
+  ctx.beginPath();ctx.arc(hx,hy+2,2.5,0,Math.PI*2);ctx.fillStyle='#aa8822';ctx.fill();ctx.strokeStyle='#ddaa44';ctx.lineWidth=0.5;ctx.stroke();
+
+  ctx.strokeStyle='rgba(100,150,255,0.15)';ctx.lineWidth=0.8;ctx.setLineDash([2,4]);
+  ctx.beginPath();ctx.moveTo(trolleyX,hookBlockY+hbBodyH+28);ctx.lineTo(trolleyX,ground-4);ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Z dimension shows displayed position
+  const dimX=ix+iw+4;
+  dim(dimX,hookBlockY+hbBodyH,dimX,ground-4,'Z: '+dispPos('z').toFixed(0)+'mm','#4488ff');
+
+  // Ruler
+  const rulerX=fx+padL-8;
+  ctx.strokeStyle='#2a2a2a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rulerX,iy);ctx.lineTo(rulerX,ground);ctx.stroke();
   for(let i=0;i<=6;i++){
-    const ry=craneTop+18+(i/6)*(craneH-36);
-    ctx.beginPath();ctx.moveTo(rx-5,ry);ctx.lineTo(rx+5,ry);ctx.stroke();
-    ctx.fillStyle='#555';ctx.font='8px Courier New,monospace';ctx.fillText(i*1000+'',rx-30,ry+3);
+    const ry2=iy+(i/6)*(ground-iy);
+    ctx.strokeStyle='#333';ctx.lineWidth=0.8;ctx.beginPath();ctx.moveTo(rulerX-4,ry2);ctx.lineTo(rulerX+4,ry2);ctx.stroke();
+    ctx.fillStyle='#444';ctx.font='8px Courier New,monospace';ctx.textAlign='right';ctx.fillText(i*1000,rulerX-6,ry2+3);ctx.textAlign='left';
   }
-  ctx.fillStyle='#555';ctx.font='8px Courier New,monospace';ctx.fillText('mm',rx-16,craneTop+14);
+  label(fx+2,iy-2,'Z(mm)','#333',8);
+
+  // Motion indicator
+  const anyMoving=Object.values(S.moving).some(v=>v);
+  if(anyMoving&&S.hz>0){
+    const zoneCol=S.hz>=40?'#ff4444':S.hz>=10?'#ffaa00':'#ff6600';
+    ctx.fillStyle=zoneCol;ctx.font='bold 8px Courier New,monospace';
+    ctx.fillText(S.hz>=40?'FAST 40Hz':S.hz>=10?'SLOW 10Hz':'CREEP 2.5Hz',ix+2,iy+8);
+  }
+
+  // Touch ON indicator on trolley
+  if(S.touchActive.x||S.touchActive.y){
+    ctx.strokeStyle='#00ffaa';ctx.lineWidth=1.5;ctx.setLineDash([2,2]);
+    ctx.strokeRect(trolleyX-tW2/2-2,trolleyRailY-2,tW2+4,tH2+4);
+    ctx.setLineDash([]);
+    ctx.fillStyle='#00ffaa';ctx.font='bold 8px Courier New,monospace';ctx.textAlign='center';
+    ctx.fillText('TOUCH ON',trolleyX,trolleyRailY-25);ctx.textAlign='left';
+  }
 }
 
-/* ─── STARTUP SIMULATION ─────────────────────── */
-S.loraOk=false;S.vfdOk=false;S.encOk=false;
+/* ═══════════════════════════════════════════════
+   STARTUP SIMULATION
+═══════════════════════════════════════════════ */
 function simulateConnection(){
   const seq=[
-    [2,'SYS','Initialising — scanning COM ports…','info'],
-    [4,'LORA','LoRa32 v2.1 detected on COM3 (sim)','ok'],
-    [5,'LORA','868.1 MHz, SF5, BW 125 kHz','info'],
-    [6,'MBUS','TX → [02][03][00 01][00 04] — read 4 regs from 0001h','info'],
-    [8,'VFD','MEMOBUS ACK: BC1-01=03 H5-01=02 C1-02=0.5s — S1000 online','ok'],
-    [9,'MBUS','RX ← [02][06][00 01][00 01] — Cmd Word=0x0001 (Ready)','ok'],
-    [11,'ENC','Encoder 755HS on GPIO34/35: 2000PPR 0.0196mm/ct','ok'],
-    [13,'LORA','Link established RSSI:-72dBm SNR:+8.4dB','ok'],
-    [15,'SYS','All systems online. Loop: 4ms. Pkts: 10/s.','ok'],
-    [16,'SYS','*** HOME ALL AXES before commencing travel ***','warn'],
+    [2,'SYS','Scanning COM ports for ESP32…','info'],
+    [4,'LORA','LoRa32 detected on COM3','ok'],
+    [5,'LORA','868.1 MHz SF5 BW125kHz','info'],
+    [6,'MBUS','TX → 02 03 00 20 00 01 84 0A ← poll status','info'],
+    [8,'VFD','S1000 online — BC1-01=03 H5-01=02','ok'],
+    [9,'MBUS','RX ← 02 03 02 00 01 — Status=0x0001 (Ready)','ok'],
+    [10,'MBUS','TX → 02 06 00 01 00 01 D9 CA ← Cmd=Ready','info'],
+    [11,'ENC','Encoder 755HS: GPIO34/35 2000PPR 0.0196mm/ct','ok'],
+    [13,'LORA','Link: RSSI -72dBm SNR +8.4dB','ok'],
+    [14,'SYS','v2.0: Touch ON/OFF jog, per-axis stop, dual homing active','info'],
+    [15,'SYS','All systems online. Loop 4ms. 10 pkts/s.','ok'],
+    [16,'SYS','HOME ALL AXES before travel (end-limit or Set Zero Here)','warn'],
   ];
   let t=0;
   const iv=setInterval(()=>{
     t++;
-    seq.forEach(([tick,tag,msg,level])=>{if(t===tick)log(tag,msg,level);});
-    if(t===4){setLed('lora','yellow');setText('lora-txt','LoRa 868 MHz — LINKING');}
-    if(t===8){S.vfdOk=true;setLed('vfd','green');setText('vfd-txt','VFD S1000 — ONLINE');}
-    if(t===11){S.encOk=true;setLed('enc','green');setText('enc-txt','Encoder 755HS — ACTIVE');}
-    if(t===13){S.loraOk=true;setLed('lora','green');setText('lora-txt','LoRa 868 MHz — LINKED');}
+    seq.forEach(([tick,tag,msg,lv])=>{if(t===tick)log(tag,msg,lv);});
+    if(t===4){setL('lora','yellow');setT('lora-txt','LoRa 868 MHz — LINKING');}
+    if(t===8){S.vfdOk=true;setL('vfd','green');setT('vfd-txt','VFD S1000 — ONLINE');}
+    if(t===11){S.encOk=true;setL('enc','green');setT('enc-txt','Encoder 755HS — ACTIVE');}
+    if(t===13){S.loraOk=true;setL('lora','green');setT('lora-txt','LoRa 868 MHz — LINKED');}
     if(t===15){document.getElementById('loop-s').textContent='4 ms';document.getElementById('pkt-s').textContent='10/s';}
+    if(t===9){
+      const f=mbFrame(0x02,0x06,0x0001,0x0001);
+      showMbFrame('STARTUP — set drive Ready',[f],'Reg 0001h=0x0001 (Ready). Sent on connection.');
+      mbLog('tx',toHex(f)+' ← STARTUP READY');
+      setTimeout(()=>mbLog('rx','02 06 00 01 00 01 D9 CA ← ACK'),180);
+    }
     if(t>=16)clearInterval(iv);
   },700);
 }
-function setLed(id,cls){document.getElementById(id+'-led').className='led '+cls;}
-function setText(id,txt){document.getElementById(id).textContent=txt;}
+function setL(id,cls){document.getElementById(id+'-led').className='led '+cls;}
+function setT(id,txt){document.getElementById(id).textContent=txt;}
 
-/* ─── SLIDERS ────────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   SLIDERS / CLOCK / POLL SIM
+═══════════════════════════════════════════════ */
 document.getElementById('feed-slider').addEventListener('input',function(){
   S.feedOverride=parseInt(this.value);
   document.getElementById('feed-pct').textContent=S.feedOverride+'%';
@@ -1053,54 +1453,44 @@ document.getElementById('jog-speed').addEventListener('input',function(){
   S.jogSpeed=parseInt(this.value);
   document.getElementById('jog-spd-val').textContent=S.jogSpeed+'%';
 });
-
-/* ─── CLOCK ──────────────────────────────────── */
 setInterval(()=>{document.getElementById('clock').textContent=new Date().toTimeString().slice(0,8);},1000);
 document.getElementById('clock').textContent=new Date().toTimeString().slice(0,8);
 
-/* ─── VFD CURRENT SIM ────────────────────────── */
+// VFD current sim
 setInterval(()=>{
   const mv=Object.values(S.moving).some(v=>v);
   document.getElementById('vfd-amp').textContent=(mv?(Math.random()*.8+1.8).toFixed(1):'0.0')+' A';
   document.getElementById('vfd-amp').className='vv'+(mv?' active':'');
+  // Update hz display from any active axis
+  const hz=S.hz;
+  document.getElementById('act-hz').textContent=hz.toFixed(1)+' Hz';
 },300);
 
-/* ─── MEMOBUS TX LOG SIM ─────────────────────── */
-// Log MEMOBUS frames when motion starts/stops
-const _origStartMove=startMove;
+// Poll sim
+setInterval(()=>{
+  if(!S.vfdOk)return;
+  const f1=mbRead(0x02,0x03,0x0020,0x0001);
+  const f2=mbRead(0x02,0x03,0x0025,0x0001);
+  if(Math.random()<0.06){
+    mbLog('tx',toHex(f1)+' ← POLL status');
+    mbLog('rx',`02 03 02 ${S.hz>0?'0040':'0001'} .. ← Status`);
+    mbLog('tx',toHex(f2)+' ← POLL freq');
+    mbLog('rx',`02 03 02 ${Math.round(S.hz*100).toString(16).toUpperCase().padStart(4,'0')} .. ← ${S.hz.toFixed(1)}Hz`);
+  }
+},100);
 
-/* ─── INIT ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
 window.addEventListener('load',()=>{
   initCanvas();
-  log('SYS','EOT Crane Control System v1.0 — starting…');
-  log('SYS','SAC Ahmedabad — Phase 1: Cross Travel Automation');
+  log('SYS','EOT Crane Control System v2.0 — starting…');
+  log('SYS','SAC Ahmedabad | Phase 1: Cross Travel Automation');
+  log('SYS','VFD: YASKAWA S1000 MEMOBUS/RTU RS485 Addr=02 9600bps');
   log('SYS','Encoder: P+F 755HS 2000PPR 0.0196mm/count');
-  log('SYS','VFD: YASKAWA S1000 MEMOBUS/RTU RS485 Addr=02');
   simulateConnection();
   updateDRO();
-});
-
-// Patch startMove to log MEMOBUS frames
-const _sm=startMove;
-window._smPatched=true;
-// Override jogAxis and gotoAxis to add MBUS logging
-const _origJog=jogAxis;
-function jogAxisMbus(ax,dir){
-  if(!S.estop&&S.homed[ax]&&!S.moving[ax]){
-    const hz=HZ[S.speedMode];
-    const hx=Math.round(hz*100).toString(16).toUpperCase().padStart(4,'0');
-    const dirWord=dir>0?'0002':'0004';
-    log('MBUS',`TX → [02][10][00 01][00 02][04][00 ${dirWord}][00 ${hx}] — ${dir>0?'FWD':'REV'} ${hz}Hz`,'info');
-  }
-  jogAxis(ax,dir);
-}
-// replace onclick
-document.querySelectorAll('[onclick]').forEach(el=>{
-  const oc=el.getAttribute('onclick');
-  if(oc&&oc.startsWith('jogAxis(')){
-    const [,ax,dir]=oc.match(/jogAxis\('(\w+)',(-?\d+)\)/);
-    el.onclick=()=>jogAxisMbus(ax,parseInt(dir));
-  }
+  updateHS();
 });
 </script>
 </body>
