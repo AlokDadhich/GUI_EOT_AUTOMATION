@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>EOT Crane Control System v2.0 — SAC Ahmedabad</title>
+<title>EOT Crane Control System v2.2 — SAC Ahmedabad</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100vh;overflow:hidden;background:#008080;font-family:'MS Sans Serif',Tahoma,Geneva,Arial,sans-serif;font-size:11px;color:#000;user-select:none}
@@ -60,8 +60,6 @@ html,body{height:100vh;overflow:hidden;background:#008080;font-family:'MS Sans S
 .btn:active{border-color:#808080 #fff #fff #808080;box-shadow:inset -1px -1px 0 #dfdfdf;padding:4px 9px 2px 11px}
 .br{display:flex;gap:4px;margin-bottom:4px}
 .bf{width:100%;margin-bottom:4px}
-
-/* ══ TOUCH JOG BUTTONS ══ */
 .jog-axis-block{margin-bottom:8px;border:1px solid #999;padding:5px}
 .jog-axis-title{font-size:11px;font-weight:bold;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
 .jog-row{display:flex;gap:3px;align-items:center;margin-bottom:3px}
@@ -73,13 +71,9 @@ html,body{height:100vh;overflow:hidden;background:#008080;font-family:'MS Sans S
 .stop-axis-btn.inactive{background:#808080;color:#c0c0c0;border-color:#a0a0a0 #404040 #404040 #a0a0a0}
 .setzero-btn{padding:3px 4px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:10px;background:#004488;color:#88ccff;border:2px solid;border-color:#88ccff #002244 #002244 #88ccff;cursor:default;text-align:center;white-space:nowrap}
 .setzero-btn:active{border-color:#002244 #88ccff #88ccff #002244}
-
-/* ══ HOME ROW ══ */
 .home-row{display:flex;gap:3px;margin-top:3px}
 .home-endlimit-btn{flex:1;padding:4px 2px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:10px;background:#003300;color:#88ff88;border:2px solid;border-color:#66cc66 #001100 #001100 #66cc66;cursor:default;text-align:center}
 .home-endlimit-btn:active{border-color:#001100 #66cc66 #66cc66 #001100}
-
-/* ══ GOTO ══ */
 .inp{font-family:'Courier New',monospace;font-size:12px;background:#fff;color:#000;padding:2px 4px;border:2px solid;border-color:#808080 #fff #fff #808080;outline:none;width:100%}
 .inp:focus{border-color:#000080 #fff #fff #000080}
 select.sel{font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:11px;background:#fff;border:2px solid;border-color:#808080 #fff #fff #808080;padding:1px 2px;outline:none}
@@ -145,11 +139,32 @@ canvas#cc{display:block;flex:1;min-height:0}
 .estop-btn{width:100%;padding:9px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:13px;font-weight:bold;letter-spacing:1px;background:#c0c0c0;border:3px solid;border-color:#fff #808080 #808080 #fff;cursor:default;margin-bottom:4px;text-align:center}
 .estop-btn:active{border-color:#808080 #fff #fff #808080}
 .estop-btn.active{background:#cc0000;color:#fff;border-color:#ff6666 #660000 #660000 #ff6666}
-
-/* Touch status badge */
 .touch-status{font-size:10px;font-weight:bold;padding:1px 5px;border:1px solid;display:inline-block}
 .touch-status.on{background:#004400;color:#00ff00;border-color:#00aa00}
 .touch-status.off{background:#440000;color:#ff8888;border-color:#880000}
+
+/* ══ SCAN CONFIG ══ */
+.scan-gb{position:relative;border:2px solid;border-color:#808080 #fff #fff #808080;padding:14px 6px 8px;margin-bottom:5px;background:#d4d0c8}
+.scan-gb::before{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:#c0c0c0}
+.scan-gbt{position:absolute;top:-7px;left:8px;background:#d4d0c8;padding:0 4px;font-size:11px;font-weight:bold;color:#000080}
+.scan-table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:4px}
+.scan-table th{background:#000080;color:#fff;padding:3px 4px;text-align:center;font-size:10px;border:1px solid #000040}
+.scan-table td{padding:2px 3px;border:1px solid #808080;background:#c0c0c0;text-align:center;vertical-align:middle}
+.scan-table td:first-child{background:#d4d0c8;font-weight:bold;color:#800000;text-align:left;padding-left:5px}
+.scan-inp{font-family:'Courier New',monospace;font-size:11px;background:#fff;color:#000;padding:1px 3px;border:2px solid;border-color:#808080 #fff #fff #808080;outline:none;width:62px;text-align:right}
+.scan-inp:focus{border-color:#000080 #fff #fff #000080}
+.scan-inp.out-of-range{background:#ffe0e0;border-color:#cc0000 #fff #fff #cc0000;color:#800000}
+.scan-start-btn{width:100%;padding:7px;font-family:'MS Sans Serif',Tahoma,Arial,sans-serif;font-size:12px;font-weight:bold;letter-spacing:1px;background:#004400;color:#88ff88;border:2px solid;border-color:#66cc66 #001100 #001100 #66cc66;cursor:default;margin-bottom:4px;text-align:center}
+.scan-start-btn:active{border-color:#001100 #66cc66 #66cc66 #001100;padding:8px 7px 6px}
+.scan-start-btn.scanning{background:#880000;color:#ffaaaa;border-color:#ff6666 #440000 #440000 #ff6666}
+.scan-prog-wrap{border:2px solid;border-color:#808080 #fff #fff #808080;height:14px;background:#000;margin-bottom:4px;overflow:hidden}
+.scan-prog-bar{height:100%;background:#0088ff;width:0%;transition:width .1s linear}
+.scan-status{font-family:'Courier New',monospace;font-size:10px;color:#000080;margin-bottom:3px;line-height:1.5;min-height:28px}
+.scan-pts-counter{font-family:'Courier New',monospace;font-size:10px;font-weight:bold;color:#800000;text-align:right;margin-bottom:2px}
+.scan-estimate{font-size:10px;color:#555;font-style:italic}
+.scan-limit-note{font-size:10px;background:#f0f0e0;border:1px solid #888844;padding:3px 5px;margin-bottom:5px;color:#444;line-height:1.5}
+.scan-limit-note b{color:#800000}
+.scan-warn{font-size:10px;background:#ffe8e0;border:1px solid #cc4400;padding:3px 5px;margin-bottom:4px;color:#800000;display:none}
 
 ::-webkit-scrollbar{width:17px;height:17px}
 ::-webkit-scrollbar-track{background:#c0c0c0;border-left:1px solid #808080}
@@ -165,7 +180,7 @@ canvas#cc{display:block;flex:1;min-height:0}
 <div class="titlebar">
   <div class="tl">
     <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="11" width="14" height="2" fill="#c0c0c0"/><rect x="3" y="2" width="2" height="9" fill="#c0c0c0"/><rect x="3" y="2" width="9" height="2" fill="#c0c0c0"/><rect x="10" y="2" width="2" height="4" fill="#c0c0c0"/><rect x="6" y="4" width="1" height="7" fill="#ffff80"/><rect x="5" y="10" width="3" height="2" fill="#ffaa00"/></svg>
-    EOT Crane Control System v2.0 — SAC Ahmedabad &nbsp;|&nbsp; Phase 1: Cross Travel Automation
+    EOT Crane Control System v2.2 — SAC Ahmedabad &nbsp;|&nbsp; 3T × 10,235mm | Phase 1: Cross Travel Automation + Raster Scan
   </div>
   <div class="tbbtns"><div class="tbbtn">_</div><div class="tbbtn">□</div><div class="tbbtn">✕</div></div>
 </div>
@@ -174,6 +189,7 @@ canvas#cc{display:block;flex:1;min-height:0}
 <div class="menubar" id="menubar">
   <span class="mi" id="mi-view"   onclick="toggleMenu('view')"  ><u>V</u>iew</span>
   <span class="mi" id="mi-motion" onclick="toggleMenu('motion')"><u>M</u>otion</span>
+  <span class="mi" id="mi-scan"   onclick="toggleMenu('scan')"  ><u>S</u>can</span>
   <span class="mi" id="mi-config" onclick="toggleMenu('config')"><u>C</u>onfiguration</span>
   <span class="mi" id="mi-diag"   onclick="toggleMenu('diag')"  ><u>D</u>iagnostics</span>
   <span class="mi" id="mi-help"   onclick="toggleMenu('help')"  ><u>H</u>elp</span>
@@ -182,6 +198,7 @@ canvas#cc{display:block;flex:1;min-height:0}
     <div class="dmi" onclick="closeMenus();setView('both')">&#10003; Top + Side View</div>
     <div class="dmi" onclick="closeMenus();setView('top')">Top View Only</div>
     <div class="dmi" onclick="closeMenus();setView('side')">Side View Only</div>
+    <div class="dmi" onclick="closeMenus();setView('scan')">Scan Map View</div>
     <div class="dmi sep"></div>
     <div class="dmi" onclick="closeMenus();clearLog()">Clear Event Log</div>
   </div>
@@ -195,7 +212,16 @@ canvas#cc{display:block;flex:1;min-height:0}
     <div class="dmi sep"></div>
     <div class="dmi" onclick="closeMenus();triggerEstop()" style="color:#800000;font-weight:bold">Emergency Stop</div>
   </div>
-  <div class="dd" id="dd-config" style="left:82px">
+  <div class="dd" id="dd-scan" style="left:82px">
+    <div class="dmi" onclick="closeMenus();startScan()">▶ Start Raster Scan</div>
+    <div class="dmi" onclick="closeMenus();abortScan()">■ Abort Scan</div>
+    <div class="dmi sep"></div>
+    <div class="dmi" onclick="closeMenus();clearScanMap()">Clear Scan Map</div>
+    <div class="dmi" onclick="closeMenus();setView('scan')">Show Scan Map View</div>
+    <div class="dmi sep"></div>
+    <div class="dmi" onclick="closeMenus();fillFullRange()">Set Full Crane Range</div>
+  </div>
+  <div class="dd" id="dd-config" style="left:148px">
     <div class="dmi" onclick="closeMenus();showModal2('cfg-a1000')">A1000 VFD Parameters</div>
     <div class="dmi" onclick="closeMenus();showModal2('cfg-s1000')">S1000 VFD Parameters</div>
     <div class="dmi sep"></div>
@@ -203,7 +229,7 @@ canvas#cc{display:block;flex:1;min-height:0}
     <div class="dmi" onclick="closeMenus();log('CFG','Encoder: P+F 755HS 2000PPR 0.0196mm/count GPIO34/35','info')">Encoder Config</div>
     <div class="dmi" onclick="closeMenus();log('CFG','LoRa: 868.1MHz SF5 BW125kHz RSSI-72dBm','info')">LoRa Config</div>
   </div>
-  <div class="dd" id="dd-diag" style="left:182px">
+  <div class="dd" id="dd-diag" style="left:260px">
     <div class="dmi" onclick="closeMenus();showDiagSelfTest()">Run Self-Test</div>
     <div class="dmi" onclick="closeMenus();showModal2('diag-memobus')">MEMOBUS Protocol Reference</div>
     <div class="dmi sep"></div>
@@ -211,7 +237,7 @@ canvas#cc{display:block;flex:1;min-height:0}
     <div class="dmi" onclick="closeMenus();log('DIAG','Encoder 755HS: ACTIVE 0.0196mm/ct GPIO34/35','ok')">Encoder Status</div>
     <div class="dmi" onclick="closeMenus();log('DIAG','LoRa RSSI:-72dBm SNR:+8.4dB PktLoss:0%','ok')">LoRa Link Quality</div>
   </div>
-  <div class="dd" id="dd-help" style="left:266px">
+  <div class="dd" id="dd-help" style="left:344px">
     <div class="dmi" onclick="closeMenus();showModal2('about')">About This System</div>
     <div class="dmi sep"></div>
     <div class="dmi gray">hitech@hitechcranes.com</div>
@@ -236,6 +262,7 @@ canvas#cc{display:block;flex:1;min-height:0}
   <div class="tb-sep"></div>
   <span id="mode-badge" style="font-size:11px;font-weight:bold;color:#000080;padding:1px 8px;border:2px solid;border-color:#808080 #fff #fff #808080">MANUAL</span>
   <div style="flex:1"></div>
+  <span id="scan-badge" style="display:none;font-size:11px;font-weight:bold;color:#fff;background:#880000;padding:1px 8px;border:2px solid;border-color:#ff6666 #440000 #440000 #ff6666;margin-right:4px">● SCANNING</span>
   <span id="clock" style="font-family:'Courier New',monospace;font-size:11px;letter-spacing:1px;padding-right:4px">--:--:--</span>
 </div>
 
@@ -248,17 +275,20 @@ canvas#cc{display:block;flex:1;min-height:0}
     <div class="ab ax-x">
       <div class="ah"><span class="at">X — Cross Travel</span><span class="hb nothomed" id="xhb">NOT HOMED</span></div>
       <div class="dro nothomed" id="dro-x">0.000</div>
-      <div class="ar">Range: 0 – 10,235 mm &nbsp;|&nbsp; Zero ref: <span id="xzero-ref" style="font-family:'Courier New',monospace">0.000</span></div>
+      <div class="ar" style="margin-bottom:0">Display: <span id="xdisp-lbl" style="font-family:'Courier New',monospace">0.000</span> mm (rel. to zero)</div>
+      <div class="ar">Machine: <span id="xmach-lbl" style="font-family:'Courier New',monospace;color:#000080">0.000</span> mm | Lim: 0–10,235</div>
     </div>
     <div class="ab ax-y">
       <div class="ah"><span class="at">Y — Long Travel</span><span class="hb nothomed" id="yhb">NOT HOMED</span></div>
       <div class="dro nothomed" id="dro-y">0.000</div>
-      <div class="ar">Range: 0 – 37,000 mm &nbsp;|&nbsp; Zero ref: <span id="yzero-ref" style="font-family:'Courier New',monospace">0.000</span></div>
+      <div class="ar" style="margin-bottom:0">Display: <span id="ydisp-lbl" style="font-family:'Courier New',monospace">0.000</span> mm (rel. to zero)</div>
+      <div class="ar">Machine: <span id="ymach-lbl" style="font-family:'Courier New',monospace;color:#000080">0.000</span> mm | Lim: 0–37,000</div>
     </div>
     <div class="ab ax-z">
       <div class="ah"><span class="at">Z — Hoist</span><span class="hb nothomed" id="zhb">NOT HOMED</span></div>
       <div class="dro nothomed" id="dro-z">0.000</div>
-      <div class="ar">Range: 0 – 6,000 mm &nbsp;|&nbsp; Zero ref: <span id="zzero-ref" style="font-family:'Courier New',monospace">0.000</span></div>
+      <div class="ar" style="margin-bottom:0">Display: <span id="zdisp-lbl" style="font-family:'Courier New',monospace">0.000</span> mm (rel. to zero)</div>
+      <div class="ar">Machine: <span id="zmach-lbl" style="font-family:'Courier New',monospace;color:#000080">0.000</span> mm | Lim: 0–6,000</div>
     </div>
   </div>
 
@@ -294,7 +324,7 @@ canvas#cc{display:block;flex:1;min-height:0}
 <div class="pc">
   <div class="cw">
     <div class="ctb">
-      <span>Crane Visualisation — Top View (XY) &amp; Side View (Z)</span>
+      <span id="canvas-title">Crane Visualisation — Top View (XY) &amp; Side View (Z)</span>
       <span id="tgt-lbl" style="color:#808080;font-weight:normal">Target: ---</span>
     </div>
     <canvas id="cc"></canvas>
@@ -308,12 +338,80 @@ canvas#cc{display:block;flex:1;min-height:0}
 <!-- ══ RIGHT: CONTROLS ══ -->
 <div class="pr">
 
+  <!-- ══ SCAN CONFIG ══ -->
+  <div class="scan-gb"><span class="scan-gbt">⊞ Scan Configuration</span>
+
+    <!-- MACHINE LIMITS REMINDER -->
+    <div class="scan-limit-note">
+      ⚠ Scan coordinates are <b>machine-absolute (mm)</b>.<br>
+      Physical limits: <b>X 0–10,235</b> &nbsp;|&nbsp; <b>Y 0–37,000</b> &nbsp;|&nbsp; <b>Z 0–6,000</b><br>
+      Home crane first. Positions outside limits are clamped.
+    </div>
+
+    <!-- OUT-OF-RANGE WARNING (shown dynamically) -->
+    <div class="scan-warn" id="scan-range-warn">⚠ One or more values are outside crane limits and will be clamped.</div>
+
+    <table class="scan-table">
+      <thead>
+        <tr>
+          <th>Axis</th>
+          <th>Start (mm)</th>
+          <th>Stop (mm)</th>
+          <th>Step (mm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:#800000">X Fast<br><span style="font-size:9px;color:#555;font-weight:normal">0–10,235</span></td>
+          <td><input class="scan-inp" type="number" id="sc-x-start" value="0"     min="0" max="10235" step="1"></td>
+          <td><input class="scan-inp" type="number" id="sc-x-stop"  value="10235" min="0" max="10235" step="1"></td>
+          <td><input class="scan-inp" type="number" id="sc-x-step"  value="100"   min="1" max="5000"  step="1"></td>
+        </tr>
+        <tr>
+          <td style="color:#006400">Y Slow<br><span style="font-size:9px;color:#555;font-weight:normal">0–37,000</span></td>
+          <td><input class="scan-inp" type="number" id="sc-y-start" value="0"     min="0" max="37000" step="1"></td>
+          <td><input class="scan-inp" type="number" id="sc-y-stop"  value="37000" min="0" max="37000" step="1"></td>
+          <td><input class="scan-inp" type="number" id="sc-y-step"  value="200"   min="1" max="10000" step="1"></td>
+        </tr>
+        <tr>
+          <td style="color:#000080">Z Fixed<br><span style="font-size:9px;color:#555;font-weight:normal">0–6,000</span></td>
+          <td><input class="scan-inp" type="number" id="sc-z-start" value="500"   min="0" max="6000"  step="1"></td>
+          <td><input class="scan-inp" id="sc-z-stop"  type="number" value="500"   step="1" style="background:#eee;color:#888" readonly></td>
+          <td><input class="scan-inp" id="sc-z-step"  type="number" value="1"     step="1" style="background:#eee;color:#888" readonly></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Effective clamped range display -->
+    <div style="font-family:'Courier New',monospace;font-size:10px;background:#fff;border:1px solid #808080;padding:3px 5px;margin-bottom:4px;color:#000080" id="scan-effective-range">
+      Effective range: configure above
+    </div>
+
+    <div style="margin-bottom:4px">
+      <div class="scan-pts-counter" id="scan-pts-lbl">— Points: configure above —</div>
+      <div class="scan-estimate" id="scan-est-lbl">Set scan range within physical limits, then press Start</div>
+    </div>
+    <div style="margin-bottom:4px;font-size:10px;color:#555;line-height:1.5">
+      Pattern: X fast axis raster, Y slow axis step.<br>
+      Bidirectional snake scan (alternating X direction).<br>
+      <b>Coordinates: machine-absolute mm, origin = end-limit home.</b>
+    </div>
+    <div class="scan-prog-wrap"><div class="scan-prog-bar" id="scan-prog"></div></div>
+    <div class="scan-status" id="scan-status">Ready — Home all axes first, then configure range and press Start.</div>
+    <button class="scan-start-btn" id="scan-start-btn" onclick="startScan()">▶  START SCAN</button>
+    <div style="display:flex;gap:4px;margin-bottom:4px">
+      <button class="btn raised" style="flex:1;background:#440000;color:#ffaaaa;border-color:#ff6666 #220000 #220000 #ff6666;font-size:10px" onclick="abortScan()">■ ABORT</button>
+      <button class="btn raised" style="flex:1;font-size:10px" onclick="clearScanMap()">⊠ Clear Map</button>
+      <button class="btn raised" style="flex:1;font-size:10px" onclick="setView('scan')">⊡ Map View</button>
+    </div>
+    <button class="btn raised" style="width:100%;font-size:10px;background:#003366;color:#aaccff;border-color:#6699cc #001133 #001133 #6699cc" onclick="fillFullRange()">↔ Fill Full Crane Range</button>
+  </div>
+
   <!-- ══ TOUCH ON/OFF JOG PANEL ══ -->
   <div class="gb"><span class="gbt">Touch ON / Touch OFF — Jog</span>
     <div style="font-size:10px;color:#555;margin-bottom:5px;line-height:1.5">
-      Hold button = axis moves. Release = axis <b>stops instantly</b>, position kept. Use <b>⊙ Set Zero Here</b> to reset display to 0.000 at current spot.
+      Hold button = axis moves. Release = axis stops instantly.
     </div>
-
     <!-- X AXIS -->
     <div class="jog-axis-block">
       <div class="jog-axis-title" style="color:#800000">
@@ -321,26 +419,19 @@ canvas#cc{display:block;flex:1;min-height:0}
         <span class="touch-status off" id="touch-x-status">OFF</span>
       </div>
       <div class="jog-row">
-        <button class="touch-btn"
-          id="touch-x-neg"
+        <button class="touch-btn" id="touch-x-neg"
           onmousedown="touchStart('x',-1,this)" onmouseup="touchStop('x',this)" onmouseleave="touchStop('x',this)"
-          ontouchstart="event.preventDefault();touchStart('x',-1,this)" ontouchend="touchStop('x',this)">
-          ◄ X− (Touch)
-        </button>
-        <button class="touch-btn"
-          id="touch-x-pos"
+          ontouchstart="event.preventDefault();touchStart('x',-1,this)" ontouchend="touchStop('x',this)">◄ X−</button>
+        <button class="touch-btn" id="touch-x-pos"
           onmousedown="touchStart('x',1,this)" onmouseup="touchStop('x',this)" onmouseleave="touchStop('x',this)"
-          ontouchstart="event.preventDefault();touchStart('x',1,this)" ontouchend="touchStop('x',this)">
-          X+ ► (Touch)
-        </button>
+          ontouchstart="event.preventDefault();touchStart('x',1,this)" ontouchend="touchStop('x',this)">X+ ►</button>
       </div>
       <div class="home-row">
         <button class="stop-axis-btn inactive" id="stop-x-btn" onclick="stopAxis('x')">■ STOP X</button>
-        <button class="setzero-btn" onclick="setZeroHere('x')" title="Set current X position as new zero reference">⊙ Set Zero Here</button>
-        <button class="home-endlimit-btn" onclick="homeEndLimit('x')" title="Home X to physical end-limit switch">↤ End Limit</button>
+        <button class="setzero-btn" onclick="setZeroHere('x')">⊙ Zero</button>
+        <button class="home-endlimit-btn" onclick="homeEndLimit('x')">↤ Home</button>
       </div>
     </div>
-
     <!-- Y AXIS -->
     <div class="jog-axis-block">
       <div class="jog-axis-title" style="color:#006400">
@@ -348,26 +439,19 @@ canvas#cc{display:block;flex:1;min-height:0}
         <span class="touch-status off" id="touch-y-status">OFF</span>
       </div>
       <div class="jog-row">
-        <button class="touch-btn"
-          id="touch-y-neg"
+        <button class="touch-btn" id="touch-y-neg"
           onmousedown="touchStart('y',-1,this)" onmouseup="touchStop('y',this)" onmouseleave="touchStop('y',this)"
-          ontouchstart="event.preventDefault();touchStart('y',-1,this)" ontouchend="touchStop('y',this)">
-          ◄ Y− (Touch)
-        </button>
-        <button class="touch-btn"
-          id="touch-y-pos"
+          ontouchstart="event.preventDefault();touchStart('y',-1,this)" ontouchend="touchStop('y',this)">◄ Y−</button>
+        <button class="touch-btn" id="touch-y-pos"
           onmousedown="touchStart('y',1,this)" onmouseup="touchStop('y',this)" onmouseleave="touchStop('y',this)"
-          ontouchstart="event.preventDefault();touchStart('y',1,this)" ontouchend="touchStop('y',this)">
-          Y+ ► (Touch)
-        </button>
+          ontouchstart="event.preventDefault();touchStart('y',1,this)" ontouchend="touchStop('y',this)">Y+ ►</button>
       </div>
       <div class="home-row">
         <button class="stop-axis-btn inactive" id="stop-y-btn" onclick="stopAxis('y')">■ STOP Y</button>
-        <button class="setzero-btn" onclick="setZeroHere('y')" title="Set current Y position as new zero reference">⊙ Set Zero Here</button>
-        <button class="home-endlimit-btn" onclick="homeEndLimit('y')" title="Home Y to physical end-limit switch">↤ End Limit</button>
+        <button class="setzero-btn" onclick="setZeroHere('y')">⊙ Zero</button>
+        <button class="home-endlimit-btn" onclick="homeEndLimit('y')">↤ Home</button>
       </div>
     </div>
-
     <!-- Z AXIS -->
     <div class="jog-axis-block">
       <div class="jog-axis-title" style="color:#000080">
@@ -375,26 +459,19 @@ canvas#cc{display:block;flex:1;min-height:0}
         <span class="touch-status off" id="touch-z-status">OFF</span>
       </div>
       <div class="jog-row">
-        <button class="touch-btn"
-          id="touch-z-neg"
+        <button class="touch-btn" id="touch-z-neg"
           onmousedown="touchStart('z',-1,this)" onmouseup="touchStop('z',this)" onmouseleave="touchStop('z',this)"
-          ontouchstart="event.preventDefault();touchStart('z',-1,this)" ontouchend="touchStop('z',this)">
-          ▼ Z− (Touch)
-        </button>
-        <button class="touch-btn"
-          id="touch-z-pos"
+          ontouchstart="event.preventDefault();touchStart('z',-1,this)" ontouchend="touchStop('z',this)">▼ Z−</button>
+        <button class="touch-btn" id="touch-z-pos"
           onmousedown="touchStart('z',1,this)" onmouseup="touchStop('z',this)" onmouseleave="touchStop('z',this)"
-          ontouchstart="event.preventDefault();touchStart('z',1,this)" ontouchend="touchStop('z',this)">
-          Z+ ▲ (Touch)
-        </button>
+          ontouchstart="event.preventDefault();touchStart('z',1,this)" ontouchend="touchStop('z',this)">Z+ ▲</button>
       </div>
       <div class="home-row">
         <button class="stop-axis-btn inactive" id="stop-z-btn" onclick="stopAxis('z')">■ STOP Z</button>
-        <button class="setzero-btn" onclick="setZeroHere('z')" title="Set current Z position as new zero reference">⊙ Set Zero Here</button>
-        <button class="home-endlimit-btn" onclick="homeEndLimit('z')" title="Home Z to physical end-limit switch">↤ End Limit</button>
+        <button class="setzero-btn" onclick="setZeroHere('z')">⊙ Zero</button>
+        <button class="home-endlimit-btn" onclick="homeEndLimit('z')">↤ Home</button>
       </div>
     </div>
-
     <div style="margin-top:3px">
       <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:1px">
         <label>Touch Jog Speed</label><span id="jog-spd-val" style="font-family:'Courier New',monospace;font-weight:bold">10%</span>
@@ -405,9 +482,8 @@ canvas#cc{display:block;flex:1;min-height:0}
 
   <!-- ══ GOTO POSITION ══ -->
   <div class="gb"><span class="gbt">Go To Position</span>
-    <div style="font-size:10px;color:#555;margin-bottom:4px">Once started, axis moves until target reached or STOP pressed.</div>
     <div style="margin-bottom:5px">
-      <label style="font-weight:bold;color:#800000">X Target (mm):</label>
+      <label style="font-weight:bold;color:#800000">X Target (machine mm, 0–10235):</label>
       <div class="br" style="margin-top:2px">
         <input class="inp" type="number" id="goto-x" value="5000" min="0" max="10235" step="1">
         <button class="btn raised" onclick="gotoAxis('x')" style="min-width:30px">Go</button>
@@ -415,7 +491,7 @@ canvas#cc{display:block;flex:1;min-height:0}
       </div>
     </div>
     <div style="margin-bottom:5px">
-      <label style="font-weight:bold;color:#006400">Y Target (mm):</label>
+      <label style="font-weight:bold;color:#006400">Y Target (machine mm, 0–37000):</label>
       <div class="br" style="margin-top:2px">
         <input class="inp" type="number" id="goto-y" value="10000" min="0" max="37000" step="1">
         <button class="btn raised" onclick="gotoAxis('y')" style="min-width:30px">Go</button>
@@ -423,7 +499,7 @@ canvas#cc{display:block;flex:1;min-height:0}
       </div>
     </div>
     <div style="margin-bottom:6px">
-      <label style="font-weight:bold;color:#000080">Z Target (mm):</label>
+      <label style="font-weight:bold;color:#000080">Z Target (machine mm, 0–6000):</label>
       <div class="br" style="margin-top:2px">
         <input class="inp" type="number" id="goto-z" value="2000" min="0" max="6000" step="1">
         <button class="btn raised" onclick="gotoAxis('z')" style="min-width:30px">Go</button>
@@ -444,7 +520,6 @@ canvas#cc{display:block;flex:1;min-height:0}
       <tr><td>Brake</td><td><span class="vv" id="vfd-brake">APPLIED</span></td></tr>
       <tr><td>Fault Code</td><td><span class="vv" id="vfd-fault">NONE</span></td></tr>
     </table>
-    <div style="margin-top:4px;font-size:10px;color:#666;font-family:'Courier New',monospace">BC1-01=03 | H5-01=02 | C1-02=0.5s | Addr=02</div>
   </div>
 
   <!-- MEMOBUS RTU LIVE FRAME -->
@@ -453,13 +528,10 @@ canvas#cc{display:block;flex:1;min-height:0}
       <div class="mbus-title">ESP32 → MAX485 → S1000 (Addr 02, 9600 8N1)</div>
       <div id="mb-action" class="mb-action">— waiting for command —</div>
       <div id="mb-frame" class="mbus-frame"></div>
-      <div id="mb-desc" class="mb-desc" style="color:#333">Press any Touch/Go button to see bytes sent.</div>
+      <div id="mb-desc" class="mb-desc" style="color:#333">Press any Touch/Go/Scan button to see bytes sent.</div>
       <div class="mb-sep"></div>
       <div style="color:#888;font-size:9px;margin-bottom:3px">SERIAL LOG (TX/RX)</div>
       <div class="mbus-log" id="mbus-log"></div>
-    </div>
-    <div style="font-size:10px;color:#555;text-align:center;margin-top:2px">
-      <a href="#" onclick="event.preventDefault();showModal2('diag-memobus')" style="color:#000080">View full protocol reference →</a>
     </div>
   </div>
 
@@ -474,13 +546,14 @@ canvas#cc{display:block;flex:1;min-height:0}
 
 <!-- STATUS BAR -->
 <div class="sb">
-  <div class="sbp" id="sb-pos" style="min-width:280px">X: 0.000 &nbsp;Y: 0.000 &nbsp;Z: 0.000 mm</div>
+  <div class="sbp" id="sb-mach" style="min-width:310px;font-family:'Courier New',monospace">MACH X:0 Y:0 Z:0 mm</div>
   <div class="sbp" id="sb-state" style="min-width:80px;font-weight:bold">IDLE</div>
   <div class="sbp">Mode: <span id="sb-mode">FAST</span></div>
   <div class="sbp">Step: <span id="sb-step">10 mm</span></div>
+  <div class="sbp" id="sb-scan-pt" style="color:#000080;font-weight:bold;display:none">Pt: 0/0</div>
   <div class="sbp">Enc: 0.0196 mm/ct</div>
   <div class="sbp">LoRa: 868 MHz SF5</div>
-  <div class="sbp" style="flex:1;color:#555">EOT Crane Control v2.0 — SAC, Ahmedabad</div>
+  <div class="sbp" style="flex:1;color:#555">EOT Crane Control v2.2 — SAC, Ahmedabad — 3T × 10,235mm</div>
 </div>
 
 </div><!-- /.window -->
@@ -496,19 +569,16 @@ canvas#cc{display:block;flex:1;min-height:0}
 
 <div class="mbg" id="cfg-a1000">
   <div class="mw" style="max-width:520px;min-width:480px">
-    <div class="mtb2"><span>VFD Parameters — YASKAWA A1000 (Hittech Cranes)</span><div class="tbbtn" onclick="closeModal('cfg-a1000')">✕</div></div>
+    <div class="mtb2"><span>VFD Parameters — YASKAWA A1000</span><div class="tbbtn" onclick="closeModal('cfg-a1000')">✕</div></div>
     <div style="padding:10px 14px 4px;max-height:65vh;overflow-y:auto">
       <table class="pt">
         <tr><th>Param</th><th>Value</th><th>Description</th></tr>
         <tr><td>A1-02</td><td>02</td><td>Open loop vector control</td></tr>
         <tr><td>B1-01</td><td>00</td><td>Run command from digital terminal</td></tr>
-        <tr><td>B1-02</td><td>01</td><td>Freq ref from digital terminal</td></tr>
         <tr><td>C1-01</td><td>02</td><td>Acceleration time</td></tr>
         <tr><td>C1-02</td><td>02</td><td>Deceleration time</td></tr>
-        <tr><td>C6-01</td><td>00</td><td>Heavy duty</td></tr>
         <tr><td>E1-01</td><td>50 Hz</td><td>FRE reference frequency</td></tr>
         <tr><td>E1-04</td><td>415 V</td><td>Max operating voltage</td></tr>
-        <tr><td>E2-01</td><td>-- A</td><td>Motor rated current (set per nameplate)</td></tr>
       </table>
     </div>
     <div class="mbs"><button class="btn raised" onclick="closeModal('cfg-a1000')">Close</button></div>
@@ -517,16 +587,14 @@ canvas#cc{display:block;flex:1;min-height:0}
 
 <div class="mbg" id="cfg-s1000">
   <div class="mw" style="max-width:520px;min-width:480px">
-    <div class="mtb2"><span>VFD Parameters — YASKAWA S1000 (CI Application)</span><div class="tbbtn" onclick="closeModal('cfg-s1000')">✕</div></div>
+    <div class="mtb2"><span>VFD Parameters — YASKAWA S1000</span><div class="tbbtn" onclick="closeModal('cfg-s1000')">✕</div></div>
     <div style="padding:10px 14px 4px;max-height:65vh;overflow-y:auto">
       <table class="pt">
         <tr><th>Param</th><th>Value</th><th>Description</th></tr>
         <tr><td>A1-02</td><td>00</td><td>V/F control</td></tr>
         <tr><td>BC1-01</td><td>03</td><td>V/F control mode select</td></tr>
-        <tr><td>C1-02</td><td>03</td><td>Deceleration time (0.5 s set via MEMOBUS)</td></tr>
+        <tr><td>C1-02</td><td>03</td><td>Deceleration time (0.5s)</td></tr>
         <tr><td>E1-04</td><td>50 Hz</td><td>Max operating frequency</td></tr>
-        <tr><td>E1-06</td><td>50 Hz</td><td>Base frequency</td></tr>
-        <tr><td>E2-01</td><td>1 A</td><td>Motor rated current (CI application)</td></tr>
         <tr><td>H5-01</td><td>02</td><td>MEMOBUS station address</td></tr>
       </table>
     </div>
@@ -535,16 +603,21 @@ canvas#cc{display:block;flex:1;min-height:0}
 </div>
 
 <div class="mbg" id="cfg-limits">
-  <div class="mw" style="max-width:340px">
-    <div class="mtb2"><span>Travel Limits</span><div class="tbbtn" onclick="closeModal('cfg-limits')">✕</div></div>
+  <div class="mw" style="max-width:380px">
+    <div class="mtb2"><span>Travel Limits — Physical Machine Bounds</span><div class="tbbtn" onclick="closeModal('cfg-limits')">✕</div></div>
     <div style="padding:12px 14px">
       <table class="pt">
-        <tr><th>Axis</th><th>Min</th><th>Max</th></tr>
-        <tr><td>X Cross</td><td>0 mm</td><td>10,235 mm</td></tr>
-        <tr><td>Y Long</td><td>0 mm</td><td>37,000 mm</td></tr>
-        <tr><td>Z Hoist</td><td>0 mm</td><td>6,000 mm</td></tr>
+        <tr><th>Axis</th><th>Min</th><th>Max</th><th>Notes</th></tr>
+        <tr><td>X Cross</td><td>0 mm</td><td>10,235 mm</td><td>3T crane span</td></tr>
+        <tr><td>Y Long</td><td>0 mm</td><td>37,000 mm</td><td>Bay length</td></tr>
+        <tr><td>Z Hoist</td><td>0 mm</td><td>6,000 mm</td><td>Hook travel</td></tr>
       </table>
-      <div style="margin-top:8px;font-size:10px;color:#555">Software limits enforced. Hardware limit switches active on all axes.</div>
+      <div style="margin-top:8px;font-size:10px;color:#555;line-height:1.6;border:1px solid #808080;padding:5px;background:#f0f0f0">
+        <b>Coordinate system:</b><br>
+        Machine coordinates (absolute) are always 0 at the homed end-limit.<br>
+        The scan system uses machine-absolute coordinates only.<br>
+        "Set Zero Here" only affects the DRO display, NOT the scan limits.
+      </div>
     </div>
     <div class="mbs"><button class="btn raised" onclick="closeModal('cfg-limits')">Close</button></div>
   </div>
@@ -560,25 +633,14 @@ canvas#cc{display:block;flex:1;min-height:0}
 
 <div class="mbg" id="diag-memobus">
   <div class="mw" style="max-width:640px;min-width:580px">
-    <div class="mtb2"><span>MEMOBUS/Modbus RTU — Protocol Reference (S1000, Addr=02, 9600 8N1)</span><div class="tbbtn" onclick="closeModal('diag-memobus')">✕</div></div>
+    <div class="mtb2"><span>MEMOBUS/Modbus RTU — Protocol Reference</span><div class="tbbtn" onclick="closeModal('diag-memobus')">✕</div></div>
     <div style="padding:10px 14px 4px;max-height:72vh;overflow-y:auto">
-      <div style="font-size:11px;color:#444;margin-bottom:8px;line-height:1.6">
-        <b>Frame format:</b> [Addr][Func][RegHi][RegLo][DataHi][DataLo][CRC-Lo][CRC-Hi]<br>
-        <b>Write single register:</b> Func=06h &nbsp;|&nbsp; <b>Read registers:</b> Func=03h<br>
-        <b>Freq register units:</b> 1 unit = 0.01 Hz &nbsp;(40 Hz = 0x0FA0 = 4000d)
-      </div>
       <table class="pt">
         <tr><th>When</th><th>Action</th><th>Register</th><th>Write Value</th><th>Raw Frame (hex)</th></tr>
-        <tr><td>Startup</td><td>Set drive Ready</td><td>0001h</td><td>0x0001</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 01 D9 CA</td></tr>
-        <tr><td>Run FWD FAST</td><td>Cmd=FWD + 40Hz</td><td>0001h+0002h</td><td>0x0002/0x0FA0</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 02 .. ..<br>02 06 00 02 0F A0 .. ..</td></tr>
-        <tr><td>Run FWD SLOW</td><td>Cmd=FWD + 10Hz</td><td>0001h+0002h</td><td>0x0002/0x03E8</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 02 .. ..<br>02 06 00 02 03 E8 .. ..</td></tr>
-        <tr><td>Run FWD CREEP</td><td>Cmd=FWD + 2.5Hz</td><td>0001h+0002h</td><td>0x0002/0x00FA</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 02 .. ..<br>02 06 00 02 00 FA .. ..</td></tr>
-        <tr><td>Run REV FAST</td><td>Cmd=REV + 40Hz</td><td>0001h+0002h</td><td>0x0004/0x0FA0</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 04 .. ..<br>02 06 00 02 0F A0 .. ..</td></tr>
-        <tr><td>Touch OFF / Stop</td><td>Decel to 0, brake</td><td>0001h+0002h</td><td>0x0001/0x0000</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 02 00 00 .. ..<br>02 06 00 01 00 01 .. ..</td></tr>
+        <tr><td>Run FWD FAST</td><td>Cmd=FWD + 40Hz</td><td>0001h+0002h</td><td>0x0002/0x0FA0</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 02 ..<br>02 06 00 02 0F A0 ..</td></tr>
+        <tr><td>Touch OFF/Stop</td><td>Decel to 0, brake</td><td>0001h+0002h</td><td>0x0001/0x0000</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 02 00 00 ..<br>02 06 00 01 00 01 ..</td></tr>
         <tr><td>E-STOP</td><td>Coast stop</td><td>0001h</td><td>0x0000</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 00 89 CA</td></tr>
-        <tr><td>E-STOP reset</td><td>Fault reset→ready</td><td>0001h</td><td>0x0080→0x0001</td><td style="font-family:'Courier New',monospace;font-size:10px">02 06 00 01 00 80 .. ..<br>02 06 00 01 00 01 .. ..</td></tr>
-        <tr><td>Poll 100ms</td><td>Read status word</td><td>0020h</td><td>READ</td><td style="font-family:'Courier New',monospace;font-size:10px">02 03 00 20 00 01 .. ..</td></tr>
-        <tr><td>Poll 100ms</td><td>Read output freq</td><td>0025h</td><td>READ</td><td style="font-family:'Courier New',monospace;font-size:10px">02 03 00 25 00 01 .. ..</td></tr>
+        <tr><td>Poll 100ms</td><td>Read output freq</td><td>0025h</td><td>READ</td><td style="font-family:'Courier New',monospace;font-size:10px">02 03 00 25 00 01 ..</td></tr>
       </table>
     </div>
     <div class="mbs"><button class="btn raised" onclick="closeModal('diag-memobus')">Close</button></div>
@@ -586,19 +648,21 @@ canvas#cc{display:block;flex:1;min-height:0}
 </div>
 
 <div class="mbg" id="about">
-  <div class="mw" style="max-width:360px">
+  <div class="mw" style="max-width:380px">
     <div class="mtb2"><span>About EOT Crane Control System</span><div class="tbbtn" onclick="closeModal('about')">✕</div></div>
     <div style="padding:16px;font-size:11px;line-height:1.9">
-      <div style="font-size:14px;font-weight:bold;margin-bottom:10px">EOT Crane Control System v2.0</div>
-      <div><b style="display:inline-block;min-width:110px">Site:</b>SAC, Ahmedabad</div>
-      <div><b style="display:inline-block;min-width:110px">New in v2.0:</b>Touch ON/OFF jog, per-axis stop, dual homing</div>
-      <div><b style="display:inline-block;min-width:110px">Encoder:</b>P+F 755HS 2000PPR 0.0196mm/ct</div>
-      <div><b style="display:inline-block;min-width:110px">VFD:</b>YASKAWA S1000 MEMOBUS Addr=02</div>
-      <div><b style="display:inline-block;min-width:110px">Radio:</b>LoRa32 868 MHz SF5 BW125kHz</div>
+      <div style="font-size:14px;font-weight:bold;margin-bottom:10px">EOT Crane Control System v2.2</div>
+      <div><b style="display:inline-block;min-width:120px">Site:</b>SAC, Ahmedabad</div>
+      <div><b style="display:inline-block;min-width:120px">Crane:</b>3 Ton × 10,235mm span</div>
+      <div><b style="display:inline-block;min-width:120px">v2.2 fixes:</b>Machine-absolute scan coords, hard limit enforcement, limit warning UI</div>
+      <div><b style="display:inline-block;min-width:120px">v2.1 adds:</b>Raster scan, bidirectional snake, scan map view</div>
+      <div><b style="display:inline-block;min-width:120px">Encoder:</b>P+F 755HS 2000PPR 0.0196mm/ct</div>
+      <div><b style="display:inline-block;min-width:120px">VFD:</b>YASKAWA S1000 MEMOBUS Addr=02</div>
+      <div><b style="display:inline-block;min-width:120px">Radio:</b>LoRa32 868 MHz SF5 BW125kHz</div>
       <div style="margin-top:8px;border-top:1px solid #808080;padding-top:8px">
-        <div><b style="display:inline-block;min-width:110px">Supplier:</b>Hittech Cranes, Ahmedabad</div>
-        <div><b style="display:inline-block;min-width:110px">Email:</b>hitech@hitechcranes.com</div>
-        <div><b style="display:inline-block;min-width:110px">Phone:</b>+91 9389019432</div>
+        <div><b style="display:inline-block;min-width:120px">Supplier:</b>Hittech Cranes, Ahmedabad</div>
+        <div><b style="display:inline-block;min-width:120px">Email:</b>hitech@hitechcranes.com</div>
+        <div><b style="display:inline-block;min-width:120px">Phone:</b>+91 9389019432</div>
       </div>
     </div>
     <div class="mbs"><button class="btn raised" onclick="closeModal('about')">OK</button></div>
@@ -607,13 +671,22 @@ canvas#cc{display:block;flex:1;min-height:0}
 
 <script>
 /* ═══════════════════════════════════════════════
+   MACHINE PHYSICAL LIMITS — NEVER CHANGE THESE
+   These are the real physical end-stops of the crane.
+   All motion is clamped to these values.
+═══════════════════════════════════════════════ */
+const MACHINE_LIMITS = {
+  x: [0, 10235],
+  y: [0, 37000],
+  z: [0, 6000]
+};
+
+/* ═══════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════ */
 const S={
-  // Absolute machine positions (never reset by zero-here)
-  absPos:{x:0,y:0,z:0},
-  // Displayed positions = absPos - zeroRef
-  zeroRef:{x:0,y:0,z:0},
+  absPos:{x:0,y:0,z:0},      // machine-absolute position (mm)
+  zeroRef:{x:0,y:0,z:0},     // DRO display offset only — does NOT affect scan
   target:{x:null,y:null,z:null},
   homed:{x:false,y:false,z:false},
   moving:{x:false,y:false,z:false},
@@ -623,40 +696,326 @@ const S={
   estop:false,
   jogStep:10, jogSpeed:10, feedOverride:100,
   hz:0, logCount:0, speedMode:'fast',
-  limits:{x:[0,10235],y:[0,37000],z:[0,6000]},
+  limits: MACHINE_LIMITS,
   modalCb:null, viewMode:'both',
   loraOk:false, vfdOk:false, encOk:false,
   axisIntervals:{x:null,y:null,z:null},
 };
 const HZ={creep:2.5,slow:10,fast:40};
 
-// Displayed position = absPos - zeroRef
+// DRO display value (relative to user zero — cosmetic only)
 function dispPos(ax){return S.absPos[ax]-S.zeroRef[ax];}
+// Machine position (used for ALL motion calculations)
+function machPos(ax){return S.absPos[ax];}
+// Clamp to machine limits
+function clampMach(ax, val){return Math.max(MACHINE_LIMITS[ax][0], Math.min(MACHINE_LIMITS[ax][1], val));}
 
 /* ═══════════════════════════════════════════════
-   MEMOBUS CRC & FRAMES
+   SCAN STATE
 ═══════════════════════════════════════════════ */
-function crc16(bytes){
-  let crc=0xFFFF;
-  for(const b of bytes){crc^=b;for(let i=0;i<8;i++)crc=(crc&1)?(crc>>>1)^0xA001:(crc>>>1);}
-  return crc;
+const SCAN={
+  running:false,
+  aborted:false,
+  scanPoints:[],       // {x, y} in MACHINE-ABSOLUTE coords
+  visitedPoints:[],    // {x, y} in MACHINE-ABSOLUTE coords — completed
+  currentPoint:0,
+  totalPoints:0,
+  startTime:0,
+  currentRow:0,
+  currentRowDir:1,
+  moveInterval:null,
+  phase:'idle',
+  settleTimer:null,
+  cfg:null,            // last used config (for map drawing)
+};
+
+function getScanConfig(){
+  // All values are MACHINE-ABSOLUTE mm
+  const xStart = Math.max(MACHINE_LIMITS.x[0], Math.min(MACHINE_LIMITS.x[1], parseFloat(document.getElementById('sc-x-start').value)||0));
+  const xStop  = Math.max(MACHINE_LIMITS.x[0], Math.min(MACHINE_LIMITS.x[1], parseFloat(document.getElementById('sc-x-stop').value)||0));
+  const xStep  = Math.abs(parseFloat(document.getElementById('sc-x-step').value)||100);
+  const yStart = Math.max(MACHINE_LIMITS.y[0], Math.min(MACHINE_LIMITS.y[1], parseFloat(document.getElementById('sc-y-start').value)||0));
+  const yStop  = Math.max(MACHINE_LIMITS.y[0], Math.min(MACHINE_LIMITS.y[1], parseFloat(document.getElementById('sc-y-stop').value)||0));
+  const yStep  = Math.abs(parseFloat(document.getElementById('sc-y-step').value)||200);
+  const zFixed = Math.max(MACHINE_LIMITS.z[0], Math.min(MACHINE_LIMITS.z[1], parseFloat(document.getElementById('sc-z-start').value)||500));
+  return {xStart,xStop,xStep,yStart,yStop,yStep,zFixed};
 }
-function mbFrame(addr,func,reg,val){
-  const b=[addr,func,(reg>>8)&0xFF,reg&0xFF,(val>>8)&0xFF,val&0xFF];
-  const c=crc16(b);b.push(c&0xFF,(c>>8)&0xFF);return b;
+
+function getRawScanInputs(){
+  return {
+    xStart: parseFloat(document.getElementById('sc-x-start').value),
+    xStop:  parseFloat(document.getElementById('sc-x-stop').value),
+    xStep:  Math.abs(parseFloat(document.getElementById('sc-x-step').value)),
+    yStart: parseFloat(document.getElementById('sc-y-start').value),
+    yStop:  parseFloat(document.getElementById('sc-y-stop').value),
+    yStep:  Math.abs(parseFloat(document.getElementById('sc-y-step').value)),
+    zFixed: parseFloat(document.getElementById('sc-z-start').value),
+  };
 }
-function mbRead(addr,func,reg,count){
-  const b=[addr,func,(reg>>8)&0xFF,reg&0xFF,(count>>8)&0xFF,count&0xFF];
-  const c=crc16(b);b.push(c&0xFF,(c>>8)&0xFF);return b;
+
+function computeScanPoints(cfg){
+  // cfg uses MACHINE-ABSOLUTE coords, already clamped
+  const pts=[];
+  const{xStart,xStop,xStep,yStart,yStop,yStep}=cfg;
+  if(xStep<=0||yStep<=0)return pts;
+  const xDir = xStop>=xStart ? 1 : -1;
+  const yDir = yStop>=yStart ? 1 : -1;
+  let yi=0, y=yStart;
+  const yDone=()=> yDir>0 ? y<=yStop+0.001 : y>=yStop-0.001;
+  while(yDone()){
+    const rowPts=[];
+    let x=xStart;
+    const xDone=()=> xDir>0 ? x<=xStop+0.001 : x>=xStop-0.001;
+    while(xDone()){
+      // HARD CLAMP each point to machine limits
+      const cx=clampMach('x',x);
+      const cy=clampMach('y',y);
+      rowPts.push({x:cx,y:cy,row:yi});
+      x+=xDir*xStep;
+    }
+    if(yi%2===1) rowPts.reverse();
+    pts.push(...rowPts);
+    y+=yDir*yStep;
+    yi++;
+    if(yi>10000)break; // safety
+  }
+  return pts;
 }
+
+function validateScanInputs(){
+  const raw=getRawScanInputs();
+  const warn=document.getElementById('scan-range-warn');
+  let anyOut=false;
+  const ids=['sc-x-start','sc-x-stop','sc-x-step','sc-y-start','sc-y-stop','sc-z-start'];
+  const limits=[MACHINE_LIMITS.x[1],MACHINE_LIMITS.x[1],5000,MACHINE_LIMITS.y[1],MACHINE_LIMITS.y[1],MACHINE_LIMITS.z[1]];
+  ids.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    const v=parseFloat(el.value);
+    const isOut = v<0 || v>limits[i];
+    el.classList.toggle('out-of-range', isOut);
+    if(isOut)anyOut=true;
+  });
+  warn.style.display=anyOut?'block':'none';
+  return !anyOut;
+}
+
+function updateScanEstimate(){
+  validateScanInputs();
+  const cfg=getScanConfig();
+  const pts=computeScanPoints(cfg);
+  const n=pts.length;
+  const xCount=Math.round(Math.abs(cfg.xStop-cfg.xStart)/cfg.xStep)+1;
+  const yCount=Math.round(Math.abs(cfg.yStop-cfg.yStart)/cfg.yStep)+1;
+  document.getElementById('scan-pts-lbl').textContent=`Points: ${n} total (${xCount} × ${yCount} grid)`;
+
+  // Effective range display
+  if(n>0){
+    document.getElementById('scan-effective-range').textContent=
+      `Effective: X ${cfg.xStart}–${cfg.xStop}mm  Y ${cfg.yStart}–${cfg.yStop}mm  Z ${cfg.zFixed}mm`;
+    document.getElementById('scan-est-lbl').textContent=n>0?`~${(n*0.5).toFixed(0)}s sim time — X step ${cfg.xStep}mm, Y step ${cfg.yStep}mm`:'';
+  } else {
+    document.getElementById('scan-effective-range').textContent='Effective range: no valid points';
+    document.getElementById('scan-est-lbl').textContent='⚠ No points — check config';
+  }
+}
+
+['sc-x-start','sc-x-stop','sc-x-step','sc-y-start','sc-y-stop','sc-y-step','sc-z-start'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',updateScanEstimate);
+});
+
+// Fill full crane range button
+function fillFullRange(){
+  document.getElementById('sc-x-start').value=0;
+  document.getElementById('sc-x-stop').value=10235;
+  document.getElementById('sc-x-step').value=100;
+  document.getElementById('sc-y-start').value=0;
+  document.getElementById('sc-y-stop').value=37000;
+  document.getElementById('sc-y-step').value=500;
+  document.getElementById('sc-z-start').value=500;
+  updateScanEstimate();
+  log('SCAN','Scan range set to full crane: X[0→10235] Y[0→37000] Z[500mm fixed]','info');
+}
+
+function startScan(){
+  if(SCAN.running){log('SCAN','Scan already running — abort first','warn');return;}
+  if(S.estop){log('SCAN','E-Stop active — clear before scan','err');return;}
+  if(!S.homed.x||!S.homed.y){
+    showConfirm('Axes Not Homed',
+      'X and Y axes must be homed to end-limit before scanning.\n\nWith machine coords: home sets X=0 and Y=0 at the physical end-stops. Scan will then operate within the correct 0–10235mm (X) and 0–37000mm (Y) bounds.\n\nHome all axes now?',
+      ()=>{homeAllEndLimit();setTimeout(()=>startScan(),5000);});
+    return;
+  }
+
+  const cfg=getScanConfig();
+  const pts=computeScanPoints(cfg);
+  if(pts.length===0){log('SCAN','No scan points — check config','err');return;}
+
+  // Validate all points are within machine limits
+  const xOob=pts.filter(p=>p.x<MACHINE_LIMITS.x[0]||p.x>MACHINE_LIMITS.x[1]);
+  const yOob=pts.filter(p=>p.y<MACHINE_LIMITS.y[0]||p.y>MACHINE_LIMITS.y[1]);
+  if(xOob.length>0||yOob.length>0){
+    log('SCAN',`WARNING: ${xOob.length} X out-of-range and ${yOob.length} Y out-of-range points were clamped to machine limits`,'warn');
+  }
+
+  SCAN.running=true;
+  SCAN.aborted=false;
+  SCAN.scanPoints=pts;
+  SCAN.visitedPoints=[];
+  SCAN.currentPoint=0;
+  SCAN.totalPoints=pts.length;
+  SCAN.startTime=Date.now();
+  SCAN.currentRow=0;
+  SCAN.cfg={...cfg};
+
+  // Move Z to fixed height first (machine-absolute)
+  S.absPos.z=clampMach('z', cfg.zFixed);
+  S.homed.z=true;
+  updateDRO();updateHS();
+
+  document.getElementById('scan-start-btn').classList.add('scanning');
+  document.getElementById('scan-start-btn').textContent='■  SCANNING — Click ABORT to stop';
+  document.getElementById('scan-badge').style.display='inline-block';
+  document.getElementById('sb-scan-pt').style.display='flex';
+  document.getElementById('mode-badge').textContent='SCAN';
+  document.getElementById('mode-badge').style.color='#880000';
+
+  log('SCAN',`Raster scan: ${pts.length} pts | X[${cfg.xStart}→${cfg.xStop} ×${cfg.xStep}mm] Y[${cfg.yStart}→${cfg.yStop} ×${cfg.yStep}mm]`,'ok');
+  log('SCAN',`Z fixed at ${cfg.zFixed}mm (machine absolute). Bidirectional snake. All coords machine-absolute.`,'info');
+  log('SCAN',`Machine limits enforced: X 0–${MACHINE_LIMITS.x[1]}mm, Y 0–${MACHINE_LIMITS.y[1]}mm, Z 0–${MACHINE_LIMITS.z[1]}mm`,'info');
+  sendRunCommand('x',1,HZ[S.speedMode]);
+
+  runScanStep();
+}
+
+function runScanStep(){
+  if(SCAN.aborted||!SCAN.running)return;
+  if(SCAN.currentPoint>=SCAN.totalPoints){completeScan();return;}
+
+  const pt=SCAN.scanPoints[SCAN.currentPoint];
+  // pt.x and pt.y are already MACHINE-ABSOLUTE and already clamped
+  const targetMachX = pt.x;
+  const targetMachY = pt.y;
+
+  const pct=Math.round(SCAN.currentPoint/SCAN.totalPoints*100);
+  document.getElementById('scan-prog').style.width=pct+'%';
+  document.getElementById('scan-status').textContent=
+    `Point ${SCAN.currentPoint+1}/${SCAN.totalPoints} (${pct}%)\nMachine → X:${pt.x.toFixed(0)}mm Y:${pt.y.toFixed(0)}mm`;
+  document.getElementById('sb-scan-pt').textContent=`Pt: ${SCAN.currentPoint+1}/${SCAN.totalPoints}`;
+
+  const startX=S.absPos.x, startY=S.absPos.y;
+  const dxTotal=targetMachX-startX, dyTotal=targetMachY-startY;
+  const distTotal=Math.sqrt(dxTotal*dxTotal+dyTotal*dyTotal);
+
+  if(distTotal<0.1){recordPoint(pt);return;}
+
+  const stepMm=HZ[S.speedMode]*0.1*(S.feedOverride/100);
+  const stepsNeeded=Math.max(1,Math.ceil(distTotal/stepMm));
+  let step=0;
+
+  clearInterval(SCAN.moveInterval);
+  SCAN.moveInterval=setInterval(()=>{
+    if(SCAN.aborted){clearInterval(SCAN.moveInterval);return;}
+    step++;
+    const t=Math.min(step/stepsNeeded,1);
+    const ease=t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    // Clamp position to machine limits at every step
+    S.absPos.x=clampMach('x', startX+dxTotal*ease);
+    S.absPos.y=clampMach('y', startY+dyTotal*ease);
+    S.moving.x=true;
+    S.moving.y=Math.abs(dyTotal)>1;
+    S.hz=HZ[S.speedMode];
+    updateDRO();
+    updateSB(S.hz,'fast');
+    if(t>=1){
+      clearInterval(SCAN.moveInterval);
+      S.absPos.x=clampMach('x',targetMachX);
+      S.absPos.y=clampMach('y',targetMachY);
+      S.moving.x=false;S.moving.y=false;
+      S.hz=0;
+      updateSB(0,'idle');
+      SCAN.settleTimer=setTimeout(()=>{if(!SCAN.aborted)recordPoint(pt);},50);
+    }
+  },16);
+}
+
+function recordPoint(pt){
+  SCAN.visitedPoints.push({...pt});
+  SCAN.currentPoint++;
+
+  if(SCAN.currentPoint<SCAN.totalPoints){
+    const nextPt=SCAN.scanPoints[SCAN.currentPoint];
+    if(nextPt.row!==pt.row){
+      const rowDir=nextPt.row>pt.row?1:-1;
+      sendRunCommand('y',rowDir,HZ.creep);
+      log('SCAN',`Row ${pt.row+1} done. → Y step: ${pt.y.toFixed(0)}mm → ${nextPt.y.toFixed(0)}mm (mach-abs)`,'info');
+    }else{
+      const xDir=nextPt.x>pt.x?1:-1;
+      sendRunCommand('x',xDir,HZ[S.speedMode]);
+    }
+  }
+  updateDRO();
+  setTimeout(()=>runScanStep(),0);
+}
+
+function completeScan(){
+  SCAN.running=false;
+  SCAN.phase='done';
+  const elapsed=((Date.now()-SCAN.startTime)/1000).toFixed(1);
+  document.getElementById('scan-prog').style.width='100%';
+  document.getElementById('scan-prog').style.background='#00aa44';
+  document.getElementById('scan-status').textContent=
+    `✓ Scan COMPLETE — ${SCAN.totalPoints} points in ${elapsed}s.\nFinal machine pos X:${S.absPos.x.toFixed(0)} Y:${S.absPos.y.toFixed(0)}mm`;
+  document.getElementById('scan-start-btn').classList.remove('scanning');
+  document.getElementById('scan-start-btn').textContent='▶  START SCAN';
+  document.getElementById('scan-badge').style.display='none';
+  document.getElementById('mode-badge').textContent='MANUAL';
+  document.getElementById('mode-badge').style.color='#000080';
+  S.hz=0;S.moving.x=false;S.moving.y=false;
+  updateDRO();updateSB(0,'idle');
+  log('SCAN',`✓ Raster scan complete — ${SCAN.totalPoints} pts in ${elapsed}s`,'ok');
+  setView('scan');
+  sendStopCommand('all');
+  setTimeout(()=>{document.getElementById('sb-scan-pt').style.display='none';},3000);
+}
+
+function abortScan(){
+  if(!SCAN.running){log('SCAN','No scan running','info');return;}
+  SCAN.aborted=true;SCAN.running=false;
+  clearInterval(SCAN.moveInterval);clearTimeout(SCAN.settleTimer);
+  S.hz=0;S.moving.x=false;S.moving.y=false;
+  document.getElementById('scan-start-btn').classList.remove('scanning');
+  document.getElementById('scan-start-btn').textContent='▶  START SCAN';
+  document.getElementById('scan-badge').style.display='none';
+  document.getElementById('sb-scan-pt').style.display='none';
+  document.getElementById('mode-badge').textContent='MANUAL';
+  document.getElementById('mode-badge').style.color='#000080';
+  document.getElementById('scan-prog').style.background='#880000';
+  document.getElementById('scan-status').textContent=
+    `⚠ Scan ABORTED at point ${SCAN.currentPoint}/${SCAN.totalPoints}.\n${SCAN.visitedPoints.length} points collected. Machine pos X:${S.absPos.x.toFixed(0)} Y:${S.absPos.y.toFixed(0)}mm`;
+  updateDRO();updateSB(0,'idle');sendStopCommand('all');
+  log('SCAN',`Scan aborted at pt ${SCAN.currentPoint}/${SCAN.totalPoints} — ${SCAN.visitedPoints.length} pts collected`,'warn');
+}
+
+function clearScanMap(){
+  SCAN.visitedPoints=[];SCAN.scanPoints=[];SCAN.currentPoint=0;SCAN.totalPoints=0;
+  SCAN.running=false;SCAN.aborted=false;SCAN.cfg=null;
+  document.getElementById('scan-prog').style.width='0%';
+  document.getElementById('scan-prog').style.background='#0088ff';
+  document.getElementById('scan-status').textContent='Scan map cleared. Home axes, configure range and press Start.';
+  document.getElementById('scan-pts-lbl').textContent='— Points: configure above —';
+  document.getElementById('scan-effective-range').textContent='Effective range: configure above';
+  log('SCAN','Scan map cleared','info');
+}
+
+/* ═══════════════════════════════════════════════
+   MEMOBUS
+═══════════════════════════════════════════════ */
+function crc16(bytes){let crc=0xFFFF;for(const b of bytes){crc^=b;for(let i=0;i<8;i++)crc=(crc&1)?(crc>>>1)^0xA001:(crc>>>1);}return crc;}
+function mbFrame(addr,func,reg,val){const b=[addr,func,(reg>>8)&0xFF,reg&0xFF,(val>>8)&0xFF,val&0xFF];const c=crc16(b);b.push(c&0xFF,(c>>8)&0xFF);return b;}
+function mbRead(addr,func,reg,count){const b=[addr,func,(reg>>8)&0xFF,reg&0xFF,(count>>8)&0xFF,count&0xFF];const c=crc16(b);b.push(c&0xFF,(c>>8)&0xFF);return b;}
 function toHex(b){return b.map(x=>x.toString(16).toUpperCase().padStart(2,'0')).join(' ');}
-
-/* ═══════════════════════════════════════════════
-   MEMOBUS PANEL
-═══════════════════════════════════════════════ */
 const BYTE_LABELS=['Addr','Func','Reg Hi','Reg Lo','Val Hi','Val Lo','CRC Lo','CRC Hi'];
 const BYTE_CLASS =['addr','func','reg','reg','val','val','crc','crc'];
-
 function showMbFrame(actionText,frames,descText){
   document.getElementById('mb-action').textContent=actionText;
   document.getElementById('mb-desc').textContent=descText;
@@ -672,7 +1031,6 @@ function showMbFrame(actionText,frames,descText){
     });
   });
 }
-
 function mbLog(type,text){
   const t=new Date().toTimeString().slice(0,8);
   const el=document.getElementById('mbus-log');
@@ -681,52 +1039,11 @@ function mbLog(type,text){
   el.appendChild(line);el.scrollTop=el.scrollHeight;
   if(el.children.length>40)el.removeChild(el.children[0]);
 }
-
-function sendRunCommand(ax,dir,hz){
-  const cmdWord=dir>0?0x0002:0x0004;
-  const freqVal=Math.round(hz*100);
-  const f1=mbFrame(0x02,0x06,0x0001,cmdWord);
-  const f2=mbFrame(0x02,0x06,0x0002,freqVal);
-  const dirStr=dir>0?'FORWARD':'REVERSE';
-  showMbFrame(`${ax.toUpperCase()} — RUN ${dirStr} @ ${hz} Hz`,[f1,f2],
-    `Reg 0001h = 0x${cmdWord.toString(16).toUpperCase().padStart(4,'0')} (${dirStr}) | Reg 0002h = 0x${freqVal.toString(16).toUpperCase().padStart(4,'0')} (${hz} Hz × 100)`);
-  mbLog('tx',toHex(f1)+' ← CMD');
-  mbLog('tx',toHex(f2)+' ← FREQ');
-  setTimeout(()=>mbLog('rx','02 06 00 01 '+cmdWord.toString(16).padStart(4,'0').replace(/(..)(..)/, '$1 $2')+' .. .. ← ACK'),180);
-}
-
-function sendStopCommand(ax){
-  const f1=mbFrame(0x02,0x06,0x0002,0x0000);
-  const f2=mbFrame(0x02,0x06,0x0001,0x0001);
-  showMbFrame((ax?ax.toUpperCase()+' ':'')+' STOP — decel to 0, brake',[f1,f2],
-    'Reg 0002h=0x0000 (freq=0) | Reg 0001h=0x0001 (Ready/stop)');
-  mbLog('tx',toHex(f1)+' ← FREQ=0');
-  mbLog('tx',toHex(f2)+' ← CMD STOP');
-  setTimeout(()=>mbLog('rx','02 06 00 01 00 01 .. .. ← ACK'),180);
-}
-
-function sendEstopCommand(){
-  const f=mbFrame(0x02,0x06,0x0001,0x0000);
-  showMbFrame('E-STOP — coast to stop immediately',[f],'Reg 0001h=0x0000 — all bits 0, coast stop, brake applied');
-  mbLog('err',toHex(f)+' ← ESTOP');
-}
-
-function sendEstopResetCommand(){
-  const f1=mbFrame(0x02,0x06,0x0001,0x0080);
-  const f2=mbFrame(0x02,0x06,0x0001,0x0001);
-  showMbFrame('E-STOP RESET',[f1,f2],'Reg 0001h=0x0080 (Fault Reset) | then 0x0001 (Ready)');
-  mbLog('tx',toHex(f1)+' ← FAULT RESET');
-  setTimeout(()=>{mbLog('rx','02 06 00 01 00 80 .. .. ← ACK');mbLog('tx',toHex(f2)+' ← READY');},200);
-}
-
-function sendHomeCommand(ax){
-  const f1=mbFrame(0x02,0x06,0x0001,0x0004);
-  const f2=mbFrame(0x02,0x06,0x0002,0x00FA);
-  showMbFrame(`HOME ${ax.toUpperCase()} — reverse CREEP to end-limit`,[f1,f2],
-    'Homing: Cmd=0x0004 (REV) | Freq=0x00FA (2.5 Hz creep) — stops on limit switch');
-  mbLog('tx',toHex(f1)+' ← HOME '+ax.toUpperCase()+' REV');
-  mbLog('tx',toHex(f2)+' ← CREEP 2.5Hz');
-}
+function sendRunCommand(ax,dir,hz){const cmdWord=dir>0?0x0002:0x0004;const freqVal=Math.round(hz*100);const f1=mbFrame(0x02,0x06,0x0001,cmdWord);const f2=mbFrame(0x02,0x06,0x0002,freqVal);const dirStr=dir>0?'FORWARD':'REVERSE';showMbFrame(`${typeof ax==='string'?ax.toUpperCase():ax} — RUN ${dirStr} @ ${hz} Hz`,[f1,f2],`Reg 0001h = 0x${cmdWord.toString(16).toUpperCase().padStart(4,'0')} | Reg 0002h = 0x${freqVal.toString(16).toUpperCase().padStart(4,'0')}`);mbLog('tx',toHex(f1)+' ← CMD');mbLog('tx',toHex(f2)+' ← FREQ');setTimeout(()=>mbLog('rx','02 06 00 01 .. .. ← ACK'),180);}
+function sendStopCommand(ax){const f1=mbFrame(0x02,0x06,0x0002,0x0000);const f2=mbFrame(0x02,0x06,0x0001,0x0001);showMbFrame((ax?ax.toUpperCase()+' ':'')+' STOP — decel to 0, brake',[f1,f2],'Reg 0002h=0x0000 (freq=0) | Reg 0001h=0x0001 (Ready/stop)');mbLog('tx',toHex(f1)+' ← FREQ=0');mbLog('tx',toHex(f2)+' ← CMD STOP');setTimeout(()=>mbLog('rx','02 06 00 01 00 01 .. .. ← ACK'),180);}
+function sendEstopCommand(){const f=mbFrame(0x02,0x06,0x0001,0x0000);showMbFrame('E-STOP — coast to stop immediately',[f],'Reg 0001h=0x0000 coast stop');mbLog('err',toHex(f)+' ← ESTOP');}
+function sendEstopResetCommand(){const f1=mbFrame(0x02,0x06,0x0001,0x0080);const f2=mbFrame(0x02,0x06,0x0001,0x0001);showMbFrame('E-STOP RESET',[f1,f2],'Fault Reset then Ready');mbLog('tx',toHex(f1)+' ← FAULT RESET');}
+function sendHomeCommand(ax){const f1=mbFrame(0x02,0x06,0x0001,0x0004);const f2=mbFrame(0x02,0x06,0x0002,0x00FA);showMbFrame(`HOME ${ax.toUpperCase()} — reverse CREEP to end-limit`,[f1,f2],'Cmd=0x0004 (REV) | Freq=0x00FA (2.5Hz creep)');mbLog('tx',toHex(f1)+' ← HOME '+ax.toUpperCase());}
 
 /* ═══════════════════════════════════════════════
    LOGGING
@@ -744,329 +1061,193 @@ function log(tag,msg,level='info'){
 function clearLog(){document.getElementById('log-body').innerHTML='';S.logCount=0;document.getElementById('log-cnt').textContent='0 events';}
 
 /* ═══════════════════════════════════════════════
-   MENUS
+   MENUS / MODALS
 ═══════════════════════════════════════════════ */
 let openMenu=null;
 function toggleMenu(id){const was=openMenu;closeMenus();if(was===id)return;document.getElementById('dd-'+id).classList.add('show');document.getElementById('mi-'+id).classList.add('open');openMenu=id;}
-function closeMenus(){['view','motion','config','diag','help'].forEach(k=>{const d=document.getElementById('dd-'+k);if(d)d.classList.remove('show');const m=document.getElementById('mi-'+k);if(m)m.classList.remove('open');});openMenu=null;}
+function closeMenus(){['view','motion','scan','config','diag','help'].forEach(k=>{const d=document.getElementById('dd-'+k);if(d)d.classList.remove('show');const m=document.getElementById('mi-'+k);if(m)m.classList.remove('open');});openMenu=null;}
 document.addEventListener('click',e=>{if(!e.target.closest('#menubar'))closeMenus();});
-
-/* ═══════════════════════════════════════════════
-   MODALS
-═══════════════════════════════════════════════ */
 function showModal2(id){document.getElementById(id).classList.add('show');}
 function closeModal(id){document.getElementById(id).classList.remove('show');}
 function mOk(){closeModal('modal-confirm');if(S.modalCb)S.modalCb();S.modalCb=null;}
 function showConfirm(title,msg,cb){document.getElementById('mc-title').textContent=title;document.getElementById('mc-msg').textContent=msg;S.modalCb=cb;showModal2('modal-confirm');}
 
 /* ═══════════════════════════════════════════════
-   SPEED MODE
+   SPEED MODE / STEP / VIEW
 ═══════════════════════════════════════════════ */
 function setMode(m){
   S.speedMode=m;
   ['creep','slow','fast'].forEach(k=>document.getElementById('mb-'+k).classList.toggle('am',k===m));
-  const d={creep:'CREEP — precision positioning (2.5 Hz max)',slow:'SLOW — careful travel (10 Hz max)',fast:'FAST — full travel speed (40 Hz max)'};
+  const d={creep:'CREEP — 2.5 Hz max',slow:'SLOW — 10 Hz max',fast:'FAST — 40 Hz max'};
   document.getElementById('mode-desc').textContent=d[m];
   document.getElementById('sb-mode').textContent=m.toUpperCase();
-  log('MODE','Speed mode → '+m.toUpperCase()+' ('+HZ[m]+' Hz)','info');
 }
 function setStep(v){S.jogStep=v;document.getElementById('sb-step').textContent=v+' mm';}
-function setView(v){S.viewMode=v;log('VIEW','Visualisation → '+v,'info');}
+function setView(v){
+  S.viewMode=v;
+  const title={both:'Crane Visualisation — Top View (XY) & Side View (Z)',top:'Crane Visualisation — Top View (XY)',side:'Crane Visualisation — Side View (Z)',scan:'Scan Map — Machine-Absolute Coordinates | Completed vs Planned'};
+  document.getElementById('canvas-title').textContent=title[v]||title.both;
+}
 
 /* ═══════════════════════════════════════════════
-   ─────────────────────────────────────────────
-   TOUCH ON / TOUCH OFF
-   Hold = axis moves continuously
-   Release = axis stops + resets that axis to 0
-   ─────────────────────────────────────────────
+   TOUCH JOG
 ═══════════════════════════════════════════════ */
-function touchStart(ax, dir, btn){
-  if(S.estop){log('TOUCH','E-Stop active — release first','err');return;}
-  if(!S.homed[ax]){log('TOUCH',ax.toUpperCase()+' not homed — home before jogging','warn');return;}
-  if(S.touchActive[ax]||S.gotoActive[ax])return;
-
-  S.touchActive[ax]=true;
-  S.touchDir[ax]=dir;
-  btn.classList.add('held');
-  setTouchStatus(ax,true);
-  setStopBtnActive(ax,true);
-
-  const hz=HZ[S.speedMode];
-  sendRunCommand(ax,dir,hz);
-  log('TOUCH',`${ax.toUpperCase()} Touch ON → ${dir>0?'+'  :'-'} @ ${hz}Hz [${S.speedMode.toUpperCase()}]`,'ok');
-
-  S.moving[ax]=true;
-  const speed=getSpeedMmPerTick(hz);
-
+function touchStart(ax,dir,btn){
+  if(S.estop){log('TOUCH','E-Stop active','err');return;}
+  if(!S.homed[ax]){log('TOUCH',ax.toUpperCase()+' not homed — home first','warn');return;}
+  if(S.touchActive[ax]||S.gotoActive[ax]||SCAN.running)return;
+  S.touchActive[ax]=true;S.touchDir[ax]=dir;
+  btn.classList.add('held');setTouchStatus(ax,true);setStopBtnActive(ax,true);
+  const hz=HZ[S.speedMode];sendRunCommand(ax,dir,hz);
+  S.moving[ax]=true;const speed=getSpeedMmPerTick(hz);
   S.axisIntervals[ax]=setInterval(()=>{
     if(!S.touchActive[ax]||S.estop){clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;return;}
-    const[lo,hi]=S.limits[ax];
-    const np=S.absPos[ax]+speed*dir*(S.feedOverride/100);
-    S.absPos[ax]=Math.max(lo,Math.min(hi,np));
-    // Hit hard limit
-    if(S.absPos[ax]<=lo||S.absPos[ax]>=hi){
-      touchStop(ax,btn);
-      log('TOUCH',`${ax.toUpperCase()} Touch OFF — travel limit reached`,'warn');
-    }
+    const[lo,hi]=MACHINE_LIMITS[ax];
+    const np=clampMach(ax, S.absPos[ax]+speed*dir*(S.feedOverride/100));
+    S.absPos[ax]=np;
+    if(S.absPos[ax]<=lo||S.absPos[ax]>=hi){touchStop(ax,btn);log('TOUCH',ax.toUpperCase()+' machine limit reached at '+S.absPos[ax].toFixed(1)+'mm','warn');}
     updateDRO();
   },16);
 }
-
-function touchStop(ax, btn){
+function touchStop(ax,btn){
   if(!S.touchActive[ax])return;
-  S.touchActive[ax]=false;
-  clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
-  S.moving[ax]=false;
-
-  // Remove held style from both touch buttons for this axis
+  S.touchActive[ax]=false;clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;S.moving[ax]=false;
   document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));
-  setTouchStatus(ax,false);
-  setStopBtnActive(ax,false);
-
-  sendStopCommand(ax);
-
-  // Touch OFF: axis stops, position is KEPT as-is — no zero reset
-  log('TOUCH',`${ax.toUpperCase()} Touch OFF — stopped at ${dispPos(ax).toFixed(3)}mm (use ⊙ Set Zero Here to reset zero)`,'ok');
-  updateDRO();
-  updateSB(0,'idle');
+  setTouchStatus(ax,false);setStopBtnActive(ax,false);sendStopCommand(ax);
+  log('TOUCH',ax.toUpperCase()+' Touch OFF — machine pos '+S.absPos[ax].toFixed(3)+'mm | display '+dispPos(ax).toFixed(3)+'mm','ok');
+  updateDRO();updateSB(0,'idle');
 }
-
-function setTouchStatus(ax,on){
-  const el=document.getElementById(`touch-${ax}-status`);
-  el.textContent=on?'ON':'OFF';
-  el.className='touch-status '+(on?'on':'off');
-}
-
+function setTouchStatus(ax,on){const el=document.getElementById(`touch-${ax}-status`);el.textContent=on?'ON':'OFF';el.className='touch-status '+(on?'on':'off');}
 function setStopBtnActive(ax,active){
-  // Panel stop button
-  const btn=document.getElementById(`stop-${ax}-btn`);
-  if(btn){btn.className=active?'stop-axis-btn':'stop-axis-btn inactive';}
-  // GoTo stop button
-  const gbtn=document.getElementById(`stop-goto-${ax}`);
-  if(gbtn){gbtn.className=active||S.gotoActive[ax]?'stop-axis-btn':'stop-axis-btn inactive';}
+  const btn=document.getElementById(`stop-${ax}-btn`);if(btn){btn.className=active?'stop-axis-btn':'stop-axis-btn inactive';}
+  const gbtn=document.getElementById(`stop-goto-${ax}`);if(gbtn){gbtn.className=active||S.gotoActive[ax]?'stop-axis-btn':'stop-axis-btn inactive';}
 }
-
-/* ═══════════════════════════════════════════════
-   ─────────────────────────────────────────────
-   STOP INDIVIDUAL AXIS
-   Works at any moment during Touch or GoTo
-   Axis stops wherever it is — position kept
-   ─────────────────────────────────────────────
-═══════════════════════════════════════════════ */
 function stopAxis(ax){
-  if(!S.moving[ax]&&!S.touchActive[ax]&&!S.gotoActive[ax]){
-    log('CTRL',`${ax.toUpperCase()} already stopped`,'info');return;
-  }
-
-  // Kill touch
-  if(S.touchActive[ax]){
-    S.touchActive[ax]=false;
-    document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));
-    setTouchStatus(ax,false);
-    // Do NOT reset to zero — user explicitly pressed Stop, not Touch OFF
-    log('CTRL',`${ax.toUpperCase()} stopped mid-touch at ${dispPos(ax).toFixed(3)}mm (position kept, zero NOT reset)`,'warn');
-  }
-
-  // Kill goto
-  if(S.gotoActive[ax]){
-    S.gotoActive[ax]=false;
-    S.target[ax]=null;
-    log('CTRL',`${ax.toUpperCase()} GoTo interrupted — stopped at ${dispPos(ax).toFixed(3)}mm`,'warn');
-  }
-
-  clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
-  S.moving[ax]=false;
-  sendStopCommand(ax);
-  setStopBtnActive(ax,false);
-  updateDRO();
-  updateSB(0,'idle');
-  document.getElementById('tgt-lbl').textContent='Target: ---';
+  if(SCAN.running){abortScan();return;}
+  if(!S.moving[ax]&&!S.touchActive[ax]&&!S.gotoActive[ax]){log('CTRL',ax.toUpperCase()+' already stopped','info');return;}
+  if(S.touchActive[ax]){S.touchActive[ax]=false;document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));setTouchStatus(ax,false);log('CTRL',ax.toUpperCase()+' stopped — machine pos '+S.absPos[ax].toFixed(3)+'mm','warn');}
+  if(S.gotoActive[ax]){S.gotoActive[ax]=false;S.target[ax]=null;log('CTRL',ax.toUpperCase()+' GoTo interrupted','warn');}
+  clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;S.moving[ax]=false;sendStopCommand(ax);setStopBtnActive(ax,false);updateDRO();updateSB(0,'idle');document.getElementById('tgt-lbl').textContent='Target: ---';
 }
-
-function stopAllAxes(){
-  ['x','y','z'].forEach(ax=>stopAxis(ax));
-  log('CTRL','All axes stopped','warn');
-}
+function stopAllAxes(){['x','y','z'].forEach(ax=>stopAxis(ax));if(SCAN.running)abortScan();log('CTRL','All axes stopped','warn');}
 
 /* ═══════════════════════════════════════════════
-   ─────────────────────────────────────────────
-   GOTO POSITION
-   Runs until target reached OR stopAxis() called
-   No feed-hold mid-travel; only stop or e-stop
-   ─────────────────────────────────────────────
+   GOTO POSITION (machine-absolute)
 ═══════════════════════════════════════════════ */
 function gotoAxis(ax){
   if(S.estop){log('GOTO','E-Stop active','err');return;}
   if(!S.homed[ax]){log('GOTO',ax.toUpperCase()+' not homed','warn');return;}
-  if(S.moving[ax]){log('GOTO',ax.toUpperCase()+' already moving — stop it first','warn');return;}
-
+  if(S.moving[ax]){log('GOTO',ax.toUpperCase()+' already moving','warn');return;}
+  if(SCAN.running){log('GOTO','Scan running — abort first','warn');return;}
   const v=parseFloat(document.getElementById('goto-'+ax).value);
-  const[lo,hi]=S.limits[ax];
-  // Target is in displayed coordinates → convert to machine coordinates
-  const machineTarget=v+S.zeroRef[ax];
-  if(isNaN(v)||machineTarget<lo||machineTarget>hi){
-    log('GOTO',`Invalid ${ax.toUpperCase()} target: ${v}mm (machine: ${machineTarget.toFixed(1)}mm out of range)`,'warn');return;
-  }
-
-  S.target[ax]=machineTarget;
-  S.gotoActive[ax]=true;
-  S.moving[ax]=true;
-  setStopBtnActive(ax,true);
-
-  const dir=machineTarget>S.absPos[ax]?1:-1;
-  const maxHz=HZ[S.speedMode];
-  sendRunCommand(ax,dir,maxHz);
-  log('GOTO',`${ax.toUpperCase()} → ${v.toFixed(1)}mm (machine ${machineTarget.toFixed(1)}mm) [${S.speedMode.toUpperCase()} ${maxHz}Hz]`,'ok');
-  document.getElementById('tgt-lbl').textContent=`Target ${ax.toUpperCase()}:${v.toFixed(0)}mm`;
-
+  const[lo,hi]=MACHINE_LIMITS[ax];
+  // GoTo uses machine-absolute coordinates
+  if(isNaN(v)||v<lo||v>hi){log('GOTO','Invalid machine target: '+v+'mm (must be '+lo+'–'+hi+'mm)','warn');return;}
+  const machineTarget=clampMach(ax,v);
+  S.target[ax]=machineTarget;S.gotoActive[ax]=true;S.moving[ax]=true;setStopBtnActive(ax,true);
+  const dir=machineTarget>S.absPos[ax]?1:-1;const maxHz=HZ[S.speedMode];
+  sendRunCommand(ax,dir,maxHz);log('GOTO',ax.toUpperCase()+' machine → '+machineTarget.toFixed(1)+'mm','ok');
+  document.getElementById('tgt-lbl').textContent='Target '+ax.toUpperCase()+':'+machineTarget.toFixed(0)+'mm (mach)';
   let lastPhase='';
   S.axisIntervals[ax]=setInterval(()=>{
-    if(!S.gotoActive[ax]||S.estop){
-      clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;return;
-    }
+    if(!S.gotoActive[ax]||S.estop){clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;return;}
     const err=Math.abs(S.target[ax]-S.absPos[ax]);
-    let hz,phase,speed;
-
-    if(S.speedMode==='fast'){
-      if(err>500)     {hz=40;phase='fast';}
-      else if(err>50) {hz=10;phase='slow';}
-      else if(err>1)  {hz=2.5;phase='creep';}
-      else            {hz=0;phase='stop';}
-    }else if(S.speedMode==='slow'){
-      if(err>50)      {hz=10;phase='slow';}
-      else if(err>1)  {hz=2.5;phase='creep';}
-      else            {hz=0;phase='stop';}
-    }else{
-      if(err>1)       {hz=2.5;phase='creep';}
-      else            {hz=0;phase='stop';}
-    }
-    speed=getSpeedMmPerTick(hz)*(S.feedOverride/100);
-
-    if(phase!==lastPhase&&phase!=='stop'){
-      sendRunCommand(ax,dir,hz);
-      mbLog('tx',`Zone → ${phase.toUpperCase()} ${hz}Hz`);
-      lastPhase=phase;
-    }
+    let hz,phase;
+    if(S.speedMode==='fast'){if(err>500){hz=40;phase='fast';}else if(err>50){hz=10;phase='slow';}else if(err>1){hz=2.5;phase='creep';}else{hz=0;phase='stop';}}
+    else if(S.speedMode==='slow'){if(err>50){hz=10;phase='slow';}else if(err>1){hz=2.5;phase='creep';}else{hz=0;phase='stop';}}
+    else{if(err>1){hz=2.5;phase='creep';}else{hz=0;phase='stop';}}
+    const speed=getSpeedMmPerTick(hz)*(S.feedOverride/100);
+    if(phase!==lastPhase&&phase!=='stop'){sendRunCommand(ax,dir,hz);lastPhase=phase;}
     S.hz=hz;updateSB(hz,phase);
-
     if(phase==='stop'){
       clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
       S.absPos[ax]=S.target[ax];S.moving[ax]=false;S.gotoActive[ax]=false;S.target[ax]=null;
-      S.hz=0;sendStopCommand(ax);updateSB(0,'idle');
-      setStopBtnActive(ax,false);
-      log('GOTO',`${ax.toUpperCase()} arrived at ${dispPos(ax).toFixed(3)}mm`,'ok');
+      S.hz=0;sendStopCommand(ax);updateSB(0,'idle');setStopBtnActive(ax,false);
+      log('GOTO',ax.toUpperCase()+' arrived — machine '+S.absPos[ax].toFixed(3)+'mm | display '+dispPos(ax).toFixed(3)+'mm','ok');
       document.getElementById('tgt-lbl').textContent='Target: ---';
-    }else{
-      const[lo2,hi2]=S.limits[ax];
-      S.absPos[ax]=Math.max(lo2,Math.min(hi2,S.absPos[ax]+speed*dir));
-    }
+    }else{S.absPos[ax]=clampMach(ax,S.absPos[ax]+speed*dir);}
     updateDRO();
   },16);
 }
-
-function getSpeedMmPerTick(hz){
-  // 40Hz→4mm/tick, 10Hz→1.2mm/tick, 2.5Hz→0.3mm/tick at 16ms interval
-  return hz*0.1;
-}
+function getSpeedMmPerTick(hz){return hz*0.1;}
 
 /* ═══════════════════════════════════════════════
-   ─────────────────────────────────────────────
-   DUAL HOMING
-   1. homeEndLimit(ax) — moves to physical end limit (machine 0)
-   2. setZeroHere(ax)  — sets displayed zero at current position
-   ─────────────────────────────────────────────
+   HOMING — sets machine position to 0
 ═══════════════════════════════════════════════ */
 function homeEndLimit(ax){
   if(S.estop){log('HOME','E-Stop active','err');return;}
-  if(S.moving[ax]){
-    showConfirm('Axis Moving',`${ax.toUpperCase()} axis is moving. Stop it before homing?`,()=>{stopAxis(ax);setTimeout(()=>homeEndLimit(ax),300);});return;
-  }
-  sendHomeCommand(ax);
-  log('HOME',`${ax.toUpperCase()} homing to end-limit at CREEP — seeking limit switch…`,'warn');
+  if(S.moving[ax]){showConfirm('Axis Moving',ax.toUpperCase()+' is moving. Stop before homing?',()=>{stopAxis(ax);setTimeout(()=>homeEndLimit(ax),300);});return;}
+  sendHomeCommand(ax);log('HOME',ax.toUpperCase()+' homing to end-limit at CREEP… Machine position will be set to 0.','warn');
   S.moving[ax]=true;S.homed[ax]=false;updateHS();
-
   let elapsed=0;
   S.axisIntervals[ax]=setInterval(()=>{
     if(S.estop){clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;S.moving[ax]=false;return;}
-    S.absPos[ax]=Math.max(0,S.absPos[ax]-0.8*16);
-    elapsed+=16;
+    S.absPos[ax]=Math.max(0,S.absPos[ax]-0.8*16);elapsed+=16;
     if(S.absPos[ax]<=0||elapsed>9000){
       clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
-      S.absPos[ax]=0;
-      S.zeroRef[ax]=0; // machine zero = display zero
+      S.absPos[ax]=0;         // machine position = 0 at end limit
+      S.zeroRef[ax]=0;        // display also shows 0 after homing
       S.moving[ax]=false;S.homed[ax]=true;
       updateHS();sendStopCommand(ax);
-      document.getElementById(`${ax}zero-ref`).textContent='0.000';
-      log('HOME',`${ax.toUpperCase()} homed at end-limit — machine 0, display 0.000mm`,'ok');
+      log('HOME',ax.toUpperCase()+' homed — machine 0.000mm. Scan range 0–'+MACHINE_LIMITS[ax][1]+'mm now valid.','ok');
       updateDRO();
     }
     updateDRO();
   },16);
 }
-
 function homeAllEndLimit(){
-  showConfirm('Home All Axes (End Limit)','All axes will travel to physical end-limit switches. Ensure path is clear.',()=>{
-    homeEndLimit('x');setTimeout(()=>homeEndLimit('y'),600);setTimeout(()=>homeEndLimit('z'),1200);
-  });
+  showConfirm('Home All Axes (End Limit)',
+    'All axes will travel to physical end-limit switches.\n\nAfter homing:\n• Machine coordinate = 0 at end-limit\n• Scan uses 0 → max (full crane range)\n• Ensure path is clear before proceeding.',
+    ()=>{homeEndLimit('x');setTimeout(()=>homeEndLimit('y'),600);setTimeout(()=>homeEndLimit('z'),1200);});
 }
-
-/* Set Zero Here — resets displayed position of this axis to 0
-   Crane stays exactly where it is. No movement.
-   Next GoTo coordinates are relative to this new zero.          */
 function setZeroHere(ax){
-  if(S.moving[ax]){
-    log('ZERO','Cannot set zero while axis is moving','warn');return;
-  }
-  const machinePos=S.absPos[ax];
-  S.zeroRef[ax]=machinePos;
-  S.homed[ax]=true; // Operator confirms this is a valid reference
-  document.getElementById(`${ax}zero-ref`).textContent=machinePos.toFixed(3);
+  if(S.moving[ax]){log('ZERO','Cannot set zero while moving','warn');return;}
+  // Set zero only affects DRO display — NOT the scan system
+  const machinePos=S.absPos[ax];S.zeroRef[ax]=machinePos;S.homed[ax]=true;
   updateHS();updateDRO();
-  log('ZERO',`${ax.toUpperCase()} display set to 0.000 at machine pos ${machinePos.toFixed(3)}mm — new zero reference`,'ok');
+  log('ZERO',ax.toUpperCase()+' display → 0.000 at machine '+machinePos.toFixed(3)+'mm. NOTE: Scan still uses machine-absolute coords.','ok');
 }
 
 /* ═══════════════════════════════════════════════
    E-STOP
 ═══════════════════════════════════════════════ */
 function triggerEstop(){
+  if(SCAN.running)abortScan();
   S.estop=!S.estop;
-  const btn=document.getElementById('estop-btn');
-  const badge=document.getElementById('mode-badge');
+  const btn=document.getElementById('estop-btn');const badge=document.getElementById('mode-badge');
   if(S.estop){
     btn.classList.add('active');btn.textContent='▶  RESET E-STOP';
     badge.style.color='#800000';badge.textContent='E-STOP';
-    log('ESTOP','Emergency stop — all motion inhibited immediately','err');
-    // Kill all intervals
-    ['x','y','z'].forEach(ax=>{
-      clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;
-      S.moving[ax]=false;S.touchActive[ax]=false;S.gotoActive[ax]=false;
-      document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));
-      setTouchStatus(ax,false);setStopBtnActive(ax,false);
-    });
+    log('ESTOP','Emergency stop — all motion inhibited','err');
+    ['x','y','z'].forEach(ax=>{clearInterval(S.axisIntervals[ax]);S.axisIntervals[ax]=null;S.moving[ax]=false;S.touchActive[ax]=false;S.gotoActive[ax]=false;document.querySelectorAll(`[id^="touch-${ax}-"]`).forEach(b=>b.classList.remove('held'));setTouchStatus(ax,false);setStopBtnActive(ax,false);});
     S.hz=0;updateSB(0,'idle');sendEstopCommand();
   }else{
     btn.classList.remove('active');btn.textContent='⬛\u00a0 EMERGENCY STOP';
     badge.style.color='#000080';badge.textContent='MANUAL';
-    log('ESTOP','E-Stop reset — system ready','ok');
-    sendEstopResetCommand();
+    log('ESTOP','E-Stop reset — system ready','ok');sendEstopResetCommand();
   }
 }
 
 /* ═══════════════════════════════════════════════
-   DRO & UI UPDATE
+   DRO & UI
 ═══════════════════════════════════════════════ */
 function updateDRO(){
   ['x','y','z'].forEach(ax=>{
+    const disp=dispPos(ax);
+    const mach=S.absPos[ax];
     const el=document.getElementById('dro-'+ax);
-    el.textContent=dispPos(ax).toFixed(3);
+    el.textContent=disp.toFixed(3);
     el.className='dro'+(S.moving[ax]?' moving':!S.homed[ax]?' nothomed':'');
+    // Update sub-labels
+    const dl=document.getElementById(ax+'disp-lbl');if(dl)dl.textContent=disp.toFixed(3);
+    const ml=document.getElementById(ax+'mach-lbl');if(ml)ml.textContent=mach.toFixed(3);
   });
-  const p={x:dispPos('x'),y:dispPos('y'),z:dispPos('z')};
-  document.getElementById('sb-pos').textContent=`X: ${p.x.toFixed(3)}\u00a0Y: ${p.y.toFixed(3)}\u00a0Z: ${p.z.toFixed(3)} mm`;
+  // Status bar shows machine-absolute
+  document.getElementById('sb-mach').textContent=
+    'MACH X:'+S.absPos.x.toFixed(0)+' Y:'+S.absPos.y.toFixed(0)+' Z:'+S.absPos.z.toFixed(0)+' mm';
   const anyMoving=Object.values(S.moving).some(v=>v);
-  document.getElementById('sb-state').textContent=S.estop?'E-STOP':anyMoving?'MOVING':'IDLE';
+  document.getElementById('sb-state').textContent=S.estop?'E-STOP':SCAN.running?'SCANNING':anyMoving?'MOVING':'IDLE';
 }
-
 function updateHS(){
   ['x','y','z'].forEach(ax=>{
     const el=document.getElementById(ax+'hb');
@@ -1074,11 +1255,9 @@ function updateHS(){
     el.className='hb '+(S.homed[ax]?'homed':'nothomed');
   });
 }
-
 function updateSB(hz,phase){
   const pct=(hz/50)*100;
-  const bar=document.getElementById('speed-bar');
-  bar.style.width=pct+'%';
+  const bar=document.getElementById('speed-bar');bar.style.width=pct+'%';
   bar.className='pi'+(phase==='slow'?' slow':phase==='creep'?' creep':'');
   document.getElementById('act-hz').textContent=hz.toFixed(1)+' Hz';
   const zl=document.getElementById('zone-lbl');
@@ -1104,24 +1283,26 @@ function showDiagSelfTest(){
     ['LoRa 868 MHz',S.loraOk,'LINKED','SEARCHING'],
     ['VFD S1000',S.vfdOk,'ONLINE','OFFLINE'],
     ['Encoder 755HS',S.encOk,'ACTIVE','DISCONNECTED'],
-    ['X Homed',S.homed.x,'HOMED','NOT HOMED'],
-    ['Y Homed',S.homed.y,'HOMED','NOT HOMED'],
-    ['Z Homed',S.homed.z,'HOMED','NOT HOMED'],
+    ['X Homed (end-limit)',S.homed.x,'HOMED — machine 0','NOT HOMED'],
+    ['Y Homed (end-limit)',S.homed.y,'HOMED — machine 0','NOT HOMED'],
+    ['Z Homed (end-limit)',S.homed.z,'HOMED — machine 0','NOT HOMED'],
     ['E-Stop',!S.estop,'CLEAR','ACTIVE'],
-    ['Touch X',S.touchActive.x,'ACTIVE','OFF'],
-    ['Touch Y',S.touchActive.y,'ACTIVE','OFF'],
-    ['Touch Z',S.touchActive.z,'ACTIVE','OFF'],
+    ['Scan Running',SCAN.running,'YES','NO'],
+    ['Scan Points',SCAN.visitedPoints.length>0,''+SCAN.visitedPoints.length+' recorded','0'],
+    ['X Machine Pos','ok',''+S.absPos.x.toFixed(1)+'mm of 10,235mm',''],
+    ['Y Machine Pos','ok',''+S.absPos.y.toFixed(1)+'mm of 37,000mm',''],
+    ['Z Machine Pos','ok',''+S.absPos.z.toFixed(1)+'mm of 6,000mm',''],
   ];
-  const t=document.getElementById('diag-tbl');
-  t.innerHTML='<tr><th>Component</th><th>Status</th></tr>';
+  const t=document.getElementById('diag-tbl');t.innerHTML='<tr><th>Component</th><th>Status</th></tr>';
   rows.forEach(([c,ok,yes,no])=>{
-    t.innerHTML+=`<tr><td>${c}</td><td style="color:${ok?'#006400':'#800000'};font-weight:bold">${ok?yes:no}</td></tr>`;
+    const isStr=typeof ok==='string';
+    t.innerHTML+=`<tr><td>${c}</td><td style="color:${isStr?'#000080':'#'+(ok?'006400':'800000')};font-weight:bold">${isStr?yes:(ok?yes:no)}</td></tr>`;
   });
   showModal2('diag-selftest');
 }
 
 /* ═══════════════════════════════════════════════
-   CANVAS
+   CANVAS DRAW
 ═══════════════════════════════════════════════ */
 let canvas,ctx;
 function initCanvas(){
@@ -1131,57 +1312,162 @@ function initCanvas(){
   (function loop(){draw();requestAnimationFrame(loop);})();
 }
 
-function sunken(x,y,w,h){
-  ctx.strokeStyle='#808080';ctx.lineWidth=2;ctx.strokeRect(x-2,y-2,w+4,h+4);
-  ctx.strokeStyle='#fff';ctx.strokeRect(x-1,y-1,w+2,h+2);
-  ctx.fillStyle='#000';ctx.fillRect(x,y,w,h);
+function sunken(x,y,w,h){ctx.strokeStyle='#808080';ctx.lineWidth=2;ctx.strokeRect(x-2,y-2,w+4,h+4);ctx.strokeStyle='#fff';ctx.strokeRect(x-1,y-1,w+2,h+2);ctx.fillStyle='#000';ctx.fillRect(x,y,w,h);}
+function hdr(x,y,w,txt){ctx.fillStyle='#404040';ctx.fillRect(x,y,w,15);ctx.fillStyle='#c0c0c0';ctx.font='bold 10px MS Sans Serif,Tahoma,Arial,sans-serif';ctx.fillText(txt,x+4,y+11);}
+function dim(x1,y1,x2,y2,txt,col){
+  col=col||'#555';ctx.strokeStyle=col;ctx.lineWidth=0.8;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  const ang=Math.atan2(y2-y1,x2-x1);
+  [[x1,y1,ang+Math.PI],[x2,y2,ang]].forEach(([ax,ay,a])=>{ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ax+Math.cos(a-0.4)*6,ay+Math.sin(a-0.4)*6);ctx.lineTo(ax+Math.cos(a+0.4)*6,ay+Math.sin(a+0.4)*6);ctx.closePath();ctx.fillStyle=col;ctx.fill();});
+  if(txt){const mx=(x1+x2)/2,my=(y1+y2)/2;ctx.fillStyle=col;ctx.font='8px Courier New,monospace';ctx.textAlign='center';ctx.fillText(txt,mx,my-3);ctx.textAlign='left';}
 }
-function hdr(x,y,w,txt){
-  ctx.fillStyle='#404040';ctx.fillRect(x,y,w,15);
-  ctx.fillStyle='#c0c0c0';ctx.font='bold 10px MS Sans Serif,Tahoma,Arial,sans-serif';
-  ctx.fillText(txt,x+4,y+11);
-}
+
 function draw(){
   if(!canvas)return;
   const W=canvas.width,H=canvas.height;if(!W||!H)return;
   ctx=canvas.getContext('2d');ctx.clearRect(0,0,W,H);ctx.fillStyle='#c0c0c0';ctx.fillRect(0,0,W,H);
   const pad=28,vm=S.viewMode;
-  if(vm==='both'){
-    const th=Math.floor(H*.56);
-    drawTop(pad,4,W-pad*2,th-6);
+  if(vm==='scan'){drawScanMap(pad,4,W-pad*2,H-8);}
+  else if(vm==='both'){
+    const th=Math.floor(H*.56);drawTop(pad,4,W-pad*2,th-6);
     const sy=th+8;drawSide(pad,sy,W-pad*2,H-sy-2);
     ctx.strokeStyle='#808080';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,th+1);ctx.lineTo(W,th+1);ctx.stroke();
     ctx.strokeStyle='#fff';ctx.beginPath();ctx.moveTo(0,th+2);ctx.lineTo(W,th+2);ctx.stroke();
-  }else if(vm==='top'){drawTop(pad,4,W-pad*2,H-6);}
+  }
+  else if(vm==='top'){drawTop(pad,4,W-pad*2,H-6);}
   else{drawSide(pad,4,W-pad*2,H-6);}
 }
 
-function rect(x,y,w,h,fill,stroke,lw){
-  ctx.fillStyle=fill;ctx.fillRect(x,y,w,h);
-  if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||1;ctx.strokeRect(x,y,w,h);}
-}
-function label(x,y,txt,col,sz,align){
-  ctx.fillStyle=col;ctx.font=(sz||9)+'px Courier New,monospace';
-  ctx.textAlign=align||'left';ctx.fillText(txt,x,y);ctx.textAlign='left';
-}
-function dim(x1,y1,x2,y2,txt,col){
-  col=col||'#555';
-  ctx.strokeStyle=col;ctx.lineWidth=0.8;
-  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-  const ang=Math.atan2(y2-y1,x2-x1);
-  [[x1,y1,ang+Math.PI],[x2,y2,ang]].forEach(([ax,ay,a])=>{
-    ctx.beginPath();ctx.moveTo(ax,ay);
-    ctx.lineTo(ax+Math.cos(a-0.4)*6,ay+Math.sin(a-0.4)*6);
-    ctx.lineTo(ax+Math.cos(a+0.4)*6,ay+Math.sin(a+0.4)*6);
-    ctx.closePath();ctx.fillStyle=col;ctx.fill();
+/* ── SCAN MAP VIEW (uses machine-absolute coords) ── */
+function drawScanMap(fx,fy,fw,fh){
+  sunken(fx,fy,fw,fh);
+  hdr(fx,fy,fw,'SCAN MAP — Machine-Absolute Coordinates (X/Y) — '+SCAN.visitedPoints.length+'/'+SCAN.totalPoints+' pts | Crane: X 0–10,235mm  Y 0–37,000mm');
+  if(SCAN.totalPoints===0&&SCAN.visitedPoints.length===0){
+    ctx.fillStyle='#555';ctx.font='12px Courier New,monospace';ctx.textAlign='center';
+    ctx.fillText('No scan data. Home all axes, configure scan range, press START.',fx+fw/2,fy+fh/2-10);
+    ctx.fillText('Scan coordinates are machine-absolute (0 = end-limit home).',fx+fw/2,fy+fh/2+8);
+    ctx.textAlign='left';return;
+  }
+
+  // Use machine limits as the map bounds (always shows full crane)
+  const xMin=MACHINE_LIMITS.x[0], xMax=MACHINE_LIMITS.x[1];
+  const yMin=MACHINE_LIMITS.y[0], yMax=MACHINE_LIMITS.y[1];
+  const xRange=xMax-xMin, yRange=yMax-yMin;
+
+  const padL=60,padR=14,padT=22,padB=36;
+  const ix=fx+padL,iy=fy+padT,iw=fw-padL-padR,ih=fh-padT-padB;
+
+  // Grid background
+  ctx.fillStyle='#080c10';ctx.fillRect(ix,iy,iw,ih);
+  ctx.strokeStyle='#1a2030';ctx.lineWidth=0.5;
+  const gxCount=10;
+  for(let i=0;i<=gxCount;i++){const gx=ix+i*(iw/gxCount);ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
+  for(let i=0;i<=8;i++){const gy=iy+i*(ih/8);ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
+
+  // Machine limit border (the crane boundary)
+  ctx.strokeStyle='rgba(255,200,0,0.35)';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);
+  ctx.strokeRect(ix+1,iy+1,iw-2,ih-2);
+  ctx.setLineDash([]);
+
+  // Draw scan config bounding box (if scan was run)
+  if(SCAN.cfg){
+    const cfg=SCAN.cfg;
+    const bx1=ix+((cfg.xStart-xMin)/xRange)*iw;
+    const bx2=ix+((cfg.xStop-xMin)/xRange)*iw;
+    const by1=iy+((cfg.yStart-yMin)/yRange)*ih;
+    const by2=iy+((cfg.yStop-yMin)/yRange)*ih;
+    ctx.fillStyle='rgba(0,60,150,0.10)';
+    ctx.fillRect(Math.min(bx1,bx2),Math.min(by1,by2),Math.abs(bx2-bx1),Math.abs(by2-by1));
+    ctx.strokeStyle='rgba(60,120,255,0.5)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.strokeRect(Math.min(bx1,bx2),Math.min(by1,by2),Math.abs(bx2-bx1),Math.abs(by2-by1));
+    ctx.setLineDash([]);
+    ctx.fillStyle='rgba(60,120,255,0.7)';ctx.font='8px Courier New,monospace';
+    ctx.fillText('SCAN ZONE',Math.min(bx1,bx2)+2,Math.min(by1,by2)+9);
+  }
+
+  // Draw planned points
+  SCAN.scanPoints.forEach(pt=>{
+    const px=ix+((pt.x-xMin)/xRange)*iw;
+    const py=iy+((pt.y-yMin)/yRange)*ih;
+    ctx.fillStyle='rgba(50,80,100,0.7)';
+    ctx.fillRect(px-1,py-1,2,2);
   });
-  if(txt){const mx=(x1+x2)/2,my=(y1+y2)/2;ctx.fillStyle=col;ctx.font='8px Courier New,monospace';ctx.textAlign='center';ctx.fillText(txt,mx,my-3);ctx.textAlign='left';}
+
+  // Draw visited points with row-based color
+  const rows=new Set(SCAN.visitedPoints.map(p=>p.row));
+  const rowArr=[...rows];
+  const nRows=Math.max(rowArr.length,1);
+  SCAN.visitedPoints.forEach(pt=>{
+    const px=ix+((pt.x-xMin)/xRange)*iw;
+    const py=iy+((pt.y-yMin)/yRange)*ih;
+    const rowIdx=rowArr.indexOf(pt.row);
+    const hue=240-rowIdx/nRows*200;
+    ctx.fillStyle=`hsl(${hue},100%,60%)`;
+    ctx.fillRect(px-2,py-2,4,4);
+  });
+
+  // Scan path trajectory
+  if(SCAN.visitedPoints.length>1){
+    ctx.beginPath();ctx.strokeStyle='rgba(100,200,255,0.25)';ctx.lineWidth=0.8;
+    SCAN.visitedPoints.forEach((pt,i)=>{
+      const px=ix+((pt.x-xMin)/xRange)*iw;
+      const py=iy+((pt.y-yMin)/yRange)*ih;
+      if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+    });
+    ctx.stroke();
+  }
+
+  // Current machine position crosshair
+  const cpx=ix+((S.absPos.x-xMin)/xRange)*iw;
+  const cpy=iy+((S.absPos.y-yMin)/yRange)*ih;
+  ctx.strokeStyle=SCAN.running?'#00ffaa':'#ffff00';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(cpx-10,cpy);ctx.lineTo(cpx+10,cpy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cpx,cpy-10);ctx.lineTo(cpx,cpy+10);ctx.stroke();
+  ctx.beginPath();ctx.arc(cpx,cpy,4,0,Math.PI*2);ctx.stroke();
+  if(SCAN.running){ctx.fillStyle='rgba(0,255,170,0.12)';ctx.beginPath();ctx.arc(cpx,cpy,14,0,Math.PI*2);ctx.fill();}
+
+  // X axis labels (machine mm)
+  ctx.fillStyle='#556677';ctx.font='8px Courier New,monospace';ctx.textAlign='center';
+  [0,2500,5000,7500,10235].forEach(v=>{
+    const px=ix+(v/xRange)*iw;
+    ctx.fillText(v,px,iy+ih+12);
+  });
+  ctx.fillText('X — Cross Travel (machine mm, 0 = end-limit)',ix+iw/2,iy+ih+24);
+
+  // Y axis labels (machine mm)
+  ctx.textAlign='right';ctx.font='8px Courier New,monospace';
+  [0,10000,20000,30000,37000].forEach(v=>{
+    const py=iy+(v/yRange)*ih;
+    ctx.fillStyle='#556677';ctx.fillText(v,ix-4,py+3);
+  });
+  ctx.save();ctx.translate(fx+14,iy+ih/2);ctx.rotate(-Math.PI/2);
+  ctx.textAlign='center';ctx.fillStyle='#556677';ctx.font='8px Courier New,monospace';ctx.fillText('Y — Long Travel (machine mm, 0 = end-limit)',0,0);ctx.restore();
+  ctx.textAlign='left';
+
+  // Legend
+  const lx=ix+4,ly=iy+4;
+  ctx.fillStyle='rgba(50,80,100,0.7)';ctx.fillRect(lx,ly,4,4);ctx.fillStyle='#446688';ctx.font='8px Courier New,monospace';ctx.fillText('Planned',lx+7,ly+4);
+  ctx.fillStyle='hsl(240,100%,60%)';ctx.fillRect(lx,ly+10,4,4);ctx.fillStyle='hsl(0,100%,60%)';ctx.fillRect(lx+32,ly+10,4,4);
+  ctx.fillStyle='#aabbcc';ctx.fillText('Measured (blue→red per row)',lx+7,ly+14);
+
+  // Limit border label
+  ctx.strokeStyle='rgba(255,200,0,0.35)';ctx.font='8px Courier New,monospace';ctx.fillStyle='rgba(255,200,0,0.5)';
+  ctx.fillText('Machine boundary (10,235 × 37,000mm)',ix+2,iy+ih-4);
+
+  // Stats overlay
+  const pct=SCAN.totalPoints?Math.round(SCAN.visitedPoints.length/SCAN.totalPoints*100):0;
+  ctx.fillStyle='rgba(0,0,0,0.75)';ctx.fillRect(ix+iw-140,iy+4,136,54);
+  ctx.strokeStyle='#334455';ctx.lineWidth=1;ctx.strokeRect(ix+iw-140,iy+4,136,54);
+  ctx.fillStyle='#aaccff';ctx.font='bold 9px Courier New,monospace';
+  ctx.fillText(`Complete: ${pct}%`,ix+iw-134,iy+16);
+  ctx.fillText(`Points: ${SCAN.visitedPoints.length}/${SCAN.totalPoints}`,ix+iw-134,iy+28);
+  ctx.fillText(`Rows done: ${rowArr.length}`,ix+iw-134,iy+40);
+  ctx.fillText(`Mach: X${S.absPos.x.toFixed(0)} Y${S.absPos.y.toFixed(0)}`,ix+iw-134,iy+52);
 }
 
-/* ── TOP VIEW ── */
+/* ── TOP VIEW (machine-absolute coords on axes) ── */
 function drawTop(fx,fy,fw,fh){
   sunken(fx,fy,fw,fh);
-  hdr(fx,fy,fw,'PLAN VIEW (TOP) — XY   Cross Travel: 10,235 mm   Long Travel: 37,000 mm');
+  hdr(fx,fy,fw,'PLAN VIEW (TOP) — Machine-Absolute XY | Cross: 10,235mm | Long: 37,000mm | 3T crane');
   const pad2=38,iy=fy+18,ih=fh-22;
   const ix=fx+pad2,iw=fw-pad2-10;
   ctx.fillStyle='#111';ctx.fillRect(ix,iy,iw,ih);
@@ -1190,45 +1476,48 @@ function drawTop(fx,fy,fw,fh){
   for(let gx=ix;gx<=ix+iw;gx+=gStep){ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
   const gStepY=Math.round(ih/20);
   for(let gy=iy;gy<=iy+ih;gy+=gStepY){ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
-  ctx.strokeStyle='#2a2a2a';ctx.lineWidth=1;ctx.setLineDash([4,4]);
-  ctx.strokeRect(ix+1,iy+1,iw-2,ih-2);ctx.setLineDash([]);
+  ctx.strokeStyle='#2a2a2a';ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.strokeRect(ix+1,iy+1,iw-2,ih-2);ctx.setLineDash([]);
 
+  // Runway rails
   const rlW=6;
-  const nBrackets=10;
-  for(let i=0;i<=nBrackets;i++){
-    const by2=iy+i*(ih/nBrackets);
-    rect(ix,by2-2,rlW*2,4,'#2a3a55','#3a4a66',0.5);
-    rect(ix+iw-rlW*2,by2-2,rlW*2,4,'#2a3a55','#3a4a66',0.5);
-  }
-  rect(ix,iy,rlW,ih,'#1e3060','#3a5090',1);
-  rect(ix+iw-rlW,iy,rlW,ih,'#1e3060','#3a5090',1);
+  for(let i=0;i<=10;i++){const by2=iy+i*(ih/10);ctx.fillStyle='#2a3a55';ctx.fillRect(ix,by2-2,rlW*2,4);ctx.fillRect(ix+iw-rlW*2,by2-2,rlW*2,4);}
+  ctx.fillStyle='#1e3060';ctx.fillRect(ix,iy,rlW,ih);ctx.fillRect(ix+iw-rlW,iy,rlW,ih);
   ctx.strokeStyle='#5577bb';ctx.lineWidth=1.5;
   ctx.beginPath();ctx.moveTo(ix+rlW/2,iy);ctx.lineTo(ix+rlW/2,iy+ih);ctx.stroke();
   ctx.beginPath();ctx.moveTo(ix+iw-rlW/2,iy);ctx.lineTo(ix+iw-rlW/2,iy+ih);ctx.stroke();
 
-  // Use absolute positions for canvas (machine coordinates)
-  const yp=S.absPos.y/37000;
+  // Scan zone overlay using machine-absolute
+  if(SCAN.cfg){
+    const cfg=SCAN.cfg;
+    const toX=(mach)=>ix+rlW+(mach/MACHINE_LIMITS.x[1])*(iw-rlW*2);
+    const toY=(mach)=>iy+4+(mach/MACHINE_LIMITS.y[1])*(ih-8);
+    const sx1=toX(Math.min(cfg.xStart,cfg.xStop)), sx2=toX(Math.max(cfg.xStart,cfg.xStop));
+    const sy1=toY(Math.min(cfg.yStart,cfg.yStop)), sy2=toY(Math.max(cfg.yStart,cfg.yStop));
+    ctx.fillStyle='rgba(0,80,180,0.1)';ctx.fillRect(sx1,sy1,sx2-sx1,sy2-sy1);
+    ctx.strokeStyle='rgba(0,120,255,0.55)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.strokeRect(sx1,sy1,sx2-sx1,sy2-sy1);ctx.setLineDash([]);
+    ctx.fillStyle='rgba(0,120,255,0.65)';ctx.font='8px Courier New,monospace';ctx.fillText('SCAN',sx1+2,sy1+9);
+  }
+
+  // Girder (Y position = machine absolute)
+  const yp=S.absPos.y/MACHINE_LIMITS.y[1];
   const by=iy+4+yp*(ih-8);
   const girderH=9,girderY=by-girderH/2;
   const truckW=12,truckH=girderH+4;
-  rect(ix,girderY-2,truckW,truckH,'#2a4477','#4466aa',1);
-  rect(ix+iw-truckW,girderY-2,truckW,truckH,'#2a4477','#4466aa',1);
-  [[ix+4,girderY],[ix+4,girderY+truckH-2],[ix+iw-4,girderY],[ix+iw-4,girderY+truckH-2]].forEach(([wx,wy])=>{
-    ctx.beginPath();ctx.arc(wx,wy,2.5,0,Math.PI*2);ctx.fillStyle='#111';ctx.fill();ctx.strokeStyle='#556688';ctx.lineWidth=0.8;ctx.stroke();
-  });
-  rect(ix+truckW,girderY,iw-truckW*2,girderH,'#1a3060','#2a4888',1);
-  ctx.strokeStyle='#2a4070';ctx.lineWidth=0.8;
-  for(let r=1;r<8;r++){const rx2=ix+truckW+r*(iw-truckW*2)/8;ctx.beginPath();ctx.moveTo(rx2,girderY+1);ctx.lineTo(rx2,girderY+girderH-1);ctx.stroke();}
+  ctx.fillStyle='#2a4477';ctx.fillRect(ix,girderY-2,truckW,truckH);ctx.fillRect(ix+iw-truckW,girderY-2,truckW,truckH);
+  ctx.fillStyle='#1a3060';ctx.fillRect(ix+truckW,girderY,iw-truckW*2,girderH);
   ctx.strokeStyle='#4466bb';ctx.lineWidth=1.5;
   ctx.beginPath();ctx.moveTo(ix+truckW,girderY);ctx.lineTo(ix+iw-truckW,girderY);ctx.stroke();
   ctx.beginPath();ctx.moveTo(ix+truckW,girderY+girderH);ctx.lineTo(ix+iw-truckW,girderY+girderH);ctx.stroke();
 
-  const xp=S.absPos.x/10235;
+  // Trolley (X position = machine absolute)
+  const xp=S.absPos.x/MACHINE_LIMITS.x[1];
   const tx2=ix+rlW+xp*(iw-rlW*2);
   const tW=14,tH=14;
-  ctx.beginPath();ctx.arc(tx2,by,tW*0.9,0,Math.PI*2);ctx.fillStyle='rgba(0,255,136,0.04)';ctx.fill();
-  rect(tx2-tW/2,by-tH/2,tW,tH,'#1a4433','#33cc88',1.5);
-  rect(tx2-4,by-3,8,6,'#0f2a22','#22aa66',0.8);
+  ctx.fillStyle=SCAN.running?'#2a6644':'#1a4433';
+  ctx.fillRect(tx2-tW/2,by-tH/2,tW,tH);
+  ctx.strokeStyle=SCAN.running?'#44ffaa':'#33cc88';ctx.lineWidth=SCAN.running?2:1.5;
+  ctx.strokeRect(tx2-tW/2,by-tH/2,tW,tH);
 
   // Crosshair
   ctx.strokeStyle='rgba(255,80,80,0.25)';ctx.lineWidth=0.7;ctx.setLineDash([2,5]);
@@ -1237,55 +1526,37 @@ function drawTop(fx,fy,fw,fh){
   ctx.beginPath();ctx.moveTo(ix,by);ctx.lineTo(ix+iw,by);ctx.stroke();
   ctx.setLineDash([]);
 
-  // Labels show DISPLAYED position
+  // Labels show BOTH machine and display
   const lblX=tx2+tW/2+5,lblY=by-8;
   ctx.fillStyle='#33cc88';ctx.font='bold 9px Courier New,monospace';ctx.fillText('TROLLEY',lblX,lblY);
-  ctx.fillStyle='#ff6666';ctx.font='9px Courier New,monospace';ctx.fillText('X: '+dispPos('x').toFixed(0)+'mm',lblX,lblY+10);
-  ctx.fillStyle='#66cc66';ctx.fillText('Y: '+dispPos('y').toFixed(0)+'mm',lblX,lblY+20);
+  ctx.fillStyle='#ff6666';ctx.font='9px Courier New,monospace';
+  ctx.fillText('X mach: '+S.absPos.x.toFixed(0)+'mm',lblX,lblY+10);
+  ctx.fillStyle='#66cc66';
+  ctx.fillText('Y mach: '+S.absPos.y.toFixed(0)+'mm',lblX,lblY+20);
 
-  // Zero reference markers
-  if(S.zeroRef.x!==0||S.zeroRef.y!==0){
-    const zxp=S.zeroRef.x/10235;
-    const zyp=S.zeroRef.y/37000;
-    const ztx=ix+rlW+zxp*(iw-rlW*2);
-    const zty=iy+4+zyp*(ih-8);
-    ctx.strokeStyle='rgba(0,200,255,0.5)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
-    ctx.beginPath();ctx.moveTo(ztx-6,zty);ctx.lineTo(ztx+6,zty);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(ztx,zty-6);ctx.lineTo(ztx,zty+6);ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle='rgba(0,200,255,0.7)';ctx.font='8px Courier New,monospace';ctx.fillText('ZERO',ztx+4,zty-2);
+  // Scan status overlay
+  if(SCAN.running){
+    ctx.fillStyle='rgba(0,80,0,0.85)';ctx.fillRect(ix+4,iy+4,180,30);
+    ctx.strokeStyle='#00ff44';ctx.lineWidth=1;ctx.strokeRect(ix+4,iy+4,180,30);
+    ctx.fillStyle='#00ff44';ctx.font='bold 9px Courier New,monospace';
+    ctx.fillText('● SCANNING IN PROGRESS',ix+8,iy+15);
+    const pct=Math.round(SCAN.currentPoint/SCAN.totalPoints*100);
+    ctx.fillText('Pt '+SCAN.currentPoint+'/'+SCAN.totalPoints+' ('+pct+'%)  X:'+S.absPos.x.toFixed(0)+' Y:'+S.absPos.y.toFixed(0)+'mm',ix+8,iy+27);
   }
 
-  // Target
-  if(S.target.x!==null||S.target.y!==null){
-    const txp2=(S.target.x??S.absPos.x)/10235;
-    const typ2=(S.target.y??S.absPos.y)/37000;
-    const ttx=ix+rlW+txp2*(iw-rlW*2);
-    const tty=iy+4+typ2*(ih-8);
-    ctx.strokeStyle='#dddd00';ctx.lineWidth=1;ctx.setLineDash([2,3]);
-    ctx.beginPath();ctx.moveTo(ttx-8,tty);ctx.lineTo(ttx+8,tty);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(ttx,tty-8);ctx.lineTo(ttx,tty+8);ctx.stroke();
-    ctx.setLineDash([]);
-    label(ttx+5,tty-3,'TARGET','#dddd00',8);
-  }
+  dim(ix+rlW,iy-6,ix+iw-rlW,iy-6,'10,235 mm (Cross Travel)','#2a4466');
+  ctx.save();ctx.translate(fx+6,iy+ih/2);ctx.rotate(-Math.PI/2);dim(-ih/2,0,ih/2,0,'37,000 mm (Long Travel)','#2a4466');ctx.restore();
 
-  const dimY=iy-6;
-  dim(ix+rlW,dimY,ix+iw-rlW,dimY,'10,235 mm (Cross Travel)','#2a4466');
-  ctx.save();ctx.translate(fx+6,iy+ih/2);ctx.rotate(-Math.PI/2);
-  dim(-ih/2,0,ih/2,0,'37,000 mm (Long Travel)','#2a4466');ctx.restore();
-
-  // North arrow
   const nx=ix+iw-14,ny=iy+14;
-  ctx.strokeStyle='#444';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(nx,ny+8);ctx.lineTo(nx,ny-8);ctx.stroke();
+  ctx.strokeStyle='#444';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(nx,ny+8);ctx.lineTo(nx,ny-8);ctx.stroke();
   ctx.beginPath();ctx.moveTo(nx,ny-8);ctx.lineTo(nx-4,ny-2);ctx.lineTo(nx+4,ny-2);ctx.closePath();ctx.fillStyle='#444';ctx.fill();
-  label(nx-2,ny+16,'N','#444',8,'center');
+  ctx.fillStyle='#444';ctx.font='8px Courier New,monospace';ctx.textAlign='center';ctx.fillText('N',nx,ny+16);ctx.textAlign='left';
 }
 
 /* ── SIDE VIEW ── */
 function drawSide(fx,sy,fw,sh){
   sunken(fx,sy,fw,sh);
-  hdr(fx,sy,fw,'ELEVATION VIEW (FRONT) — Z Hoist: 0 – 6,000 mm');
+  hdr(fx,sy,fw,'ELEVATION VIEW (FRONT) — Z Hoist: 0 – 6,000 mm (machine absolute)');
   const padL=52,padR=12,padT=18,padB=22;
   const ix=fx+padL,iw=fw-padL-padR;
   const iy=sy+padT,ih=sh-padT-padB;
@@ -1296,110 +1567,67 @@ function drawSide(fx,sy,fw,sh){
   for(let i=0;i<=6;i++){const gy=iy+i*(ih/6);ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
 
   const ground=iy+ih;
-  rect(ix,ground-4,iw,4,'#222','#333',0.8);
-  for(let hx=ix;hx<ix+iw;hx+=8){ctx.strokeStyle='#1a1a1a';ctx.lineWidth=0.6;ctx.beginPath();ctx.moveTo(hx,ground-4);ctx.lineTo(hx-4,ground+2);ctx.stroke();}
-  label(ix+2,ground+12,'GROUND LEVEL (±0)','#333',8);
+  ctx.fillStyle='#222';ctx.fillRect(ix,ground-4,iw,4);
+  ctx.strokeStyle='#2a2a2a';ctx.lineWidth=0.6;
+  for(let hx=ix;hx<ix+iw;hx+=8){ctx.beginPath();ctx.moveTo(hx,ground-4);ctx.lineTo(hx-4,ground+2);ctx.stroke();}
+  ctx.fillStyle='#333';ctx.font='8px Courier New,monospace';ctx.fillText('GROUND LEVEL (machine Z=0)',ix+2,ground+12);
 
-  const colW=10,colH=ih;
-  rect(ix,iy,colW,colH,'#1a2030','#2a3050',0.8);
-  rect(ix+iw-colW,iy,colW,colH,'#1a2030','#2a3050',0.8);
+  const colW=10;
+  ctx.fillStyle='#1a2030';ctx.fillRect(ix,iy,colW,ih);ctx.fillRect(ix+iw-colW,iy,colW,ih);
   ctx.strokeStyle='#2a3555';ctx.lineWidth=0.8;
-  [ix+colW/2,ix+iw-colW/2].forEach(cx=>{ctx.beginPath();ctx.moveTo(cx,iy);ctx.lineTo(cx,iy+colH);ctx.stroke();});
+  [ix+colW/2,ix+iw-colW/2].forEach(cxx=>{ctx.beginPath();ctx.moveTo(cxx,iy);ctx.lineTo(cxx,iy+ih);ctx.stroke();});
 
   const runwayH=12,runwayY=iy+ih*0.25;
-  rect(ix,runwayY,colW,runwayH,'#1e3060','#3a5090',1);
-  rect(ix+iw-colW,runwayY,colW,runwayH,'#1e3060','#3a5090',1);
-  rect(ix+2,runwayY-3,colW-4,3,'#2a4488','#5577bb',0.8);
-  rect(ix+iw-colW+2,runwayY-3,colW-4,3,'#2a4488','#5577bb',0.8);
+  ctx.fillStyle='#1e3060';ctx.fillRect(ix,runwayY,colW,runwayH);ctx.fillRect(ix+iw-colW,runwayY,colW,runwayH);
 
   const truckBaseY=runwayY+runwayH,truckBodyH=10,truckBodyW=20;
-  rect(ix+colW/2-truckBodyW/2,truckBaseY,truckBodyW,truckBodyH,'#2a4477','#4466aa',1);
-  rect(ix+iw-colW/2-truckBodyW/2,truckBaseY,truckBodyW,truckBodyH,'#2a4477','#4466aa',1);
-  [[ix+colW/2-5,truckBaseY+truckBodyH],[ix+colW/2+5,truckBaseY+truckBodyH],
-   [ix+iw-colW/2-5,truckBaseY+truckBodyH],[ix+iw-colW/2+5,truckBaseY+truckBodyH]].forEach(([wx,wy])=>{
-    ctx.beginPath();ctx.arc(wx,wy,3.5,0,Math.PI*2);ctx.fillStyle='#111';ctx.fill();ctx.strokeStyle='#4466aa';ctx.lineWidth=0.8;ctx.stroke();
-  });
+  ctx.fillStyle='#2a4477';ctx.fillRect(ix+colW/2-truckBodyW/2,truckBaseY,truckBodyW,truckBodyH);ctx.fillRect(ix+iw-colW/2-truckBodyW/2,truckBaseY,truckBodyW,truckBodyH);
 
   const girderBaseY=truckBaseY+truckBodyH,girderH2=16,girderW=iw-colW*2,girderX=ix+colW;
-  rect(girderX,girderBaseY,girderW,girderH2,'#162040','#2a4080',1);
-  rect(girderX-2,girderBaseY,girderW+4,3,'#1e3060','#3a5898',1);
-  rect(girderX-2,girderBaseY+girderH2-3,girderW+4,3,'#1e3060','#3a5898',1);
+  ctx.fillStyle='#162040';ctx.fillRect(girderX,girderBaseY,girderW,girderH2);
+  ctx.strokeStyle='#2a4080';ctx.lineWidth=1;ctx.strokeRect(girderX,girderBaseY,girderW,girderH2);
 
   const trolleyRailY=girderBaseY+girderH2;
-  const xp2=S.absPos.x/10235;
+  const xp2=S.absPos.x/MACHINE_LIMITS.x[1];
   const trolleyX=girderX+xp2*girderW;
   const tW2=18,tH2=12;
-  rect(trolleyX-tW2/2,trolleyRailY,tW2,tH2,'#0f3325','#22aa66',1.5);
-  rect(trolleyX-6,trolleyRailY-8,12,8,'#0a2218','#1a8855',1);
-  [[trolleyX-6,trolleyRailY+tH2],[trolleyX+6,trolleyRailY+tH2]].forEach(([wx,wy])=>{
-    ctx.beginPath();ctx.arc(wx,wy,3,0,Math.PI*2);ctx.fillStyle='#111';ctx.fill();ctx.strokeStyle='#22aa66';ctx.lineWidth=0.8;ctx.stroke();
-  });
+  ctx.fillStyle=SCAN.running?'#0f4428':'#0f3325';ctx.fillRect(trolleyX-tW2/2,trolleyRailY,tW2,tH2);
+  ctx.strokeStyle=SCAN.running?'#44ffaa':'#22aa66';ctx.lineWidth=1.5;ctx.strokeRect(trolleyX-tW2/2,trolleyRailY,tW2,tH2);
   ctx.fillStyle='#ff6666';ctx.font='bold 8px Courier New,monospace';ctx.textAlign='center';
-  ctx.fillText('X:'+dispPos('x').toFixed(0)+'mm',trolleyX,trolleyRailY-16);ctx.textAlign='left';
+  ctx.fillText('X:'+S.absPos.x.toFixed(0)+'mm',trolleyX,trolleyRailY-16);ctx.textAlign='left';
 
   const ropeTopY=trolleyRailY+tH2;
-  const zp=S.absPos.z/6000;
+  // Z: 0 = ground, 6000 = top — crane lowers from above
+  const zp=S.absPos.z/MACHINE_LIMITS.z[1];
   const hookBlockH=14;
   const ropeSpace=ground-ropeTopY-hookBlockH-12;
-  const hookBlockY=ropeTopY+4+zp*ropeSpace;
+  // zp=0 → hook at ground; zp=1 → hook at top
+  const hookBlockY=ropeTopY+4+(1-zp)*ropeSpace;
 
-  [-5,-2,2,5].forEach((offset,i)=>{
-    const rx2=trolleyX+offset;
-    ctx.strokeStyle=i<2?'#667788':'#556677';ctx.lineWidth=1;
+  [-5,-2,2,5].forEach(offset=>{
+    const rx2=trolleyX+offset;ctx.strokeStyle='#667788';ctx.lineWidth=1;
     ctx.beginPath();ctx.moveTo(rx2,ropeTopY);ctx.lineTo(rx2,hookBlockY);ctx.stroke();
   });
-  ctx.beginPath();ctx.arc(trolleyX,ropeTopY,5,0,Math.PI*2);ctx.strokeStyle='#446655';ctx.lineWidth=0.8;ctx.stroke();
-
-  const hbW=22,hbBodyH=10;
-  rect(trolleyX-hbW/2,hookBlockY,hbW,hbBodyH,'#2a2a0a','#888822',1.2);
-  ctx.strokeStyle='#666611';ctx.lineWidth=0.5;
-  ctx.beginPath();ctx.moveTo(trolleyX-hbW/2+2,hookBlockY+hbBodyH/2);ctx.lineTo(trolleyX+hbW/2-2,hookBlockY+hbBodyH/2);ctx.stroke();
-  ctx.beginPath();ctx.arc(trolleyX,hookBlockY+hbBodyH/2,4,0,Math.PI*2);ctx.strokeStyle='#777722';ctx.lineWidth=0.8;ctx.stroke();
+  ctx.fillStyle='#2a2a0a';ctx.fillRect(trolleyX-11,hookBlockY,22,hookBlockH);
+  ctx.strokeStyle='#888822';ctx.lineWidth=1.2;ctx.strokeRect(trolleyX-11,hookBlockY,22,hookBlockH);
   ctx.strokeStyle='#ccaa33';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.moveTo(trolleyX,hookBlockY+hbBodyH);ctx.lineTo(trolleyX,hookBlockY+hbBodyH+8);ctx.stroke();
-  ctx.strokeStyle='#ccaa33';ctx.lineWidth=3;ctx.lineCap='round';
-  const hx=trolleyX,hy=hookBlockY+hbBodyH+8;
-  ctx.beginPath();
-  ctx.moveTo(hx,hy);ctx.bezierCurveTo(hx+2,hy+6,hx+10,hy+6,hx+10,hy+12);
-  ctx.bezierCurveTo(hx+10,hy+18,hx+4,hy+20,hx-2,hy+18);
-  ctx.bezierCurveTo(hx-7,hy+16,hx-6,hy+11,hx-2,hy+10);
-  ctx.stroke();ctx.lineCap='butt';
-  ctx.beginPath();ctx.arc(hx,hy+2,2.5,0,Math.PI*2);ctx.fillStyle='#aa8822';ctx.fill();ctx.strokeStyle='#ddaa44';ctx.lineWidth=0.5;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(trolleyX,hookBlockY+hookBlockH);ctx.lineTo(trolleyX,hookBlockY+hookBlockH+8);ctx.stroke();
+  ctx.lineWidth=3;ctx.lineCap='round';
+  const hx=trolleyX,hy=hookBlockY+hookBlockH+8;
+  ctx.beginPath();ctx.moveTo(hx,hy);ctx.bezierCurveTo(hx+2,hy+6,hx+10,hy+6,hx+10,hy+12);ctx.bezierCurveTo(hx+10,hy+18,hx+4,hy+20,hx-2,hy+18);ctx.bezierCurveTo(hx-7,hy+16,hx-6,hy+11,hx-2,hy+10);ctx.stroke();ctx.lineCap='butt';
 
-  ctx.strokeStyle='rgba(100,150,255,0.15)';ctx.lineWidth=0.8;ctx.setLineDash([2,4]);
-  ctx.beginPath();ctx.moveTo(trolleyX,hookBlockY+hbBodyH+28);ctx.lineTo(trolleyX,ground-4);ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Z dimension shows displayed position
-  const dimX=ix+iw+4;
-  dim(dimX,hookBlockY+hbBodyH,dimX,ground-4,'Z: '+dispPos('z').toFixed(0)+'mm','#4488ff');
+  // Z dimension annotation
+  const dimXd=ix+iw+4;
+  dim(dimXd,hookBlockY+hookBlockH,dimXd,ground-4,'Z: '+S.absPos.z.toFixed(0)+'mm (mach)','#4488ff');
 
   // Ruler
   const rulerX=fx+padL-8;
   ctx.strokeStyle='#2a2a2a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rulerX,iy);ctx.lineTo(rulerX,ground);ctx.stroke();
   for(let i=0;i<=6;i++){
-    const ry2=iy+(i/6)*(ground-iy);
-    ctx.strokeStyle='#333';ctx.lineWidth=0.8;ctx.beginPath();ctx.moveTo(rulerX-4,ry2);ctx.lineTo(rulerX+4,ry2);ctx.stroke();
+    const ry2=iy+(i/6)*(ground-iy);ctx.strokeStyle='#333';ctx.lineWidth=0.8;ctx.beginPath();ctx.moveTo(rulerX-4,ry2);ctx.lineTo(rulerX+4,ry2);ctx.stroke();
     ctx.fillStyle='#444';ctx.font='8px Courier New,monospace';ctx.textAlign='right';ctx.fillText(i*1000,rulerX-6,ry2+3);ctx.textAlign='left';
   }
-  label(fx+2,iy-2,'Z(mm)','#333',8);
-
-  // Motion indicator
-  const anyMoving=Object.values(S.moving).some(v=>v);
-  if(anyMoving&&S.hz>0){
-    const zoneCol=S.hz>=40?'#ff4444':S.hz>=10?'#ffaa00':'#ff6600';
-    ctx.fillStyle=zoneCol;ctx.font='bold 8px Courier New,monospace';
-    ctx.fillText(S.hz>=40?'FAST 40Hz':S.hz>=10?'SLOW 10Hz':'CREEP 2.5Hz',ix+2,iy+8);
-  }
-
-  // Touch ON indicator on trolley
-  if(S.touchActive.x||S.touchActive.y){
-    ctx.strokeStyle='#00ffaa';ctx.lineWidth=1.5;ctx.setLineDash([2,2]);
-    ctx.strokeRect(trolleyX-tW2/2-2,trolleyRailY-2,tW2+4,tH2+4);
-    ctx.setLineDash([]);
-    ctx.fillStyle='#00ffaa';ctx.font='bold 8px Courier New,monospace';ctx.textAlign='center';
-    ctx.fillText('TOUCH ON',trolleyX,trolleyRailY-25);ctx.textAlign='left';
-  }
+  ctx.fillStyle='#333';ctx.font='8px Courier New,monospace';ctx.fillText('Z(mm)',fx+2,iy-2);
 }
 
 /* ═══════════════════════════════════════════════
@@ -1413,12 +1641,13 @@ function simulateConnection(){
     [6,'MBUS','TX → 02 03 00 20 00 01 84 0A ← poll status','info'],
     [8,'VFD','S1000 online — BC1-01=03 H5-01=02','ok'],
     [9,'MBUS','RX ← 02 03 02 00 01 — Status=0x0001 (Ready)','ok'],
-    [10,'MBUS','TX → 02 06 00 01 00 01 D9 CA ← Cmd=Ready','info'],
     [11,'ENC','Encoder 755HS: GPIO34/35 2000PPR 0.0196mm/ct','ok'],
     [13,'LORA','Link: RSSI -72dBm SNR +8.4dB','ok'],
-    [14,'SYS','v2.0: Touch ON/OFF jog, per-axis stop, dual homing active','info'],
-    [15,'SYS','All systems online. Loop 4ms. 10 pkts/s.','ok'],
-    [16,'SYS','HOME ALL AXES before travel (end-limit or Set Zero Here)','warn'],
+    [14,'SYS','v2.2: Machine-absolute scan coords — scan NEVER exits crane limits','ok'],
+    [15,'SYS','Crane: 3T × X:10,235mm × Y:37,000mm × Z:6,000mm | All axes NOT HOMED','warn'],
+    [16,'SYS','⚠ HOME ALL AXES before scanning — sets machine zero at end-limit','warn'],
+    [17,'SCAN','Scan coords = machine-absolute mm. Home → X/Y/Z machine = 0 at end-limit.','info'],
+    [18,'SCAN','Default scan range: X[0→10235] Y[0→37000] — full crane, within limits.','info'],
   ];
   let t=0;
   const iv=setInterval(()=>{
@@ -1429,13 +1658,7 @@ function simulateConnection(){
     if(t===11){S.encOk=true;setL('enc','green');setT('enc-txt','Encoder 755HS — ACTIVE');}
     if(t===13){S.loraOk=true;setL('lora','green');setT('lora-txt','LoRa 868 MHz — LINKED');}
     if(t===15){document.getElementById('loop-s').textContent='4 ms';document.getElementById('pkt-s').textContent='10/s';}
-    if(t===9){
-      const f=mbFrame(0x02,0x06,0x0001,0x0001);
-      showMbFrame('STARTUP — set drive Ready',[f],'Reg 0001h=0x0001 (Ready). Sent on connection.');
-      mbLog('tx',toHex(f)+' ← STARTUP READY');
-      setTimeout(()=>mbLog('rx','02 06 00 01 00 01 D9 CA ← ACK'),180);
-    }
-    if(t>=16)clearInterval(iv);
+    if(t>=18)clearInterval(iv);
   },700);
 }
 function setL(id,cls){document.getElementById(id+'-led').className='led '+cls;}
@@ -1450,30 +1673,22 @@ document.getElementById('feed-slider').addEventListener('input',function(){
   document.getElementById('feed-pct-dro').textContent=S.feedOverride+'%';
 });
 document.getElementById('jog-speed').addEventListener('input',function(){
-  S.jogSpeed=parseInt(this.value);
-  document.getElementById('jog-spd-val').textContent=S.jogSpeed+'%';
+  S.jogSpeed=parseInt(this.value);document.getElementById('jog-spd-val').textContent=S.jogSpeed+'%';
 });
 setInterval(()=>{document.getElementById('clock').textContent=new Date().toTimeString().slice(0,8);},1000);
 document.getElementById('clock').textContent=new Date().toTimeString().slice(0,8);
 
-// VFD current sim
 setInterval(()=>{
   const mv=Object.values(S.moving).some(v=>v);
   document.getElementById('vfd-amp').textContent=(mv?(Math.random()*.8+1.8).toFixed(1):'0.0')+' A';
   document.getElementById('vfd-amp').className='vv'+(mv?' active':'');
-  // Update hz display from any active axis
-  const hz=S.hz;
-  document.getElementById('act-hz').textContent=hz.toFixed(1)+' Hz';
+  document.getElementById('act-hz').textContent=S.hz.toFixed(1)+' Hz';
 },300);
 
-// Poll sim
 setInterval(()=>{
   if(!S.vfdOk)return;
-  const f1=mbRead(0x02,0x03,0x0020,0x0001);
-  const f2=mbRead(0x02,0x03,0x0025,0x0001);
-  if(Math.random()<0.06){
-    mbLog('tx',toHex(f1)+' ← POLL status');
-    mbLog('rx',`02 03 02 ${S.hz>0?'0040':'0001'} .. ← Status`);
+  if(Math.random()<0.04){
+    const f2=mbRead(0x02,0x03,0x0025,0x0001);
     mbLog('tx',toHex(f2)+' ← POLL freq');
     mbLog('rx',`02 03 02 ${Math.round(S.hz*100).toString(16).toUpperCase().padStart(4,'0')} .. ← ${S.hz.toFixed(1)}Hz`);
   }
@@ -1484,13 +1699,13 @@ setInterval(()=>{
 ═══════════════════════════════════════════════ */
 window.addEventListener('load',()=>{
   initCanvas();
-  log('SYS','EOT Crane Control System v2.0 — starting…');
-  log('SYS','SAC Ahmedabad | Phase 1: Cross Travel Automation');
+  log('SYS','EOT Crane Control System v2.2 — starting…');
+  log('SYS','SAC Ahmedabad | 3T × 10,235mm crane | Phase 1: Cross Travel Automation + Raster Scan');
+  log('SYS','FIX v2.2: Scan uses machine-absolute coords. Home end-limit = machine 0. Hard limits enforced.');
   log('SYS','VFD: YASKAWA S1000 MEMOBUS/RTU RS485 Addr=02 9600bps');
   log('SYS','Encoder: P+F 755HS 2000PPR 0.0196mm/count');
   simulateConnection();
-  updateDRO();
-  updateHS();
+  updateDRO();updateHS();updateScanEstimate();
 });
 </script>
 </body>
