@@ -276,13 +276,13 @@ canvas#cc{display:block;flex:1;min-height:0}
       <div class="ah"><span class="at">X — Cross Travel</span><span class="hb nothomed" id="xhb">NOT HOMED</span></div>
       <div class="dro nothomed" id="dro-x">0.000</div>
       <div class="ar" style="margin-bottom:0">Display: <span id="xdisp-lbl" style="font-family:'Courier New',monospace">0.000</span> mm (rel. to zero)</div>
-      <div class="ar">Machine: <span id="xmach-lbl" style="font-family:'Courier New',monospace;color:#000080">0.000</span> mm | Lim: 0–10,235</div>
+      <div class="ar">Machine: <span id="xmach-lbl" style="font-family:'Courier New',monospace">0.000</span> mm</div>
     </div>
     <div class="ab ax-y">
       <div class="ah"><span class="at">Y — Long Travel</span><span class="hb nothomed" id="yhb">NOT HOMED</span></div>
       <div class="dro nothomed" id="dro-y">0.000</div>
       <div class="ar" style="margin-bottom:0">Display: <span id="ydisp-lbl" style="font-family:'Courier New',monospace">0.000</span> mm (rel. to zero)</div>
-      <div class="ar">Machine: <span id="ymach-lbl" style="font-family:'Courier New',monospace;color:#000080">0.000</span> mm | Lim: 0–37,000</div>
+      <div class="ar">Machine: <span id="ymach-lbl" style="font-family:'Courier New',monospace">0.000</span> mm</div>
     </div>
     <div class="ab ax-z">
       <div class="ah"><span class="at">Z — Hoist</span><span class="hb nothomed" id="zhb">NOT HOMED</span></div>
@@ -1468,7 +1468,7 @@ function drawScanMap(fx,fy,fw,fh){
 /* ── TOP VIEW (machine-absolute coords on axes) ── */
 function drawTop(fx,fy,fw,fh){
   sunken(fx,fy,fw,fh);
-  hdr(fx,fy,fw,'PLAN VIEW (TOP) — Machine-Absolute XY | Cross: 10,235mm | Long: 37,000mm | 3T crane');
+  hdr(fx,fy,fw,'PLAN VIEW (TOP) — Machine-Absolute XY | Cross: 10,235mm | 3T crane');
   const pad2=56,iy=fy+28,ih=fh-32;
   const ix=fx+pad2,iw=fw-pad2-14;
   ctx.fillStyle='#111';ctx.fillRect(ix,iy,iw,ih);
