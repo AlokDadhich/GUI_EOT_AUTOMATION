@@ -5,7 +5,7 @@
 <title>EOT Crane Control System v2.2 — SAC Ahmedabad</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100vh;overflow:hidden;background:#008080;font-family:'MS Sans Serif',Tahoma,Geneva,Arial,sans-serif;font-size:11px;color:#000;user-select:none}
+html,body{height:100vh;overflow:hidden;background:#f0f0f0;font-family:'MS Sans Serif',Tahoma,Geneva,Arial,sans-serif;font-size:11px;color:#000;user-select:none}
 .raised{border:2px solid;border-color:#fff #808080 #808080 #fff;box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #404040}
 .sunken{border:2px solid;border-color:#808080 #fff #fff #808080;box-shadow:inset -1px -1px 0 #dfdfdf,inset 1px 1px 0 #404040}
 .gb{position:relative;border:1px solid #808080;padding:14px 6px 8px;margin-bottom:5px}
@@ -1312,7 +1312,7 @@ function initCanvas(){
   (function loop(){draw();requestAnimationFrame(loop);})();
 }
 
-function sunken(x,y,w,h){ctx.strokeStyle='#808080';ctx.lineWidth=2;ctx.strokeRect(x-2,y-2,w+4,h+4);ctx.strokeStyle='#fff';ctx.strokeRect(x-1,y-1,w+2,h+2);ctx.fillStyle='#000';ctx.fillRect(x,y,w,h);}
+function sunken(x,y,w,h){ctx.strokeStyle='#808080';ctx.lineWidth=2;ctx.strokeRect(x-2,y-2,w+4,h+4);ctx.strokeStyle='#fff';ctx.strokeRect(x-1,y-1,w+2,h+2);ctx.fillStyle='#ffffff';ctx.fillRect(x,y,w,h);}
 function hdr(x,y,w,txt){ctx.fillStyle='#202020';ctx.fillRect(x,y,w,24);ctx.fillStyle='#ffffff';ctx.font='bold 15px Arial,sans-serif';ctx.fillText(txt,x+6,y+17);}
 function dim(x1,y1,x2,y2,txt,col){
   col=col||'#888';ctx.strokeStyle=col;ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
@@ -1342,7 +1342,7 @@ function drawScanMap(fx,fy,fw,fh){
   sunken(fx,fy,fw,fh);
   hdr(fx,fy,fw,'SCAN MAP — Machine-Absolute Coordinates (X/Y) — '+SCAN.visitedPoints.length+'/'+SCAN.totalPoints+' pts | Crane: X 0–10,235mm  Y 0–37,000mm');
   if(SCAN.totalPoints===0&&SCAN.visitedPoints.length===0){
-    ctx.fillStyle='#ccc';ctx.font='bold 17px Arial,sans-serif';ctx.textAlign='center';
+    ctx.fillStyle='#555';ctx.font='bold 17px Arial,sans-serif';ctx.textAlign='center';
     ctx.fillText('No scan data. Home all axes, configure scan range, press START.',fx+fw/2,fy+fh/2-12);
     ctx.fillText('Scan coordinates are machine-absolute (0 = end-limit home).',fx+fw/2,fy+fh/2+14);
     ctx.textAlign='left';return;
@@ -1357,8 +1357,8 @@ function drawScanMap(fx,fy,fw,fh){
   const ix=fx+padL,iy=fy+padT,iw=fw-padL-padR,ih=fh-padT-padB;
 
   // Grid background
-  ctx.fillStyle='#080c10';ctx.fillRect(ix,iy,iw,ih);
-  ctx.strokeStyle='#1a2030';ctx.lineWidth=0.5;
+  ctx.fillStyle='#f4f6f9';ctx.fillRect(ix,iy,iw,ih);
+  ctx.strokeStyle='#d5dbe3';ctx.lineWidth=0.5;
   const gxCount=10;
   for(let i=0;i<=gxCount;i++){const gx=ix+i*(iw/gxCount);ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
   for(let i=0;i<=8;i++){const gy=iy+i*(ih/8);ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
@@ -1426,7 +1426,7 @@ function drawScanMap(fx,fy,fw,fh){
   if(SCAN.running){ctx.fillStyle='rgba(0,255,170,0.15)';ctx.beginPath();ctx.arc(cpx,cpy,18,0,Math.PI*2);ctx.fill();}
 
   // X axis labels (machine mm)
-  ctx.fillStyle='#9fb3c8';ctx.font='bold 13px Arial,sans-serif';ctx.textAlign='center';
+  ctx.fillStyle='#4a5568';ctx.font='bold 13px Arial,sans-serif';ctx.textAlign='center';
   [0,2500,5000,7500,10235].forEach(v=>{
     const px=ix+(v/xRange)*iw;
     ctx.fillText(v,px,iy+ih+18);
@@ -1438,17 +1438,17 @@ function drawScanMap(fx,fy,fw,fh){
   ctx.textAlign='right';ctx.font='bold 13px Arial,sans-serif';
   [0,10000,20000,30000,37000].forEach(v=>{
     const py=iy+(v/yRange)*ih;
-    ctx.fillStyle='#9fb3c8';ctx.fillText(v,ix-8,py+4);
+    ctx.fillStyle='#4a5568';ctx.fillText(v,ix-8,py+4);
   });
   ctx.save();ctx.translate(fx+18,iy+ih/2);ctx.rotate(-Math.PI/2);
-  ctx.textAlign='center';ctx.fillStyle='#9fb3c8';ctx.font='bold 13px Arial,sans-serif';ctx.fillText('Y — Long Travel (machine mm, 0 = end-limit)',0,0);ctx.restore();
+  ctx.textAlign='center';ctx.fillStyle='#4a5568';ctx.font='bold 13px Arial,sans-serif';ctx.fillText('Y — Long Travel (machine mm, 0 = end-limit)',0,0);ctx.restore();
   ctx.textAlign='left';
 
   // Legend
   const lx=ix+8,ly=iy+8;
-  ctx.fillStyle='rgba(90,130,160,0.85)';ctx.fillRect(lx,ly,7,7);ctx.fillStyle='#a8bfd8';ctx.font='bold 12px Arial,sans-serif';ctx.fillText('Planned',lx+12,ly+8);
+  ctx.fillStyle='rgba(90,130,160,0.85)';ctx.fillRect(lx,ly,7,7);ctx.fillStyle='#3a4556';ctx.font='bold 12px Arial,sans-serif';ctx.fillText('Planned',lx+12,ly+8);
   ctx.fillStyle='hsl(240,100%,62%)';ctx.fillRect(lx,ly+16,7,7);ctx.fillStyle='hsl(0,100%,62%)';ctx.fillRect(lx+56,ly+16,7,7);
-  ctx.fillStyle='#dde8f5';ctx.fillText('Measured (blue→red per row)',lx+12,ly+24);
+  ctx.fillStyle='#2a3444';ctx.fillText('Measured (blue→red per row)',lx+12,ly+24);
 
   // Limit border label
   ctx.strokeStyle='rgba(255,200,0,0.55)';ctx.font='bold 12px Arial,sans-serif';ctx.fillStyle='rgba(255,210,60,0.9)';
@@ -1471,13 +1471,13 @@ function drawTop(fx,fy,fw,fh){
   hdr(fx,fy,fw,'PLAN VIEW (TOP) — Machine-Absolute XY | Cross: 10,235mm | 3T crane');
   const pad2=56,iy=fy+28,ih=fh-32;
   const ix=fx+pad2,iw=fw-pad2-14;
-  ctx.fillStyle='#111';ctx.fillRect(ix,iy,iw,ih);
-  ctx.strokeStyle='#242424';ctx.lineWidth=0.6;
+  ctx.fillStyle='#f4f6f9';ctx.fillRect(ix,iy,iw,ih);
+  ctx.strokeStyle='#d5dbe3';ctx.lineWidth=0.6;
   const gStep=Math.round(iw/20);
   for(let gx=ix;gx<=ix+iw;gx+=gStep){ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
   const gStepY=Math.round(ih/20);
   for(let gy=iy;gy<=iy+ih;gy+=gStepY){ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
-  ctx.strokeStyle='#3a3a3a';ctx.lineWidth=1.4;ctx.setLineDash([5,5]);ctx.strokeRect(ix+1,iy+1,iw-2,ih-2);ctx.setLineDash([]);
+  ctx.strokeStyle='#9aa4b2';ctx.lineWidth=1.4;ctx.setLineDash([5,5]);ctx.strokeRect(ix+1,iy+1,iw-2,ih-2);ctx.setLineDash([]);
 
   // Runway rails
   const rlW=6;
@@ -1551,7 +1551,7 @@ function drawTop(fx,fy,fw,fh){
   const nx=ix+iw-20,ny=iy+20;
   ctx.strokeStyle='#888';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(nx,ny+11);ctx.lineTo(nx,ny-11);ctx.stroke();
   ctx.beginPath();ctx.moveTo(nx,ny-11);ctx.lineTo(nx-5,ny-3);ctx.lineTo(nx+5,ny-3);ctx.closePath();ctx.fillStyle='#888';ctx.fill();
-  ctx.fillStyle='#aaa';ctx.font='bold 12px Arial,sans-serif';ctx.textAlign='center';ctx.fillText('N',nx,ny+22);ctx.textAlign='left';
+  ctx.fillStyle='#555';ctx.font='bold 12px Arial,sans-serif';ctx.textAlign='center';ctx.fillText('N',nx,ny+22);ctx.textAlign='left';
 }
 
 /* ── SIDE VIEW ── */
@@ -1561,17 +1561,17 @@ function drawSide(fx,sy,fw,sh){
   const padL=64,padR=16,padT=36,padB=46;
   const ix=fx+padL,iw=fw-padL-padR;
   const iy=sy+padT,ih=sh-padT-padB;
-  ctx.fillStyle='#0e0e0e';ctx.fillRect(ix,iy,iw,ih);
-  ctx.strokeStyle='#202020';ctx.lineWidth=0.6;
+  ctx.fillStyle='#f4f6f9';ctx.fillRect(ix,iy,iw,ih);
+  ctx.strokeStyle='#d5dbe3';ctx.lineWidth=0.6;
   const gs2=Math.round(iw/16);
   for(let gx=ix;gx<=ix+iw;gx+=gs2){ctx.beginPath();ctx.moveTo(gx,iy);ctx.lineTo(gx,iy+ih);ctx.stroke();}
   for(let i=0;i<=6;i++){const gy=iy+i*(ih/6);ctx.beginPath();ctx.moveTo(ix,gy);ctx.lineTo(ix+iw,gy);ctx.stroke();}
 
   const ground=iy+ih;
-  ctx.fillStyle='#222';ctx.fillRect(ix,ground-4,iw,4);
-  ctx.strokeStyle='#333';ctx.lineWidth=0.8;
+  ctx.fillStyle='#555';ctx.fillRect(ix,ground-4,iw,4);
+  ctx.strokeStyle='#777';ctx.lineWidth=0.8;
   for(let hx=ix;hx<ix+iw;hx+=8){ctx.beginPath();ctx.moveTo(hx,ground-4);ctx.lineTo(hx-4,ground+2);ctx.stroke();}
-  ctx.fillStyle='#9a9a9a';ctx.font='bold 12px Arial,sans-serif';ctx.fillText('GROUND LEVEL (machine Z=0)',ix+4,ground+34);
+  ctx.fillStyle='#444';ctx.font='bold 12px Arial,sans-serif';ctx.fillText('GROUND LEVEL (machine Z=0)',ix+4,ground+34);
 
   const colW=10;
   ctx.fillStyle='#1a2030';ctx.fillRect(ix,iy,colW,ih);ctx.fillRect(ix+iw-colW,iy,colW,ih);
@@ -1623,12 +1623,12 @@ function drawSide(fx,sy,fw,sh){
 
   // Ruler
   const rulerX=fx+padL-10;
-  ctx.strokeStyle='#3a3a3a';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(rulerX,iy);ctx.lineTo(rulerX,ground);ctx.stroke();
+  ctx.strokeStyle='#888';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(rulerX,iy);ctx.lineTo(rulerX,ground);ctx.stroke();
   for(let i=0;i<=6;i++){
-    const ry2=iy+(i/6)*(ground-iy);ctx.strokeStyle='#444';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rulerX-5,ry2);ctx.lineTo(rulerX+5,ry2);ctx.stroke();
-    ctx.fillStyle='#9a9a9a';ctx.font='bold 12px Arial,sans-serif';ctx.textAlign='right';ctx.fillText(i*1000,rulerX-8,ry2+4);ctx.textAlign='left';
+    const ry2=iy+(i/6)*(ground-iy);ctx.strokeStyle='#999';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rulerX-5,ry2);ctx.lineTo(rulerX+5,ry2);ctx.stroke();
+    ctx.fillStyle='#444';ctx.font='bold 12px Arial,sans-serif';ctx.textAlign='right';ctx.fillText(i*1000,rulerX-8,ry2+4);ctx.textAlign='left';
   }
-  ctx.fillStyle='#9a9a9a';ctx.font='bold 12px Arial,sans-serif';ctx.fillText('Z (mm)',fx+4,iy-12);
+  ctx.fillStyle='#444';ctx.font='bold 12px Arial,sans-serif';ctx.fillText('Z (mm)',fx+4,iy-12);
 }
 
 /* ═══════════════════════════════════════════════
